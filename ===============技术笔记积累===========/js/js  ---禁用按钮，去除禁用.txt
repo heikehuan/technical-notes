@@ -1,0 +1,6 @@
+//禁止多次提交
+$("input[name='sbButton']").attr("disabled","true");
+//恢复提交按钮
+$("input[name='sbButton']").removeAttr("disabled");
+
+<input type="button" id="sbButton" name="sbButton" value="提交" onclick="sb()"> 

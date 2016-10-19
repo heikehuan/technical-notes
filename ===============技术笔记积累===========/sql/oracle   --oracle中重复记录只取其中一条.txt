@@ -1,0 +1,9 @@
+oracle中重复记录只取其中一条
+select * from table1 where rowid=any(select max(rowid) from table1 group by field1)
+
+或者
+
+select * from table1 where rowid in (select max(rowid) from table1 group by field1)
+
+
+

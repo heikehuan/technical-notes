@@ -1,0 +1,22 @@
+ 
+ 分组统计数据
+ insert into send_statics_quantity_temp
+          select channel_id,
+                 SUM(mobile_quantities) as total_quantity,
+                 SUM( DECODE ( send_status, 0, mobile_quantities, 0 )) wait_send_quantity,
+                 SUM( DECODE ( send_status, 2, mobile_quantities, 0 )) sending_quantity,
+                 SUM( DECODE ( send_status, 1, mobile_quantities, 0 )) sent_quantity,
+                 SUM( DECODE ( send_status, 5, mobile_quantities, 0 )) success_quantity,
+                 SUM( DECODE ( send_status, 6, mobile_quantities, 0 )) failed_quantity,
+                 SUM( DECODE ( send_status, 7, mobile_quantities, 0 )) black_quantity,
+                 SUM( DECODE ( send_status, 8, mobile_quantities, 0 )) prohibited_quantity,
+                 0 receive_quantity,
+                 sysdate as create_time
+          from  send t
+          where sys_time = to_timestamp(to_date(SYSDATE,'yyyymmdd'))
+                and t.is_original_sms = 0
+          group by channel_id
+          order by channel_id
+  ;
+
+

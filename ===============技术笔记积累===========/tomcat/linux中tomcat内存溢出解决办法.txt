@@ -1,0 +1,23 @@
+linux中tomcat内存溢出解决办法  
+
+2010-11-08 18:09:04|  分类： 学习帮手 |字号 订阅
+常见的一般会有下面三种情况： 
+1.OutOfMemoryError： Java heap space 
+2.OutOfMemoryError： PermGen space 
+3.OutOfMemoryError： unable to create new native thread. 
+前两种通常一起进行操作，也就是通过下面的
+    linux下在catalina.sh文件最前面加入如下语句，这个文件在tomcat -->bin目录下。
+    JAVA_OPTS='-Xms1024m -Xmx1024m -XX:PermSize=256M -XX:MaxNewSize=512m -XX:MaxPermSize=512m'
+第三种无法创建新的线程。 
+这种现象比较少见，也比较奇怪，主要是和jvm与系统内存的比例有关。 
+这种怪事是因为JVM已经被系统分配了大量的内存（比如1.5G），并且它至少要占用可用内存的一半。有人发现，在线程个数很多的情况下，你分配给JVM的内存越多，那么，上述错误发生的可能性就越大。 
+每一个32位的进程最多可以使用2G的可用内存，因为另外2G被操作系统保留。这里假设使用1.5G给JVM，那么还余下500M可用内存。这 500M内存中的一部分必须用于系统dll的加载，那么真正剩下的也许只有400M，现在关键的地方出现了：当你使用Java创建一个线程，在JVM的内 存里也会创建一个Thread对象，但是同时也会在操作系统里创建一个真正的物理线程（参考JVM规范），操作系统会在余下的 400兆内存里创建这个物理线程，而不是在JVM的1500M的内存堆里创建。在jdk1.4里头，默认的栈大小是256KB，但是在jdk1.5里头， 默认的栈大小为1M每线程，因此，在余下400M的可用内存里边我们最多也只能创建400个可用线程。 
+这样结论就出来了，要想创建更多的线程，你必须减少分配给JVM的最大内存。还有一种做法是让JVM宿主在你的JNI代码里边。
+
+给出一个有关能够创建线程的最大个数的估算公式： 
+（MaxProcessMemory - JVMMemory - ReservedOsMemory） / （ThreadStackSize） = Number of threads 
+对于jdk1.5而言，假设操作系统保留120M内存： 
+1.5GB JVM： （2GB-1.5Gb-120MB）/（1MB） = ~380 threads 
+1.0GB JVM： （2GB-1.0Gb-120MB）/（1MB） = ~880 threads 
+在2000/XP/2003的boot.ini里头有一个启动选项，好像是：/PAE /3G ，可以让用户进程最大内存扩充至3G，这时操作系统只能占用最多1G的虚存。那样应该可以让JVM创建更多的线程。 
+以上就是针对Tomcat内存溢出的几种解决方案。

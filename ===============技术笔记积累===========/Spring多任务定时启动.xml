@@ -1,0 +1,107 @@
+ <!-- ******************     spring定时任务 开始      ****************** -->  
+2.       
+3.    <bean id="TaskAuto" class="cn.com.opendata.util.timer.TaskAuto">     
+4.        <property name="hastenManager">     
+5.            <ref bean="HqjcHasten_Poll"/>     
+6.        </property>     
+7.        <property name="depaUserManager">     
+8.            <ref bean="HqjcDepaUsers_Poll"/>     
+9.        </property>  
+10.    </bean>  
+11.       
+12.    <!-- 月报 -->  
+13.    <bean id="yueBaoDetail"  
+14.        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+15.        <property name="targetObject">  
+16.            <ref bean="TaskAuto" />  
+17.        </property>  
+18.        <property name="targetMethod">  
+19.            <value>yueBao</value>  
+20.        </property>  
+21.    </bean>  
+22.    <bean id="yueBaoTrigger"  
+23.        class="org.springframework.scheduling.quartz.CronTriggerBean">  
+24.        <property name="jobDetail">  
+25.            <ref bean="yueBaoDetail"/>  
+26.        </property>  
+27.        <property name="cronExpression">  
+28.            <!-- 每个月15日晚23点整 -->  
+29.            <value>0 0 23 15 * ?</value>  
+30.<!--         <value>0/10 * * * * ?</value>-->  
+31.        </property>  
+32.    </bean>  
+33.    <!-- 季报 -->  
+34.    <bean id="jiBaoDetail"  
+35.        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+36.        <property name="targetObject">  
+37.            <ref bean="TaskAuto" />  
+38.        </property>  
+39.        <property name="targetMethod">  
+40.            <value>jiBao</value>  
+41.        </property>  
+42.    </bean>  
+43.    <bean id="jiBaoTrigger"  
+44.        class="org.springframework.scheduling.quartz.CronTriggerBean">  
+45.        <property name="jobDetail">  
+46.            <ref bean="jiBaoDetail"/>  
+47.        </property>  
+48.        <property name="cronExpression">  
+49.            <!-- 每年4月15日起每隔3个月晚23点 -->  
+50.            <value>0 0 23 15 4/3 ?</value>  
+51.        </property>  
+52.    </bean>  
+53.    <!-- 春节 -->  
+54.    <bean id="chunJieDetail"  
+55.        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+56.        <property name="targetObject">  
+57.            <ref bean="TaskAuto" />  
+58.        </property>  
+59.        <property name="targetMethod">  
+60.            <value>chunJie</value>  
+61.        </property>  
+62.    </bean>  
+63.    <bean id="chunJieTrigger"  
+64.        class="org.springframework.scheduling.quartz.CronTriggerBean">  
+65.        <property name="jobDetail">  
+66.            <ref bean="chunJieDetail"/>  
+67.        </property>  
+68.        <property name="cronExpression">  
+69.            <!-- 每年3月份最后一天晚23时 -->  
+70.            <value>0 0 23 L 3 ?</value>  
+71.        </property>  
+72.    </bean>  
+73.    <!-- 十一 -->  
+74.    <bean id="shiYiDetail"  
+75.        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+76.        <property name="targetObject">  
+77.            <ref bean="TaskAuto" />  
+78.        </property>  
+79.        <property name="targetMethod">  
+80.            <value>shiYi</value>  
+81.        </property>  
+82.    </bean>  
+83.    <bean id="shiYiTrigger"  
+84.        class="org.springframework.scheduling.quartz.CronTriggerBean">  
+85.        <property name="jobDetail">  
+86.            <ref bean="shiYiDetail"/>  
+87.        </property>  
+88.        <property name="cronExpression">  
+89.            <!-- 每年10月最后一天晚23时 -->  
+90.            <value>0 0 23 L 10 ?</value>  
+91.        </property>  
+92.    </bean>  
+93.       
+94.    <!-- 任务列表 -->  
+95.    <bean  
+96.        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+97.        <property name="triggers">  
+98.            <list>  
+99.                <ref local="yueBaoTrigger" /><!-- 月报 -->  
+100.                <ref local="jiBaoTrigger"/><!-- 季报 -->  
+101.<!--             <ref local="chunJieTrigger"/> 春节 -->  
+102.<!--             <ref local="shiYiTrigger"/> 十一 -->  
+103.            </list>  
+104.        </property>  
+105.    </bean>  
+106.       
+107.    <!-- spring定时任务 结束  -->  

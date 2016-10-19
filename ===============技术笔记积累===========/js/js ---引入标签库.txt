@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+//c±Í«©
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+//ec±Í«©
+<%@ taglib prefix="ec" uri="/tld/extremecomponents"%>
+//fmt±Í«©
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<script type="text/javascript" src="<c:url value="/resource/tools/ext/ext-all.js" />"></script>
+<script type="text/javascript" src="<c:url value="/js/table.js" />"></script>
+<script type="text/javascript" src="<c:url value="/js/common.js" />"></script>
+<script type="text/javascript" src="<c:url value="/js/jquery/jquery-1.2.1.pack.js" />"></script>

@@ -1,0 +1,27 @@
+六.其他函数
+1.user: 
+返回登录的用户名称 
+select user from dual;
+
+2.vsize: 
+返回表达式所需的字节数
+select vsize('HELLO') from dual;
+
+3.nvl(ex1,ex2): 　
+ex1值为空则返回ex2,否则返回该值本身ex1（常用） 
+例：如果雇员没有佣金，将显示0，否则显示佣金 
+select comm,nvl(comm,0) from emp;
+
+4.nullif(ex1,ex2): 
+值相等返空，否则返回第一个值
+例：如果工资和佣金相等，则显示空，否则显示工资
+select nullif(sal,comm),sal,comm from emp;
+
+5.coalesce: 　
+返回列表中第一个非空表达式
+select comm,sal,coalesce(comm,sal,sal*10) from emp;
+
+6.nvl2(ex1,ex2,ex3) :
+如果ex1不为空，显示ex2,否则显示ex3
+如：查看有佣金的雇员姓名以及他们的佣金 
+　　select nvl2(comm,ename,') as HaveCommName,comm from emp;

@@ -1,0 +1,39 @@
+表页面通过ajax实现的显示地级市代码如下：
+
+<%-- 查询省所有的本地网--%>
+		function getCitysByProvice(){
+			var radios = document.getElementsByName("radio");
+			var values = "";
+			for(var i = 0;i < radios.length;i++){
+				if(radios[i].checked == true){
+					values = radios[i].value;
+				}
+			}
+			var value = values.split(",");	
+		 	var proviceTmlNbr = value[0];
+		  	jQuery.post("<c:url value='/account/tml/search.crm?method=getCitysByProvice'/>",
+		  		{"proviceTmlNbr":proviceTmlNbr},
+		 	  function(data){
+		 	  	var citysDiv = document.getElementById(proviceTmlNbr); 
+		 	  	var citysTr = document.getElementById(proviceTmlNbr+"tr"); 
+		 	  	if(data.length == 0) {
+		 	  		str = "";
+		 	  	} else {
+			 	  	var str = "<td colspan='4'><table width='800' class='table_border'>";    
+		 				for(var i=0;i<data.length;i++) {
+    		 				if(i%6==0){
+    		 				    str+="<tr>"; 
+    		 				}   
+    		 				if(i%6==0 && i != 0){
+    		 				    str+="</tr><tr>"; 
+    		 				} 
+    		 				str+="<td><input type='radio' name='radio' onclick='radio_onClickCity(this);' value='"+data[i].value+","+data[i].text+"'/>"+data[i].text+"</td>";
+		 				}
+	    			  str += "</tr></table></td>";
+			    }
+		     citysTr.style.display = ""	
+		     document.getElementById("oldClick").value = proviceTmlNbr;
+		 	 citysDiv.innerHTML = str;  
+		   },"json"); 	
+		 	
+		}

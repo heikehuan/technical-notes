@@ -1,0 +1,29 @@
+使用dba用户登录sql-plus
+
+命令行：
+
+
+--创建临时表空间
+CREATE TEMPORARY TABLESPACE mobileInfo_temp
+TEMPFILE 'D:\oracle\oradata\orcl\mobileInfo_temp01.dbf'
+SIZE 32M
+AUTOEXTEND ON
+NEXT 32M MAXSIZE 2048M
+EXTENT MANAGEMENT LOCAL;
+
+--创建表空间
+CREATE TABLESPACE mobileInfo_data
+LOGGING
+DATAFILE 'D:\oracle\oradata\orcl\mobileInfo_data01.DBF' 
+SIZE 32M 
+AUTOEXTEND ON 
+NEXT 32M MAXSIZE 2048M
+EXTENT MANAGEMENT LOCAL;
+
+--创建用户，赋予表空间
+CREATE USER mobileplat IDENTIFIED BY 111111
+DEFAULT TABLESPACE mobileInfo_data
+TEMPORARY TABLESPACE mobileInfo_temp;
+
+--赋予权限
+GRANT connect,resource,DBA TO mobileplat; 

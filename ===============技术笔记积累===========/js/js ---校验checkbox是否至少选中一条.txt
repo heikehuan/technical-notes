@@ -1,0 +1,26 @@
+//注销
+	function logOut(){
+		var r = checkbox();
+		if(r==null){
+			alert("请先至少选择一个用户!");
+			return;
+		}else{
+		.................	
+		.................	
+		}
+	}
+	
+
+
+//校验是否选中了预占单
+	function checkbox(){
+	    var r = null;
+	    var checkbox = document.getElementsByName("userRowId");
+	    for (var i = 0; i < checkbox.length; i++){
+	    	if (checkbox[i].checked){
+	    		r = checkbox[i];
+	    		break;
+	    	}    
+	    }
+	    return r;
+	}

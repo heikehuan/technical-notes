@@ -1,0 +1,1 @@
+ 比如通过A窗口打开B窗口，那么B的opener就是A,opener就是打开当前窗口的那个window,   window.opener.document指打开当前窗口的那个window中的document.你可以在当前窗口中用下例改变上级窗口中的响应事件

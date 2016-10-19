@@ -1,0 +1,32 @@
+转：用html制作表格的细边框
+方法一：
+
+<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#999900">
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+</table>
+ 
+
+方法二：
+
+
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+td {
+    border: 1 solid #006633;
+}
+-->
+</style>
+</head><body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

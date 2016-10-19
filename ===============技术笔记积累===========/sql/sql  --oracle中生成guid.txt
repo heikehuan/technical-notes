@@ -1,0 +1,2 @@
+oracleÖĞÉú³Éguid
+select SYS_GUID() from dual

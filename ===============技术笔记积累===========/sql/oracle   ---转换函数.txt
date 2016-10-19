@@ -1,0 +1,15 @@
+五.转换函数
+1，to_char()[将日期和数字类型转换成字符类型]
+1) select to_char(sysdate) s1,
+to_char(sysdate,'yyyy-mm-dd') s2,
+to_char(sysdate,'yyyy') s3,
+to_char(sysdate,'yyyy-mm-dd hh12:mi:ss') s4,
+to_char(sysdate, 'hh24:mi:ss') s5,
+to_char(sysdate,'DAY') s6 
+from dual;
+2) select sal,to_char(sal,'＄99999') n1,to_char(sal,'＄99,999') n2 from emp
+2, to_date()[将字符类型转换为日期类型] 
+insert into emp(empno,hiredate) values(8000,to_date('2004-10-10','yyyy-mm-dd'));
+
+3, to_number() 转换为数字类型 
+select to_number(to_char(sysdate,'hh12')) from dual; //以数字显示的小时数

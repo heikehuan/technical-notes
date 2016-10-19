@@ -1,0 +1,3 @@
+¡¡<c:forEach items="${numbList}" var="numbList" varStatus="i">
+     <option value="${i.count}">&nbsp;${numbList}&nbsp;</option>
+  </c:forEach>

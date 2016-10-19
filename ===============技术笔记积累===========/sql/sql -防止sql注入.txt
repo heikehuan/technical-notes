@@ -1,0 +1,71 @@
+Java防SQL注入，最简单的办法是杜绝SQL拼接，SQL注入攻击能得逞是因为在原有SQL语句中加入了新的逻辑，如果使用PreparedStatement来代替Statement来执行SQL语句，其后只是输入参数，SQL注入攻击手段将无效，这是因为PreparedStatement不允许在不同的插入时间改变查询的逻辑结构，大部分的SQL注入已经挡住了，在WEB层我们可以过滤用户的输入来防止SQL注入比如用Filter来过滤全局的表单参数。
+
+import java.io.IOException;
+import java.util.Iterator;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+* 通过Filter过滤器来防SQL注入攻击
+*
+*/
+public class SQLFilter implements Filter {
+private String inj_str = "'|and|exec|insert|select|delete|update|count|*|%|chr|mid|master|truncate|char|declare|; |or|-|+|,";
+protected FilterConfig filterConfig = null;
+/**
+* Should a character encoding specified by the client be ignored?
+*/
+protected boolean ignore = true;
+public void init(FilterConfig config) throws ServletException {
+this.filterConfig = config;
+this.inj_str = filterConfig.getInitParameter("keywords");
+}
+public void doFilter(ServletRequest request, ServletResponse response,
+FilterChain chain) throws IOException, ServletException {
+HttpServletRequest req = (HttpServletRequest)request;
+HttpServletResponse res = (HttpServletResponse)response;
+Iterator values = req.getParameterMap().values().iterator();//获取所有的表单参数
+while(values.hasNext()){
+String[] value = (String[])values.next();
+for(int i = 0;i < value.length;i++){
+if(sql_inj(value)){
+//TODO这里发现sql注入代码的业务逻辑代码
+return;
+}
+}
+}
+chain.doFilter(request, response);
+}
+public boolean sql_inj(String str)
+{
+String[] inj_stra=inj_str.split("\\|");
+for (int i=0 ; i < inj_stra.length ; i++ )
+{
+if (str.indexOf(" "+inj_stra+" ")>=0)
+{
+return true;
+}
+}
+return false;
+}
+}
+
+也可以单独在需要防范SQL注入的JavaBean的字段上过滤：
+
+/**
+* 防止sql注入
+*
+* @param sql
+* @return
+*/
+public static String TransactSQLInjection(String sql) {
+return sql.replaceAll(".*([';]+|(--)+).*", " ");
+}
+
+ 

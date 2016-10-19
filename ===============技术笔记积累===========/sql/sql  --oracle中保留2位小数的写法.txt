@@ -1,0 +1,10 @@
+oracle中保留2位小数的写法
+select to_char(1.5678,'99.99') from dual
+
+输出：1.57
+
+ 
+
+select to_char(1.5,'00.00') from dual
+
+输出：01.50

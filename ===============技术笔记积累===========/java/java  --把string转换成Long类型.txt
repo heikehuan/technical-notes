@@ -1,0 +1,1 @@
+Long.parseLong(mobile);//²»ÊÇÊý×Ö

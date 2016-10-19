@@ -1,0 +1,1 @@
+<input type="text" name="dbName" value="¹Ø¼ü×Ö" style="color:#868686" onFocus="if (value =='¹Ø¼ü×Ö'){value =''}" onBlur="if (value ==''){value='¹Ø¼ü×Ö'}"/>

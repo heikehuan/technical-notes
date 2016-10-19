@@ -1,0 +1,20 @@
+--删除
+alter table 表名  drop constraint 主键名 cascade;
+alter table 表名  drop primary key;
+
+--禁用主键
+alter table QRTZ_TRIGGERS disable primary key cascade;
+--恢复主键
+alter table QRTZ_TRIGGERS enable primary key;
+
+
+
+一、现象
+在oracle10g中删除主键约束后，在插入重复数据时候仍然报“ORA-00001”错误。
+二、原因
+Oracle在的10g版本中对内部函数"atbdui"进行了调整，导致在删除约束的时候无法删除用户创建的索引。
+这个现象被Oracle分类到了“PROBLEM”。
+ 
+三、方法
+在删除约束的时候需要显示的指定“drop index”选项来完成索引的级链删除。
+例：alter table table_name drop constraint constraint_name cascade drop index;

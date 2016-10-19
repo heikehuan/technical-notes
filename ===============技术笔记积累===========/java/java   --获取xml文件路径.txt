@@ -1,0 +1,2 @@
+File blackConfig=new File(new URL(CmppStart.class.getClassLoader().getResource("")+"blackconfig.xml").toURI());
+			File datasource=new File(new URL(CmppStart.class.getClassLoader().getResource("")+"dataconfig.xml").toURI());

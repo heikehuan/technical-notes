@@ -1,0 +1,16 @@
+-----传统方法一-----------
+<!--append by zhangliang on $2012-02-13 追加信息 -->
+<tr>
+	<td class="label-req-nowrap">追加信息</td>
+	<td colspan="5" class="text-nowrap">
+	<!-- update by zhanhh 限制输入字符长度最多400字 -->
+		<textarea name="appendInfo" class="textarea" rows="4" cols="85" onKeyUp="if(this.value.length > 400) this.value=this.value.substr(0,400)"><c:out value="${appendInfo}" escapeXml="true" /></textarea>				
+	</td>		
+</tr>	
+
+--------终极方法二----------
+你可以在网上找到类似上述的其他JS脚本，它们不管多么优秀，其原理都是一样的，通过对keydown、keyup或keypress之类的键盘键位操作事件来监控文本区的输入，无法防止鼠标右键的粘贴，为此，如果一定要真正地限制textarea的字数，我们还得为网页加另一把锁——禁用鼠标右键，这无疑得付出额外的开销，同时也可能是网页制作者不一定愿意做的。其实，还有一个更简单的方法，使用onpropertychange属性。
+onpropertychange可以用来判断预定元素的value值，当元素的value值发生变化时判断事件就会被触发，仅关心被监测元素的value值，避开了输入的来源，从而可以比较理想地达成我们的限制字数这一目的。它属于JS范畴，可以在表单方框区代表中嵌套使用，以下是代码和效果样式，可以像上面那样测试输入，你会发现它真正达到目的：不管用什么方式输入，它只能输入100个字（汉字或其他小解符号）：
+
+代码：
+<textarea onpropertychange="if(value.length>100) value=value.substr(0,100)" class="smallArea" cols="60" name="txta" rows="8"></textarea>

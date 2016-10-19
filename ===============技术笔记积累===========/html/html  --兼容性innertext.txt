@@ -1,0 +1,16 @@
+ 对于设置标签的text值，IE支持innerText,但是firefox支持textContent
+ 下边的写法，兼容IE和firefox
+ 
+ <td class="td_border" id="user"></td>
+
+  var node = document.getElementById("user");
+  
+  function _setText(node,value){
+        if(node){
+	    if(node.innerText){
+		  node.innerText=value;
+	    }else{
+	          node.textContent=value;
+	    }
+	 }
+  }

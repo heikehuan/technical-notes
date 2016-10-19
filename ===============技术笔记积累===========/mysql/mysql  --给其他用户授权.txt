@@ -1,0 +1,6 @@
+﻿本地root用户给远程用户192.168.3.192赋权，给所有权限
+此用户用户名密码：dbname / dbpassword
+
+grant all privileges on *.* to dbname@'192.168.3.192' identified by 'dbpassword';  
+
+赋权完成，需要刷新flush privileges;以生效

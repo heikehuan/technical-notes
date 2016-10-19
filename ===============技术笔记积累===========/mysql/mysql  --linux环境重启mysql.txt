@@ -1,0 +1,2 @@
+重启mysql命令：
+使用 service 启动：service mysqld start

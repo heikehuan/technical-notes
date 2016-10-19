@@ -1,0 +1,32 @@
+  <body>
+  		<%
+    	NewsDAO newsdao = new NewsDAO();	
+    	 %>
+    <table>
+    	<tr>
+    	<%
+    	int i=4;
+    	for(Iterator it=newsdao.findAll().iterator();it.hasNext();)
+    	{
+    		News news = (News)it.next();i++;
+    		%>
+    		<td><%=news.getTitle() %></td>
+    		<%
+    		if(i%4==0)
+    		{
+    		%>
+    		</tr><tr>
+    		<%
+    		}
+    	}
+    		
+    	 %>
+    	</tr>
+    </table>
+  </body>
+
+<c:forEach items="${dateList}" var="item" varStatus="status" begin="0" end="20">
+     <c:if test="${status.count%2!=0}"><tr></c:if>
+	<td><input type="checkbox" id="selectNum" name="selectNum" value="${item.COLUMN_ID}" onclick="selectTheData();"/>${item.COLUMN_NAME}</td>
+     <c:if test="${status.count%2==0}"></tr></c:if> 
+</c:forEach>

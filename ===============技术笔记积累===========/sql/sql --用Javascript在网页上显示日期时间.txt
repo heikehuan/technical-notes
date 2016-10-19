@@ -1,0 +1,4 @@
+用Javascript在网页上显示日期时间
+<script> 
+document.write('今天是'+new Date().toLocaleDateString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay())); 
+</script>

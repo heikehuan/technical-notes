@@ -1,0 +1,53 @@
+去年做的一个需求，时间很紧，草草做完了，现在想起来用户体验太差了（方法一）。
+后来在网上找到一个更好的方式（方法二）
+
+在输入域textarea中控制字数上限。
+
+方法一：通过焦点移出事件调用checkLen函数，通过substring截取来
+onblur="checkLen('feedBack');"
+//字数限制
+function checkLen(check){
+	if(!isEmpty(document.IntegrationForm.feedBack.value)&&check=="feedBack"){
+		//取输入域的值
+		var feedBack = document.IntegrationForm.feedBack.value;
+		if(feedBack.length<200){
+		     return;
+		}
+		document.IntegrationForm.feedBack.value = feedBack.substring(0,200);
+		alert("字数超出最大限制，已经截取了前200字！");
+	}
+	
+}
+
+
+方法二：
+onKeyUp()这个函数实时的检查输入的字符的个数。
+大于300个字符，自动截取前300个，后面忽略
+<textarea name="content" cols="60" rows="6" onKeyUp="if(this.value.length > 300) this.value=this.value.substr(0,300)">
+
+
+
+<!--append by zhangliang on $2012-02-13 追加信息 -->
+<tr>
+	<td class="label-req-nowrap">追加信息</td>
+	<td colspan="5" class="text-nowrap">
+	<!-- update by zhanhh 限制输入字符长度最多400字 -->
+		<textarea name="appendInfo" class="textarea" rows="4" cols="85" onKeyUp="if(this.value.length > 400) this.value=this.value.substr(0,400)"><c:out value="${appendInfo}" escapeXml="true" /></textarea>				
+	</td>		
+</tr>	
+
+
+
+
+
+
+
+
+
+$("#reason").change(function(){
+  var len=$(this).val().length;
+  if(len>150){
+    $(this).val($(this).val().substring(0,150));
+    ymPrompt.alert({title:'系统提示',message:'您输入的字数已超出范围，已为您截取可用字数'});
+  }
+});

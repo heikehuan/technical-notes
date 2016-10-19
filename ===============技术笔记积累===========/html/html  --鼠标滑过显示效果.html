@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>hover demo</title>
+  <style>
+  </style>
+   <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+ 
+<ul>
+<div>
+  <input type="text" />
+</div>
+  </ul>
+ 
+<script>
+
+$("input").hover(
+  function() {
+    $( this ).parent().append( $( "<span class='spanclass'> ***</span>" ) );
+  }
+);
+$("input").mouseout(
+  function() {
+    $( this ).parent().find(".spanclass").remove();
+  }
+);
+ 
+</script>
+ 
+</body>
+</html>

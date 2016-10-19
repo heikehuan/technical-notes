@@ -1,0 +1,101 @@
+
+-------------------------------------------------------------------------------------
+xml文件配置:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!--线程池配置 -->
+	<bean id="SmsDBHandleTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 至少有三个线程 -->
+		<property name="corePoolSize" value="3" />
+		<!-- 线程空闲时间 -->
+		<property name="keepAliveSeconds" value="200" />
+		<!-- 最大500个线程 -->
+		<property name="maxPoolSize" value="500" />
+		<!-- 200个等待队列数量 -->
+		<property name="queueCapacity" value="200" />
+		<!-- 超出线程和队列数量的异常处理，不放弃当前任务，自动重复执行 -->
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"></bean>
+		</property>
+	</bean>
+	
+	<bean id="sink" class="com.hjhz.sms.engine.mt.impl.MtDBSinkImpl">
+		<description>短信发送完毕后处理短信的程序</description>
+		<!--  引用线程池 -->
+		<property name="taskEecutor" ref="SmsDBHandleTaskExecutor"></property>
+	</bean>
+	
+</beans>
+
+
+-------------------------------------------------------------------------------------------------------------------
+java代码：
+public class MtDBSinkImpl extends MtSink implements ICapacityListenner {
+	private Logger logger = Logger.getLogger(getClass());
+	//线程池注入对象
+	private TaskExecutor taskEecutor;
+	public TaskExecutor getTaskEecutor() {
+		return taskEecutor;
+	}
+
+	public void setTaskEecutor(TaskExecutor taskEecutor) {
+		this.taskEecutor = taskEecutor;
+	}
+	
+	public synchronized void  event() {		
+		if (box != null && box.size() > 0) {
+			logger.info("入库队列剩余:" + getSinkQueue().size() + "条短信");
+			List<SmsMt> cargo = new LinkedList<SmsMt>();
+			cargo.addAll(box.getBox());
+			//cargo,maxDelayDay,getMtSource()是MtDBAccept线程执行类的参数
+			taskEecutor.execute(new MtDBAccept(cargo, maxDelayDay, getMtSource()));
+			box.clear();
+		}				
+	}
+	
+}
+
+//线程执行类
+public class MtDBAccept implements Runnable{
+	Logger	logger	= Logger.getLogger(MtDBAccept.class);  
+	
+	private List<SmsMt> smsMtBox=null;
+	private int maxDelayDay = 7;
+	private MtSource mtSource;
+	
+	public MtDBAccept(List<SmsMt> sms, int maxDelayDay, MtSource source){
+		this.smsMtBox=sms;
+		this.maxDelayDay=maxDelayDay;
+		this.mtSource = source;
+	}
+	
+	public void run() {
+	//在这里写需要用多线程处理的方法		
+	...
+	logger.info("业务处理开始");	
+	}	
+}
+
+
+
+
+
+
+
+

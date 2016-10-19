@@ -1,0 +1,6 @@
+var audCommentCommon=document.getElementById("audCommentCommon");
+ audCommentCommon.innerHTML="";
+ <c:foreach disageeList>
+ option o=new option("","");
+ 
+ </foreach>

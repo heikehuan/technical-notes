@@ -1,0 +1,12 @@
+手工清空日志文件catalina.out命令：
+cat /dev/null > catalina.out
+
+使用日志分割工具logrotate：
+ /home/apache-tomcat-6.0.18/logs/catalina.out {  rotate 7  daily  copytruncate  nocompress  notifempty  missingok  } 
+其中：  rotate 7 表示保留7天的备份文件  daily 表示每天整理一次  copytruncate 表示先复制log文件的内容，
+然后再清空  compress 表示压缩备分文件  missingok 表示如果找不到log文件也没OK  notifempty 表示如果log文件是空的，就不进行rotate  
+
+然后用命令：/usr/sbin/logrotate /etc/logrotate.conf  来同步执行   
+
+
+

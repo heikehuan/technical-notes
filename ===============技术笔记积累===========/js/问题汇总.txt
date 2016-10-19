@@ -1,0 +1,168 @@
+ //定义了全局变量
+public class SqlDao {
+	Connection con;
+	PreparedStatement pre;
+	ResultSet rs;
+	public static SqlDao cf1 = new SqlDao();
+	public  SqlDao(){
+
+
+/**
+	 * @author help
+	 * 
+	 *插入新的一条记录
+	 * @return 
+	 */
+	public int getInsert(String sql,JavaBean jBean) throws Exception
+	{
+		int count =0;
+		try {
+			con = SqlDao.getConnection();
+			pre = con.prepareStatement(sql);
+			
+			pre.setString(1,this.getGobalId());
+			pre.setString(2,jBean.getName());
+			pre.setString(3,jBean.getPassword());
+			pre.setString(4,jBean.getSex());
+			pre.setString(5,jBean.getAge());
+			count=pre.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally
+	{
+		try {
+			pre.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		return count;
+	}
+	
+	//自动生成ID
+	private String getGobalId() throws Exception{
+		String sql = "select f_get_globalid as row_id from dual";
+		String gobalId = "";
+		Connection con1 = null;
+		PreparedStatement pre1 = null;
+		ResultSet rs1 = null;
+		try{
+			con1 = SqlDao.getConnection();
+			pre1 = con1.prepareStatement(sql);
+			rs1 = pre1.executeQuery();
+			while(rs1.next()){
+				gobalId = rs1.getString("row_id");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			rs1.close();
+			pre1.close();
+			con1.close();
+		}
+		return gobalId;
+	}
+
+	/**
+	 * @author help
+	 * 
+	 *删除一条记录
+	 * @return 
+	 */
+	public int getDelete(String sql,int id)
+	{
+		int count =0;
+		try {
+			con = SqlDao.getConnection();
+			pre = con.prepareStatement(sql);
+			pre.setInt(1, id);
+			count=pre.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				pre.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+////////////////////////*******************
+servlet中的执行过程：获取页面参数；封装到Bean中；调用模型model层，进行业务层面的操作,最后把执行完的数据转发给jsp
+jsp:在form表头应该定义servlet，调用web.xml根据servlet的路径找到它，然后执行servlet。执行完把数据传回给jsp.
+
+1 在全局定义了连接数据库变量，但是Update用完了就关了，使insert无法再继续使用。
+2 没有加载jdbc的jar包驱动
+3 servlet的web.xml配置文件配置错了。在<servlet-class>com.dao.XXXX</servlet-class>   ******自己建立了servlet后，系统自动配置一个路径，但是这个路径是错的，需要修改成正确的路径。
+4 jsp中的表头需要正确配置servlet的文件名。如：<form action="Insert" method="Post">
+5 数据库里的数据可以全部使用String类型
+6 <input type="submit" value="提交"> 
+  <input type="reset"value="重置">
+  /**提交的类型应该是submit，而不是button*/	
+7 <a href="SearchList.jsp">查询</a></center>         //*****这jsp是跳转语句
+8 <%com.Dao.SqlDao sBean = new com.Dao.SqlDao();
+			com.bean.JavaBean jBean = new com.bean.JavaBean();
+			String sql = "select * from student32 order by id";
+			java.util.List list = sBean.getSearch(sql);
+
+			for (java.util.Iterator it = list.iterator(); it.hasNext();) {
+				//获取一个JavaBean对象
+				jBean = (com.bean.JavaBean) it.next();
+	%>
+   把数据封装到一个list中
+9 <td><a href="Insert.jsp">增加</a> <a href="Delete?id=<%=jBean.getId()%>">删除</a>&nbsp;
+		<a href="SearchById?id=<%=jBean.getId()%>">更新</a></td>
+ //********后面的删除、更新跳转的使用方法：<a href="SearchById?id=<%=jBean.getId()%>">更新</a>
+10 //转发:数据发送给jsp的方法：request.getRequestDispatcher("SearchList.jsp").forward(request, response);
+11 连接数据库的步骤：加载驱动，获取连接，关闭连接。
+12 对数据库的修改操作步骤:jsp请求servlet，servlet根据页面上的ID查询到这条数据的所有参数，数据回传给jsp，然后输入修改结果，再回到servlet进行更新操作，更新完成后回到主界面显示最终结果
+13 servlet中获取jsp数据String sId = request.getParameter("id");
+************************************************************************************
+14 public int getInsert(String sql,JavaBean jBean) throws Exception
+	{
+		int count =0;
+		try {
+			con = SqlDao.getConnection();
+			pre = con.prepareStatement(sql);
+			
+			pre.setString(1,this.getGobalId());
+			pre.setString(2,jBean.getName());
+			pre.setString(3,jBean.getPassword());
+			pre.setString(4,jBean.getSex());
+			pre.setString(5,jBean.getAge());
+			count=pre.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally
+	{
+		try {
+			pre.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		return count;
+	}
+要使用另外一个类中的方法，必须新建一个该类的对象，然后用对象调用方法，此类中是在参数中定义了对象。jBean.getName()是调用Bean中的获取方法取得数据库中的数据。
+************************************************************************************
+15 servlet的web.xml配置文件
+<servlet>
+   <servlet-name>ftpClientServlet</servlet-name>
+   <servlet-class>com.test.ftp.FtpClientServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>ftpClientServlet</servlet-name>
+   <url-pattern>/ftpClientServlet</url-pattern>
+  </servlet-mapping>
+16 

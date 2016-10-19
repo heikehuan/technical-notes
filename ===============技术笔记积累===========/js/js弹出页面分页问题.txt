@@ -1,0 +1,1 @@
+在title前面+上<base target="_self" />

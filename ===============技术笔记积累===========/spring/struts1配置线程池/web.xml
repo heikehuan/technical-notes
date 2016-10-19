@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE web-app
+  PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+  "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<!-- 注册spring配置文件 -->
+    <context-param>  
+        <param-name>contextConfigLocation</param-name>  
+        <param-value>/WEB-INF/classes/applicationContext.xml</param-value>  
+    </context-param>  
+	<!-- filter>
+		<filter-name>HarmonyLogFilter</filter-name>
+		<filter-class>com.hjhz.sms.filter.HarmonyLogFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HarmonyLogFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping -->
+	
+	<filter>
+		<filter-name>Authentication</filter-name>
+		<filter-class>com.hjhz.sms.struts.filter.AuthenticationFilter</filter-class>
+		<init-param>
+			<param-name>onError</param-name>
+			<param-value>/index.do</param-value>
+		</init-param>
+	</filter> 	 
+ 
+	<filter> 
+		<filter-name>Set Character Encoding</filter-name> 
+		<filter-class>com.hjhz.sms.struts.filter.SetCharacterEncodingFilter</filter-class> 
+	</filter>
+	
+	<!-- 
+	<filter-mapping>
+		<filter-name>Authentication</filter-name>
+		<url-pattern>/jsp/*</url-pattern>
+	</filter-mapping>
+	-->
+	<filter-mapping>
+		<filter-name>Authentication</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>	
+	<filter-mapping> 
+		<filter-name>Set Character Encoding</filter-name> 
+		<url-pattern>/*</url-pattern> 
+	</filter-mapping> 	
+	
+	<listener>
+		<listener-class>com.hjhz.sms.main.MessagePlatStart</listener-class>
+    </listener>
+
+
+	<listener>
+	    <listener-class>com.hjhz.sms.servlet.SessionUser</listener-class>
+	</listener>
+	<!-- spring 监听器，加载spring配置文件 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+  
+	<!-- sms send interface begin 
+	 <servlet>  
+        <servlet-name>context</servlet-name>  
+        <servlet-class>  
+            org.springframework.web.context.ContextLoaderServlet   
+        </servlet-class>  
+        <load-on-startup>0</load-on-startup>  
+    </servlet>
+    -->
+	<servlet>
+	    <servlet-name>SMSSendServlet</servlet-name>
+	    <servlet-class>com.hjhz.sms.http.HttpSMSSendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>SMSSendServlet</servlet-name>
+	    <url-pattern>/smsSendServlet.htm</url-pattern>
+	</servlet-mapping>
+	<!-- sms send interface end -->
+	
+   <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param> 
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  
+  <!-- Axis start-->
+  <servlet>
+    <servlet-name>AxisServlet</servlet-name>
+    <display-name>Apache-Axis Servlet</display-name>
+    <servlet-class>
+        org.apache.axis.transport.http.AxisServlet
+    </servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <display-name>Axis Admin Servlet</display-name>
+    <servlet-class>
+        org.apache.axis.transport.http.AdminServlet
+    </servlet-class>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+  
+
+  <servlet>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <display-name>SOAPMonitorService</display-name>
+    <servlet-class>
+        org.apache.axis.monitor.SOAPMonitorService
+    </servlet-class>
+    <init-param>
+      <param-name>SOAPMonitorPort</param-name>
+      <param-value>5001</param-value>
+    </init-param>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+  <!-- Axis end-->
+
+  <servlet>
+	<servlet-name>AajaxServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.AjaxServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+	<servlet-name>loadServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.LoadServlet</servlet-class>
+	<init-param>
+		<param-name>propertyNode</param-name>
+		<param-value>common</param-value>
+	</init-param>
+  </servlet>
+  
+  <servlet>
+	<servlet-name>batchExcelServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.ExcelServlet</servlet-class>
+	<init-param>
+		<param-name>propertyNode</param-name>
+		<param-value>common-excel</param-value>
+	</init-param>
+  </servlet>
+  
+  <servlet>
+     <servlet-name>imageServlet</servlet-name>
+     <servlet-class>com.hjhz.sms.servlet.AuthImgServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>WebReport</servlet-name>
+    <servlet-class>com.hjhz.sms.report.WebReport</servlet-class>
+  </servlet>
+  
+  <!-- File Upload-->
+  <servlet>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>com.hjhz.upload.UploadServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>NewUpload</servlet-name>
+    <servlet-class>com.hjhz.upload.NewUploadServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>NewUploadFirstCapital</servlet-name>
+    <servlet-class>com.hjhz.upload.NewUploadFirstCapitalServlet</servlet-class>
+  </servlet>  
+  
+  <servlet>
+	<servlet-name>groupExcelServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.GroupExcelServlet</servlet-class>
+	<init-param>
+		<param-name>propertyNode</param-name>
+		<param-value>common-excel</param-value>
+	</init-param>
+  </servlet>
+  
+  <servlet>
+	<servlet-name>CustomerExcelServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.CustomerExcelServlet</servlet-class>
+	<init-param>
+		<param-name>propertyNode</param-name>
+		<param-value>common-excel</param-value>
+	</init-param>
+  </servlet>
+  <!-- batch del users -->
+  <servlet>
+	<servlet-name>DelCustomerListServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.DelCustomerListServlet</servlet-class>
+	<init-param>
+		<param-name>propertyNode</param-name>
+		<param-value>common-excel</param-value>
+	</init-param>
+  </servlet>
+  
+  <servlet>
+	<servlet-name>mobileExcelServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.MobileExcelServlet</servlet-class>
+	<init-param>
+		<param-name>propertyNode</param-name>
+		<param-value>common-excel</param-value>
+	</init-param>
+  </servlet>
+  
+  <servlet>
+	<servlet-name>orderExcelServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.OrderExcelServlet</servlet-class>
+	<init-param>
+		<param-name>propertyNode</param-name>
+		<param-value>common-excel</param-value>
+	</init-param>
+  </servlet>
+  
+  <!-- XFire start-->
+  <servlet>
+    <servlet-name>XFireServlet</servlet-name>
+    <display-name>XFire Servlet</display-name>
+    <servlet-class>
+        org.codehaus.xfire.transport.http.XFireConfigurableServlet
+    </servlet-class>
+	<init-param>
+		<param-name>requestEncoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+	<init-param>
+		<param-name>responseEncoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+  </servlet>
+
+  <servlet>
+	<servlet-name>zQYTtMoServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.mission.core.send.impl.zqyt.ZQYTtMoServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+	<servlet-name>reportServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.mission.core.send.impl.zqyt.ReportTestServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+	<servlet-name>xPHTMoServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.mission.core.send.impl.xpht.XPHTMoServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+	<servlet-name>JFreeChartServlet</servlet-name>
+	<servlet-class>com.hjhz.sms.servlet.JFreeChartServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+	<servlet-name>SGIPHTTPSMS</servlet-name>
+	<servlet-class>com.hjhz.sms.mission.core.send.impl.sgip.SGIPHTTPSMS</servlet-class>
+  </servlet>
+
+  <servlet>
+	<servlet-name>SGIPHTTPGW</servlet-name>
+	<servlet-class>com.hjhz.sms.mission.core.send.impl.sgip.SGIPHTTPGW</servlet-class>
+  </servlet>
+
+
+	<servlet>
+	    <servlet-name>DisplayChart</servlet-name>
+	    <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
+	</servlet>
+    
+	<servlet>
+		<servlet-name>NewUploadPingAn</servlet-name>
+		<servlet-class>com.hjhz.upload.NewUploadServletPingAn</servlet-class>
+    </servlet>
+
+	<servlet-mapping>
+	    <servlet-name>NewUploadPingAn</servlet-name>
+		<url-pattern>/newfileuploadPingAn</url-pattern>
+    </servlet-mapping>
+
+
+	<servlet-mapping>
+	    <servlet-name>DisplayChart</servlet-name>
+	    <url-pattern>/servlet/DisplayChart</url-pattern>
+	</servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>JFreeChartServlet</servlet-name>
+    <url-pattern>/JFreeChartServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/fileupload</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>NewUpload</servlet-name>
+    <url-pattern>/newfileupload</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>NewUploadFirstCapital</servlet-name>
+    <url-pattern>/newfileuploadFirstCapital</url-pattern>
+  </servlet-mapping>
+
+	
+
+  <servlet-mapping>
+    <servlet-name>zQYTtMoServlet</servlet-name>
+    <url-pattern>/zqytMo</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>reportServlet</servlet-name>
+    <url-pattern>/report</url-pattern>
+  </servlet-mapping>
+    
+  <servlet-mapping>
+    <servlet-name>xPHTMoServlet</servlet-name>
+    <url-pattern>/xphtMo</url-pattern>
+  </servlet-mapping>
+   
+  <servlet-mapping>
+    <servlet-name>XFireServlet</servlet-name>
+    <url-pattern>/servlet/XFireServlet/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>XFireServlet</servlet-name>
+    <url-pattern>/services/*</url-pattern>
+  </servlet-mapping>
+  <!-- XFire end-->
+
+  
+  <servlet-mapping>
+	<servlet-name>mobileExcelServlet</servlet-name>
+	<url-pattern>/mobileExcelServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+	<servlet-name>groupExcelServlet</servlet-name>
+	<url-pattern>/groupExcelServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+	<servlet-name>CustomerExcelServlet</servlet-name>
+	<url-pattern>/customerExcelServlet</url-pattern>
+  </servlet-mapping>
+	
+  <servlet-mapping>
+	<servlet-name>DelCustomerListServlet</servlet-name>
+	<url-pattern>/delCustomerListServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+	<servlet-name>orderExcelServlet</servlet-name>
+	<url-pattern>/orderExcelServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>WebReport</servlet-name>
+    <url-pattern>/webReport</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+     <servlet-name>imageServlet</servlet-name>
+	 <url-pattern>/imageServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+	<servlet-name>batchExcelServlet</servlet-name>
+	<url-pattern>/batchExcelServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+	<servlet-name>loadServlet</servlet-name>
+	<url-pattern>/loadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  
+	<servlet-name>AajaxServlet</servlet-name>
+	<url-pattern>/AajaxServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+  <!-- Axis start-->
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/servlet/AxisServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>*.jws</url-pattern>
+  </servlet-mapping>
+
+  <!--
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/services/*</url-pattern>
+  </servlet-mapping>
+  -->
+  
+  <servlet-mapping>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <url-pattern>/SOAPMonitor</url-pattern>
+  </servlet-mapping>  
+  <!-- Axis end-->
+
+
+  <servlet-mapping>
+    <servlet-name>SGIPHTTPSMS</servlet-name>
+    <url-pattern>/SGIPHTTPSMS</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SGIPHTTPGW</servlet-name>
+    <url-pattern>/SGIPHTTPGW</url-pattern>
+  </servlet-mapping>  
+
+  <mime-mapping>
+    <extension>wsdl</extension>
+     <mime-type>text/xml</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>xsd</extension>
+    <mime-type>text/xml</mime-type>
+  </mime-mapping>
+	<servlet>
+	    <servlet-name>mmsZhandan</servlet-name>
+	    <servlet-class>MMSReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>mmsZhandan</servlet-name>
+	    <url-pattern>/mmszdservlet</url-pattern>
+	</servlet-mapping>
+  
+  <welcome-file-list>
+	<welcome-file>login.jsp</welcome-file>
+	<welcome-file>login.htm</welcome-file>
+  </welcome-file-list>
+  
+  <taglib>
+    <taglib-uri>/tags/struts-bean</taglib-uri>
+    <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-html</taglib-uri>
+    <taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-logic</taglib-uri>
+    <taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-nested</taglib-uri>
+    <taglib-location>/WEB-INF/struts-nested.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-tiles</taglib-uri>
+    <taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
+  </taglib>
+  
+  <taglib>
+	<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+	<taglib-location>/WEB-INF/c.tld</taglib-location>
+ </taglib>
+
+ 
+ <error-page>
+ 	<error-code>404</error-code>
+	<location>/jsp/confirm.jsp</location>
+ </error-page>
+ <error-page>
+ 	<error-code>505</error-code>
+	<location>/jsp/confirm.jsp</location>
+ </error-page> 
+ <error-page>
+ 	<error-code>500</error-code>
+	<location>/jsp/confirm.jsp</location>
+ </error-page> 
+ <error-page>
+ 	<error-code>403</error-code>
+	<location>/jsp/confirm.jsp</location>
+ </error-page> 
+<!--
+ <error-page>
+	<exception-type>com.hjhz.sms.servlet.exception.FileTypeNotMatchException</exception-type>
+	<location>/jsp/error/typeNotMathced.htm</location>
+ </error-page>
+
+  <error-page>
+	<exception-type>org.apache.jasper.JasperException</exception-type>
+	<location>/jsp/error/reload.jsp</location>
+ </error-page>
+ <error-page>
+	<exception-type>java.lang.SecurityException</exception-type>
+	<location>/jsp/error/outSize.htm</location>
+ </error-page>
+
+ <error-page>
+	<exception-type>java.lang.Exception</exception-type>
+	<location>/jsp/error/error2.jsp</location>
+ </error-page>
+
+
+ <error-page>
+	<exception-type>java.io.IOException</exception-type>
+	<location>/jsp/error/servletErrorAll.jsp</location>
+ </error-page>
+
+-->
+ <!--  <welcome-file-list>
+      <welcome-file>index.html</welcome-file>
+      <welcome-file>index.htm</welcome-file>	
+      <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list> -->
+</web-app>

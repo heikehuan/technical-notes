@@ -1,0 +1,25 @@
+解释：
+<textarea>标签会保留用户的预定义格式,你这样写的话,浏览器会把 
+<c:if标签之前的那些空白全都当成空格.把它们都连在一起就可以了
+
+
+<!-- 错误样例,文本前始终有空白,文本无法左对齐 -->
+<div>
+   <span class="zi_3F6293" style="width:80; vertical-align: top;">短信模板:</span>
+   <span class="tab4" style="width:80;">
+     <textarea name="MessageTemplate" id="MessageTemplate" cols="115" rows="5" class="tab4">
+       <c:if test="${smsBirConfig.messageTemplate == null}">客户 #客户姓名# 您好，今天是 #发送时间# ，是您的生日，祝您生日快乐</c:if>
+       <c:if test="${smsBirConfig.messageTemplate != null}">${smsBirConfig.messageTemplate}</c:if>
+     </textarea>
+  </span>
+</div>
+
+<!-- 文本左对齐 -->
+<div>
+   <span class="zi_3F6293" style="width:80; vertical-align: top;">短信模板:</span>
+   <span class="tab4" style="width:80;">
+     <textarea name="MessageTemplate" id="MessageTemplate" cols="115" rows="5" class="tab4"><c:if test="${smsBirConfig.messageTemplate == null}">客户 #客户姓名# 您好，今天是 #发送时间# ，是您的生日，祝您生日快乐</c:if><c:if test="${smsBirConfig.messageTemplate != null}">${smsBirConfig.messageTemplate}</c:if>
+     </textarea>
+  </span>
+</div>
+

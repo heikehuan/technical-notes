@@ -1,0 +1,31 @@
+﻿	<c:if test="${!empty msg}">
+	if ('${msg}' != '') {
+	alert("${msg}");
+	}
+	</c:if>
+
+
+
+<body>
+	<div id="sending" style="filter: alpha(opacity = 80); position: absolute; top: 310px; left: 135px; z-index: 10; visibility: hidden; width: 617px; height: 81px;">
+		<TABLE WIDTH=80% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+			<TR>
+				<td width=30%></td>
+				<TD bgcolor=#104A7B>
+					<TABLE WIDTH=100% height=80 BORDER=0 CELLSPACING=2 CELLPADDING=0>
+						<TR>
+							<td bgcolor=#eeeeee align=center>
+								<font color="red">正在导入数据, 请稍候...</font>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td width=30%></td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+
+需要显示此提示时，加入下边的
+sending.style.visibility="visible";

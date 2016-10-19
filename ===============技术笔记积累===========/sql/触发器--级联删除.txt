@@ -1,0 +1,36 @@
+四个表用触发器级联删除Oracle
+
+有四个表，在建表的时候不允许建立外键，其中数据表中有4 个级联:
+A系统(AID...)     
+B数据库(BID,AID....)
+C数据库表(CID,BID...)
+D表的字段（DID,CID...） 
+
+不使用约束条件，在ORCLE中进行级联删除。删除A的时候必须把A下面所有与AID相同的B数据库都删掉，并且把数据库里面的表，表的字段都删掉，删除B的时候必须把所有与BID相同的C数据库表以及C数据库表下面的字段都删掉。
+
+利用Oracle触发器实现比较简单，下面是实现过程：
+
+先创建A系统的触发器，在触发删除A表这一事件之前，找到A系统下面与AID相同的所有B数据库，先把所有满足条件的B数据库删除，再删除A系统。同理删除B数据库时候，也一样，先找到C。
+
+1.create or replace trigger appsys_delete
+  before delete on dq_md_appsys for each row
+declare
+begin
+  delete from DQ_MD_DB_DATABASE  where SYSTEM_ID =:old.SYSTEM_ID;
+end appsys_delete;
+
+2.create or replace trigger database_delete
+  before delete on dq_md_db_database  
+  for each row
+declare
+begin
+    delete from DQ_MD_DB_TABLE where database_id =:old.database_id;
+end database_delete;
+
+3.create or replace trigger table_delete
+  before delete on dq_md_db_table  
+  for each row
+declare
+begin
+  delete from dq_md_db_field where table_id =:old.table_id;
+end table_delete;

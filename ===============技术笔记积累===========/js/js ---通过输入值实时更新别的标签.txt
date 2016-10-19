@@ -1,0 +1,77 @@
+//自动执行函数
+$(function(){
+	$("#quantity").bind("keydown",function(){
+		 $("#orderinfo").css("background-image","url('<%=basePath%>images/guowu25.gif')");
+		 $("#orderinfo").attr("disabled","true");
+	});
+	$("#quantity").bind("keyup",function(){
+		if(!/^[0-9]*$/.test($(this).val()))
+		{
+		     $(this).attr("value","");
+		}else{
+			if($(this).val()!=""&&$(this).val()>0){
+			    var url = "getPricingPackagePrice.action";
+			    var params = {
+				quantity : $(this).val()
+			    };
+			    $.post(url, params, callbackFun, 'json');
+			}else{
+				 //清空价格和套餐id的值
+				 $("#unitprice").text("");
+				 $("#total").text("");
+				 $("#totalFee").attr("value","");
+				 $("#id").attr("value","");
+			 }
+	       }
+	});
+});
+//回调函数
+function callbackFun(data) {
+     var pidStr = data.result;
+     var strArr=new Array();
+	 if(pidStr!="")
+		{
+		  strArr=pidStr.split(",");
+		 //套餐id隐藏值 ，总金额隐藏值，价格，总金额
+		  $("#id").val(strArr[0]);
+		  $("#totalFee").val(strArr[2]);
+		  
+		  $("#unitprice").text(strArr[1]);
+		  $("#total").text(strArr[2]);
+		}else //无返回，清空原来的值
+		{
+		   $("#unitprice").text("");
+		   $("#total").text("");
+		   $("#totalFee").attr("value","");
+		   $("#id").attr("value","");
+		}
+	 $("#orderinfo").css("background-image","url('<%=basePath%>images/guowu2.gif')");
+	 $("#orderinfo").removeAttr("disabled"); 
+}
+
+
+<table class="table_border" cellpadding="2" cellspacing="0">
+	<tr>
+		<td>请输入您的购买条数</td>
+		<td>单价(元)</td>
+		<td>合计金额(元)</td>
+		<td>点击购买</td>
+	</tr>
+	<tr>
+		<td>
+		    <input type="text" id="quantity" maxlength="9" name="quantity" /> 
+		    <!-- 套餐id,总金额-->
+		    <input type="hidden" id="id" name="id" /> 
+		    <input type="hidden" id="totalFee" name="totalFee" />
+		</td>
+		<td>
+		    <font color="#3300CC"><span id="unitprice">&nbsp;</span></font>
+		</td>
+		<td>
+		    <font color="red"><span id="total">&nbsp;</span></font>
+		</td>
+		<td>
+		     <input id="orderinfo" type="button" style="background-image: url('<%=basePath%>images/guowu2.gif');width:100;height:23; border:0px;cursor: pointer;"  onclick="javascript:addQuotaByPricingPackage();">
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,3 @@
+alter table QRTZ_TRIGGERS disable primary key cascade;
+truncate table QRTZ_TRIGGERS;
+alter table QRTZ_TRIGGERS enable primary key;

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-lazy-init="false">
+	<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTriggerTaskOrder"/>
+				<ref bean="cronTriggerWorkOrder"/>
+				<ref bean="cronTriggerExamine"/>
+				<ref bean="cronTriggerTeamOrder"/> 
+				<ref bean="cronTriggerProjectWeekly"/> 
+				<ref bean="cronTriggerTaskOrderWeekly"/> 
+			</list>
+		</property>
+		<property name="configLocation" value="classpath:quartz.properties"/>
+	</bean>
+	
+	
+	<!-- 使用pojo做job，指定pojo和method -->
+	<bean id="cronTriggerTaskOrder" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailTaskOrder"/>
+		<!--每天执行一次-->
+		<property name="cronExpression" value="0 0 0 *,* * ?"/>
+	</bean>
+	<bean id="cronTriggerWorkOrder" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailWorkOrder"/>
+		<!--每天执行一次-->
+		<property name="cronExpression" value="0 0 0 *,* * ?"/>
+	</bean>
+	<bean id="cronTriggerExamine" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailExamine"/>
+		<!--每天执行一次-->
+		<property name="cronExpression" value="0 0 0 *,* * ?"/>
+	</bean>	<bean id="cronTriggerTeamOrder" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailTeamOrder"/>
+		<!--每天执行一次-->
+		<property name="cronExpression" value="0 0 0 *,* * ?"/>
+	</bean>
+	<bean id="cronTriggerProjectWeekly" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailProjectWeekly"/>
+		<!-- 每周一凌晨2点生成本周项目的周报 "0 0 2 ? * 1 ?"  0秒 0分 凌晨2点 日期不限 每月 星期一 触发 -->
+		<property name="cronExpression" value="0 0 2 ? * 1"/>
+	</bean>
+	<bean id="cronTriggerTaskOrderWeekly" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailTaskOrderWeekly"/>
+		<!-- 每周一凌晨2点生成本周实施任务单的周报 "0 0 2 ? * 1 ?"  0秒 0分 凌晨2点 日期不限 每月 星期一 触发 -->
+		<property name="cronExpression" value="0 0 2 ? * 1"/>
+	</bean>
+	
+	
+	<!-- 使用pojo做job，指定pojo和method -->
+	<bean id="jobDetailTaskOrder" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="pollingMAM"/>
+		<property name="targetMethod" value="pollingTaskorder"/>
+	</bean>
+	<bean id="jobDetailWorkOrder" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="pollingMAM"/>
+		<property name="targetMethod" value="pollingWorkorder"/>
+	</bean>
+		<bean id="jobDetailExamine" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="pollingMAM"/>
+		<property name="targetMethod" value="pollingExamine"/>
+	</bean>
+		<bean id="jobDetailTeamOrder" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="pollingMAM"/>
+		<property name="targetMethod" value="pollingTeamorder"/>
+	</bean>
+	<bean id="jobDetailProjectWeekly" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="pollingMAM"/>
+		<property name="targetMethod" value="produceProjectWeekly"/>
+	</bean>
+	<bean id="jobDetailTaskOrderWeekly" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="pollingMAM"/>
+		<property name="targetMethod" value="taskOrderWeekly"/>
+	</bean>
+	
+	
+	<!-- CancelOrder类 -->
+	<bean id="pollingMAM" class="com.jtcrm.ictpm.service.impl.PollingMAMImpl" autowire="byName">
+		<property name="daoService">
+			<ref bean="com.jtcrm.core.services.IDaoService" />
+		</property>
+		<property name="datadictionaryService">
+			<ref bean="com.jtcrm.ictpm.service.IDataDictionaryService" />
+		</property>
+		<property name="messageService">
+			<ref bean="com.jtcrm.ictpm.service.IMessageService" />
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,31 @@
+/**
+ * @author changjiang
+ * @name replaceAll JS用于替换一个字符串中对应的所有的字符串
+ * @param String  initStr 原字符串。
+ * @param String  rstr  要转化的字符串。
+ * @param String  rs  转换成的字符串
+ * @return String str;
+ */
+
+function replaceAll(initStr,rstr,rs)
+{ 
+ 
+ str='';
+
+  while(initStr.indexOf(rstr)!=-1) 
+  {
+   
+   k=initStr.indexOf(rstr);
+   initStr=initStr.replace(rstr,rs);
+   str+=initStr.substr(0,k+rs.length);
+   initStr=initStr.substr(k+rs.length);
+   
+  }
+  str+=initStr;
+  
+ return str;
+}
+
+var aaa = '8*9**99';
+
+var bbb = replaceAll(aaa,'*','0');

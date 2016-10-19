@@ -1,0 +1,22 @@
+ 今天在做网页的时候发现表单中的input输入框和submit按钮总是对不齐，处于上下错位状态，最终在网上找到解决方法，拿来做个备忘。
+
+    1.input和图片按钮对齐：
+
+    <form>
+    <input type="text">
+    <input type="image" src="htmer_img.gif" align="absmiddle">
+    </form>
+
+    也可以在按钮的样式里面加入：vertical-align:middle;
+
+    2.input和文字对齐
+
+    定义input的样式：input {vertical-align:middle;}，这样文字就会和input框对齐。
+
+    3.slelct框等都如此
+
+    可以在css中定义：input,select{vertical-align:middle;}
+
+
+
+

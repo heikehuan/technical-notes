@@ -1,0 +1,76 @@
+Oracle 11g修改中文字符集
+ 
+安装了个Oracle 11g发现中文保存到DB之后变乱码，用下面的方法修改DB字符集 
+  www.2cto.com  
+D:\>sqlplus /nolog 
+ 
+SQL*Plus: Release 11.2.0.1.0 Production on Wed Nov 7 23:50:56 2012 
+ 
+Copyright (c) 1982, 2010, Oracle.  All rights reserved. 
+ 
+SQL> conn / as sysdba     --需要使用SYSDBA帐户 
+Connected. 
+SQL>  startup mount        
+ORA-01081: cannot start already-running ORACLE - shut it down first 
+SQL>  shutdown immediate;   --停止数据库 
+Database closed. 
+Database dismounted. 
+ORACLE instance shut down. 
+SQL>  startup mount          --启动数据库到 mount 状态 
+ORACLE instance started. 
+ 
+Total System Global Area 1686925312 bytes 
+Fixed Size                  2176368 bytes 
+Variable Size             989858448 bytes 
+Database Buffers          687865856 bytes 
+Redo Buffers                7024640 bytes 
+Database mounted. 
+SQL> alter session set sql_trace=true; 
+ 
+Session altered. 
+ 
+SQL>  alter system enable restricted session; 
+ 
+System altered. 
+ 
+SQL> alter system set job_queue_processes=0; 
+ 
+System altered. 
+ 
+SQL> alter system set aq_tm_processes=0; 
+ 
+System altered. 
+ 
+SQL> alter database open; 
+ 
+Database altered. 
+ 
+SQL> set linesize 120;      --INTERNAL_USE 参数可以忽略超集检查 
+SQL>  ALTER DATABASE character set INTERNAL_USE AL32UTF8; --修改字符集 
+ 
+Database altered. 
+ 
+SQL> shutdown immediate;        --再次关闭数据库 
+Database closed. 
+Database dismounted. 
+ORACLE instance shut down. 
+SQL> STARTUP             --启动数据库 
+ORACLE instance started. 
+ 
+Total System Global Area 1686925312 bytes 
+Fixed Size                  2176368 bytes 
+Variable Size             989858448 bytes 
+Database Buffers          687865856 bytes 
+Redo Buffers                7024640 bytes 
+Database mounted. 
+Database opened. 
+SQL> select * from v$nls_parameters where parameter = 'NLS_CHARACTERSET'; 
+ 
+PARAMETER 
+---------------------------------------------------------------- 
+VALUE 
+---------------------------------------------------------------- 
+NLS_CHARACTERSET 
+AL32UTF8 
+ 
+SQL>

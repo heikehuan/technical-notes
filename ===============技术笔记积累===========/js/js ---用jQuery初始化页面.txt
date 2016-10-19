@@ -1,0 +1,7 @@
+<script type="text/javascript">	
+	//初始化页面
+	$(document).ready(function(){
+		$("#userId").removeAttr("multiple"); //初始化目标用户为单选用户
+		$("#oldDiv").hide();
+	});
+</script>

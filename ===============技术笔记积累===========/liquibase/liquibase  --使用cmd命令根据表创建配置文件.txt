@@ -1,0 +1,7 @@
+
+----------命令行执行liquibase命令，生成配置文件---------------
+--liquibase生成表结构
+liquibase --driver=com.mysql.jdbc.Driver --classpath="D:\maven\repo\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" --changeLogFile="D:\db_dev_table.changelog.xml" --url="jdbc:mysql://localhost:3306/ptengine_dev?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull" --username=root --password=root  generateChangeLog
+
+--liquibase生成数据
+liquibase --driver=com.mysql.jdbc.Driver --classpath="D:\maven\repo\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" --changeLogFile="D:\db_dev_data.changelog.xml" --url="jdbc:mysql://localhost:3306/ptengine_dev?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull" --username=root --password=root --diffTypes=data generateChangeLog

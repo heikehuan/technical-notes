@@ -1,0 +1,18 @@
+function getDelayMonth(){
+	if(!isEmpty(IntegrationForm.delayTerminateDate.value)&&compareDate(document.IntegrationForm.terminateDate.value,document.IntegrationForm.delayTerminateDate.value)){
+		//延期前时间数组
+		var startTime = document.IntegrationForm.terminateDate.value.split("-");
+		//延期后时间数组
+		var endTime = document.IntegrationForm.delayTerminateDate.value.split("-");
+		
+		if(compareDate(document.IntegrationForm.terminateDate.value,document.IntegrationForm.delayTerminateDate.value)){
+			if(endTime[0]!=startTime[0]){//延期后的年份大于延期前得年份
+				document.IntegrationForm.delayMonth.value = (endTime[0]-startTime[0]-1)*12+(endTime[1]-startTime[1]+12);
+			}else{//年份相等
+				document.IntegrationForm.delayMonth.value = endTime[1]-startTime[1];
+			}
+			
+		}
+		
+	}
+}

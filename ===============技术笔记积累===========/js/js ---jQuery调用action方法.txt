@@ -1,0 +1,3 @@
+var url = "${pageContext.request.contextPath}/view/admin/home/user-listUser.action?login_name="+login_name+"&user_name="+user_name+"&WORK_UNIT_KIND="+WORK_UNIT_KIND+"&USER_STATUS="+USER_STATUS;
+$('#queryForm').attr('action',url);
+$('#queryForm').submit();

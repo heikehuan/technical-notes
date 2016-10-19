@@ -1,0 +1,89 @@
+在struts1中使用spring3注入的实现方法：
+
+方法1 ----------- struts和spring不整合，需要spring资源文件applicationContext.xml时，临时获取
+   (1) 编写spring配置文件，如applicationContext.xml
+   (2) 在web.xml中配置spring加载路径<context-param> ，并配置<listener>监听，用于加载内部配置
+   <!-- 注册spring配置文件 -->
+    <context-param>  
+        <param-name>contextConfigLocation</param-name>  
+        <param-value>/WEB-INF/classes/applicationContext.xml</param-value>  
+    </context-param>  
+	<!-- spring 监听器，加载spring配置文件 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+	(3)在action方法体中，使用ApplicationContext获取spring配置文件实例对象，通过定义的多线程id获取taskexecutor对象。
+		public ActionForward send(ActionMapping mapping, ActionForm form,
+				HttpServletRequest request, HttpServletResponse response)
+				throws Exception {
+
+			//初始化多线程执行类
+			ApplicationContext ctx =  new ClassPathXmlApplicationContext("applicationContext.xml");
+			ThreadPoolTaskExecutor poolTaskExecutor = (ThreadPoolTaskExecutor)ctx.getBean("taskexecutor");
+			//初始化多线程实例
+			DisposeSmsServiceThread dispos=new DisposeSmsServiceThread(theForm, sendMessagesInfo, user);
+			//执行多线程,提交发送任务
+			poolTaskExecutor.execute(dispos);
+			return new ActionForward(mapping.findForward("send"));
+		}
+
+方法2 ----------- struts和spring整合，直接配置注入对象taskexecutor。		
+-------------配置struts-config.xml，把spring作为一个插件，写入struts加载文件中。
+struts-config.xml
+
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">  
+  
+<struts-config>  
+  <form-beans />  
+  <global-exceptions />  
+  <global-forwards />  
+    
+  <action-mappings>  
+    <!-- 使用DelegatingActionProxy将strut的action全权委托给spring容器管理。  
+        DelegatingActionProxy是Action的子类，它把调用请求转交给真正的Action实现  
+        -->  
+     <action name="sendForm" parameter="cmd" path="/sendAction" scope="request" type="org.springframework.web.struts.DelegatingActionProxy" validate="false">   
+     <exception key="msgFormat" path="/jsp/error/error.jsp" type="com.hjhz.sms.struts.exception.MessageFormatException" />
+     <forward name="send" path="/jsp/send/send.jsp" redirect="true"/>
+     <forward name="resend" path="/jsp/send/resend.jsp"/>
+     <forward name="resendDraft" path="/jsp/send/resendDraft.jsp"/>
+    </action>
+  <!-- 国际化 -->  
+  <message-resources parameter="struts.ApplicationResources" />  
+    
+  <!-- 将struts的action托管给spring容器管理  
+    根据contextConfigLocation的配置文件加载ActionServlet -->  
+  <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+     <set-property property="contextConfigLocation" value="/WEB-INF/classes/applicationContext.xml"/>
+  </plug-in>  
+    
+</struts-config>  
+------------------配置spring资源文件applicationContext.xml，定义action，配置注入对象
+具体参见applicationContext.xml文件
+------------------在action中用set获取注入对象
+		//spring 线程池
+		private TaskExecutor taskexecutor;
+		public TaskExecutor getTaskexecutor() {
+			return taskexecutor;
+		}
+		public void setTaskexecutor(TaskExecutor taskexecutor) {
+			this.taskexecutor = taskexecutor;
+		}
+		public ActionForward send(ActionMapping mapping, ActionForm form,
+				HttpServletRequest request, HttpServletResponse response)
+				throws Exception {
+			//初始化多线程实例
+			DisposeSmsServiceThread dispos=new DisposeSmsServiceThread(theForm, sendMessagesInfo, user);
+			//执行多线程,提交发送任务
+			taskexecutor.execute(dispos);
+			return new ActionForward(mapping.findForward("send"));
+		}
+
+其他整合方法参见http://blog.csdn.net/xiaohai0504/article/details/7052926
+http://blog.csdn.net/xiaohai0504/article/details/7052426
+	
+	
+	
+	
+   

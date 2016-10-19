@@ -1,0 +1,13 @@
+通用的td标签，多余字显示省略号，鼠标滑动到此处显示所有文字
+
+引入fn标签，可以使用它的内置截取函数
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+如下是例子代码：
+${subpage.content} ：循环的列表需要显示的值
+
+<td align="center"  class="td_border" title="${subpage.content}">
+	<c:choose> 
+		<c:when test="${fn:length(subpage.content) >10}">${fn:substring(subpage.content, 0, 10)}......</c:when>
+		<c:otherwise>${subpage.content}</c:otherwise>
+	</c:choose>
+</td>

@@ -1,0 +1,31 @@
+在本例中，我们将在几个字符串上运用 eval()，并看看返回的结果：
+
+<script type="text/javascript">
+
+eval("x=10;y=20;document.write(x*y)")
+
+document.write(eval("2+2"))
+
+var x=10
+document.write(eval(x+17))
+
+</script>输出：
+
+200
+4
+27
+
+看一下在其他情况中，eval() 返回的结果：
+
+eval("2+3")	// 返回 5
+var myeval = eval;	// 可能会抛出 EvalError 异常
+myeval("2+3");	// 可能会抛出 EvalError 异常
+可以使用下面这段代码来检测 eval() 的参数是否合法：
+
+try  {
+     alert("Result:" + eval(prompt("Enter an expression:","")));
+     }
+
+catch(exception) {
+     alert(exception);
+     }

@@ -1,0 +1,10 @@
+去掉html页面的滚动条
+去掉左右滚动条，保留上下滚动条：<body style="overflow-x:hidden;overflow-y:auto;">
+
+ 
+
+如果页面头部有：<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+需要去掉该代码，或者改为：<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+分类: JavaScript

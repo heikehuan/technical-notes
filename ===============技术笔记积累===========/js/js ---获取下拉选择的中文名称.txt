@@ -1,0 +1,10 @@
+var content = $("#quotatype").find("option:selected").text();
+
+
+<div style="margin-top: 20px;width:1000px;">
+		<span class="zi_000000" style="text-align:right; vertical-align:middle; width:120px;">充值类型(短信/彩信)</span>
+		<span class="zi_000000" style="text-align:left;">
+			<s:select list="#request.map" id="quotatype" multiple="simple" value="1"></s:select>
+			<s:if test="organizationBean.payMode==true">&nbsp;&nbsp;<span class="zi_000000" style="color:#F00">(如果下拉列表没有您需要的类型,是因为渠道没有配置此类型的协议价)</span></s:if>
+		</span>
+</div>

@@ -1,0 +1,74 @@
+StringUtils类使用
+检查字符串是否为空或null或仅仅包含空格
+  String test = "";
+  String test1=" ";
+  String test2 = "\n\n\t";
+  String test3 = null;
+  System.out.println( "test blank? " + StringUtils.isBlank( test ) ); 
+  System.out.println( "test1 blank? " + StringUtils.isBlank( test1 ) );
+  System.out.println( "test2 blank? " + StringUtils.isBlank( test2 ) );
+  System.out.println( "test3 blank? " + StringUtils.isBlank( test3 ) );
+  运行结果：
+  test blank? true
+  test1 blank? true
+  test2 blank? true
+  test3 blank? true
+  相对应的还有一个StringUtils.isNotBlank(String str)
+  StringUtils.isEmpty(String str)则检查字符串是否为空或null（不检查是否仅仅包含空格）
+  
+  分解字符串
+  StringUtils.split(null, *, *)            = null
+  StringUtils.split("", *, *)              = []
+  StringUtils.split("ab de fg", null, 0)   = ["ab", "cd", "ef"]
+  StringUtils.split("ab   de fg", null, 0) = ["ab", "cd", "ef"]
+  StringUtils.split("ab:cd:ef", ":", 0)    = ["ab", "cd", "ef"]
+  StringUtils.split("ab:cd:ef", ":", 1)    = ["ab:cd:ef"]
+  StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cd:ef"]
+  StringUtils.split(String str,String separatorChars,int max) str为null时返回null
+  separatorChars为null时默认为按空格分解，max为0或负数时分解没有限制，max为1时返回整个字符串，max为分解成的个数（大于实际则无效）
+  
+  去除字符串前后指定的字符
+  StringUtils.strip(null, *)          = null
+  StringUtils.strip("", *)            = ""
+  StringUtils.strip("abc", null)      = "abc"
+  StringUtils.strip(" abc ", null)    = "abc"
+  StringUtils.strip("  abcyx", "xyz") = "  abc"
+  StringUtils.strip(String str,String stripChars) str为null时返回null,stripChars为null时默认为空格
+  创建醒目的Header（调试时用）
+  public String createHeader( String title ) {
+    int width = 30;
+    String stars = StringUtils.repeat( "*", width);
+    String centered = StringUtils.center( title, width, "*" );
+    String heading = StringUtils.join(new Object[]{stars, centered, stars}, "\n");
+    return heading;
+  }
+  调用createHeader("TEST")的输出结果:
+  ******************************
+  ************ TEST ************
+  ******************************
+
+  字符的全部反转及以单个词为单位的反转
+  String original = "In time, I grew tired of his babbling nonsense.";
+  StringUtils.reverse( original )   = ".esnesnon gnilbbab sih fo derit werg I ,emit nI"
+  以单个词为单位的反转
+  public Sentence reverseSentence(String sentence) {
+    String reversed = StringUtils.chomp( sentence, "." );
+    reversed = StringUtils.reverseDelimited( reversed, ' ' );
+    reversed = reversed + ".";
+    return reversed;
+  }
+  String sentence = "I am Susan."
+  reverseSentence( sentence ) )   = "Susan am I."
+
+  检查字符串是否仅仅包含数字、字母或数字和字母的混合
+  String test1 = "ORANGE";
+  String test2 = "ICE9";
+  String test3 = "ICE CREAM";
+  String test4 = "820B Judson Avenue";
+  String test5 = "1976";
+  结果：
+  boolean t1val = StringUtils.isAlpha( test1 ); // returns true
+  boolean t2val = StringUtils.isAlphanumeric( test2 ); // returns true
+  boolean t3val = StringUtils.isAlphaSpace( test3 ); // returns true
+  boolean t4val = StringUtils.isAlphanumericSpace( test4 ); // returns true
+  boolean t5val = StringUtils.isNumeric( test5 ); // returns true

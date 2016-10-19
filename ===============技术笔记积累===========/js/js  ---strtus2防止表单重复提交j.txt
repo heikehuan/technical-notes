@@ -1,0 +1,83 @@
+1、使用Struts2的表单标签，其中需要增加token标签。如下：
+……
+Java代码
+<%@ taglib uri="/struts-tags" prefix="s" %>  
+……  
+<s:form action="page1" theme="simple">  
+<s:datetimepicker name="order.date" label="购买日期" toggleType="explode" value="today"/><br/>  
+<s:token/>  
+<s:reset/><s:submit/>  
+   </s:form> 
+
+<%@ taglib uri="/struts-tags" prefix="s" %>
+……
+<s:form action="page1" theme="simple">
+<s:datetimepicker name="order.date" label="购买日期" toggleType="explode" value="today"/><br/>
+<s:token/>
+<s:reset/><s:submit/>
+   </s:form>
+
+2、在struts配置文件中增加token拦截器。如下：
+Java代码
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE struts PUBLIC  
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+"http://struts.apache.org/dtds/struts-2.0.dtd">  
+<struts>  
+ 
+<package name="lee" extends="struts-default">  
+<action name="page1" class="org.bruce.Page1">  
+<interceptor-ref name="defaultStack" />  
+<interceptor-ref name="token" />  
+<result>/page1.jsp</result>  
+<result name="invalid.token">/page1error.jsp</result>  
+</action>  
+</package>  
+</struts> 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+<package name="lee" extends="struts-default">
+<action name="page1" class="org.bruce.Page1">
+<interceptor-ref name="defaultStack" />
+<interceptor-ref name="token" />
+<result>/page1.jsp</result>
+<result name="invalid.token">/page1error.jsp</result>
+</action>
+</package>
+</struts>注意，需要name为invaid.token的result。这是当拦截器判断是重复提交的时候，会转向的结果。
+
+3、invaid.token页面打印错误信息，一样可以使用struts标签。如下：
+<s:actionerror/>
+
+理解：
+1、JSP使用<s:token/>标签的时候，Struts2会建立一个GUID（全局唯一的字符串）放在session中，并且会成为一个hidden放在form中。
+2、token拦截器会判断客户端form提交的token和session中保存的session是否equals。如果equals则执行Action。否则拦截器直接返回invaid.token结果，Action对应的方法也不会执行
+
+---------------------------------------------------------------------------------
+对于采用token防止表单重复提交的原理我就不用多说了，大家也应该都知道，在这我只介绍在struts2中如何利用标签实现防止表单的重复提交。 　　
+
+　　首先在表单中加入标签 ，会生成一个隐藏域用于存储系统自动随机生成的token值。然后在action中启用TokenInterceptor,即在struts.xml中加入下面类似代码。
+Java代码
+
+   1. <action name="register" class="UserAction" method="register"> 
+   2.     <result>register_success.jsp</result> 
+   3.     <result name="input">register.jsp</result> 
+   4.     <result name="invalid.token">register.jsp</result> 
+   5.     <interceptor-ref name="token"></interceptor-ref> 
+   6.     <interceptor-ref name="defaultStack"></interceptor-ref> 
+   7. </action>      
+
+<action name="register" class="UserAction" method="register">
+<result>register_success.jsp</result>
+<result name="input">register.jsp</result>
+<result name="invalid.token">register.jsp</result>
+<interceptor-ref name="token"></interceptor-ref>
+<interceptor-ref name="defaultStack"></interceptor-ref>
+</action>
+
+  其中<result name="invalid.token">register.jsp</result>”是在发生表单重复提交时，返回给用户提示信息的显示页面，同时还需在显示页面中加入 ；“<interceptor-ref name="token"></interceptor-ref>”是启用TokenInterceptor 如果表单重复提交，会提示The form has already been processed or no token was supplied, please try again。修改国际化文件struts.messages.invalid.token 的键值，提供自己定制的错误信息。比如：struts.messages.invalid.token= 您已经提交了表单，请不要重复提交。

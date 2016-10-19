@@ -1,0 +1,9 @@
+//初始化页面时，判断机构是否是组付费
+window.onload=function(){
+	var feeMode = '<s:property value="organizationBean.feeMode"/>';
+	if(feeMode=="true"){
+		$("#membRecharge").hide();
+	}else{
+		$("#membRecharge").show();
+	}
+}	

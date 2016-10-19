@@ -1,0 +1,33 @@
+ 0 left join和inner join实际上是SQL语句方面的区别： 
+
+有表a,表b 
+a表 
+ID  BID 
+1   2 
+2   1 
+3   4 
+
+b表 
+ID Name 
+1  一 
+2  二 
+
+
+
+Sql代码  
+select a.ID,b.Name from a left join b on a.BID=b.ID  
+
+select a.ID,b.Name from a left join b on a.BID=b.ID返回 
+a.ID b.Name 
+1    二 
+2    一 
+3    null  <--如果b中没有会填充null值 
+
+Sql代码  
+select a.ID,b.Name from a inner join b on a.BID=b.ID  
+
+select a.ID,b.Name from a inner join b on a.BID=b.ID返回 
+a.ID b.Name 
+1    二 
+2    一 
+如果b中没有，并不会填充null值。 

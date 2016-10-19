@@ -1,0 +1,38 @@
+引用css，jQuery库
+<link href="<c:url value="/styles/common.css" />" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<c:url value="/js/jquery/jquery-1.2.1.pack.js" />"></script>
+
+--------------------隐藏方式-----------------------------
+方法一：原生javascript方式：
+document.getElementById("saveData").style.display = "none";  //隐藏
+document.getElementById("saveData").style.display = "block"; //显示
+
+方法二：
+if("${workUnitId}"=="1017"){
+    $("#sendProcess").css("display", "block");  //显示
+}
+else{$("#sendProcess").css("display", "none");}  //隐藏
+
+方法三：jQuery方式隐藏
+<1>仅仅隐藏------- $("p").hide()
+<2>用600毫秒的时间将段落缓慢的隐藏----- $("p").hide("slow");
+<3>用200毫秒将段落迅速隐藏，之后弹出一个对话框。jQuery 代码:
+$("#sendProcess").hide("fast",function(){
+   alert("请不要多次点击提交!");
+ });
+---------------------------禁用方式-------------------------
+方法四：禁用按钮：
+在html标签中设置按钮被禁用，可以使用如下代码 
+<input type="button" id="test" value="disabled"/> 
+<1> 原生javascript方式:
+document.getElementById("test").disabled = true; //禁用
+<2> jQuery方式：
+$("#test").attr("disabled","true");或$("#test").attr({"disabled":"disabled"}); 添加disabled属性 
+$("#test").removeAttr("disabled"); 移除disabled属性 
+
+
+
+sendProcess为标签的id或name
+
+
+<tr id="statChoice" style="display:none">

@@ -1,0 +1,7 @@
+查看端口
+service iptables status
+
+关闭防火墙
+service iptables stop
+启动防火墙
+service iptables start

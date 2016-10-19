@@ -1,0 +1,18 @@
+首先建立一个文本文件，里边写上 
+
+sqlplus messagechannel/111111@localhost @createUser.sql   
+pause  
+
+然后保存文件，把文件扩展名改为.bat 
+
+然后在同级目录下创建一个sql文件，名字为createUser.sql，sql代码：
+create table TEMP_TABLE_TEST2
+(
+  CREATE_SQL  CLOB,
+  CREATE_TIME DATE
+);
+commit;   
+exit  
+
+
+

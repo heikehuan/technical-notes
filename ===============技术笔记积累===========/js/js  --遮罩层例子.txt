@@ -1,0 +1,20 @@
+http://malsup.com/jquery/block/#demos
+
+//遮罩层
+$.blockUI({ 
+	 message:"正在处理，请稍等...",
+	 css: {
+		 border: 'none', 
+		 padding: '15px', 
+		 backgroundColor: '#1AE66B', 
+		 '-webkit-border-radius': '10px', 
+		 '-moz-border-radius': '10px', 
+		 opacity: .5, 
+		 color: '#FF4444' 
+         } 
+}); 
+
+//关闭遮罩层
+$.unblockUI();
+
+

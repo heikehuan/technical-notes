@@ -1,0 +1,3 @@
+ÒıÈëimport com.cthq.crm.util.StringUtils; 
+
+StringUtils.isEmpty(sForm.getCatId())

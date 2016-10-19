@@ -1,0 +1,11 @@
+/**打开回复页面*/
+function replyById(replyId,mobile){
+	var reg = /^1[3,4,5,8,7]{1}[0-9]{9}$/;
+	var r = mobile.match(reg);
+	if(!r){
+		ymPrompt.alert({title:'信息提示',message:'手机号码有误，不能给座机，短号等回复短信',width:350,height:200});
+		return false;
+	}
+	
+	ymPrompt.win({message:'<%=request.getContextPath()%>/viewReceiveDetail.action?receiveId='+replyId,width:780,height:580,title:'短信回复',handler:null,iframe:true})			
+}

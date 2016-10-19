@@ -1,0 +1,30 @@
+------struts2标签<s:radio ：点击一个单选按钮，把另一个单选按钮固定，并且不允许修改
+
+为struts2标签<s:radio 的payType绑定单击事件，只需给payType添加cssClass="payType"
+
+//如果选择后付费，则一定是直客
+$(function(){
+	$(".payType").click(function(){ 
+		var val = $("input[name='payType']:checked").val();//获得选中的radio的值 
+		if(val=="true"){
+		    document.getElementsByName('organType')[1].checked=true;//后付费,只能选择直客
+		    $('.organType').attr("disabled","disabled"); //禁止修改
+		}else{
+		    $('.organType').attr("disabled","");
+		}
+	}); 
+}); 
+
+<s:if test="#parameters.pid[0]==1">
+   <tr>
+   <td><s:radio id="payType" name="payType" cssClass="payType"  label="充值类型"  list="#{false:'预付费',true:'后付费'}" listKey="key" listValue="value" value="false"></s:radio></td>
+   </tr>
+   <!-- add by zhanhh on$20130527 -->
+   <tr>
+   <td><s:radio id="organType" name="organType" cssClass="organType" label="机构类型"  list="#{0:'渠道',1:'直客'}" listKey="key" listValue="value" value="0" ></s:radio></td>
+   </tr>
+   <tr>
+   <td><s:radio name="payMode" label="计费单位" list="#{false:'配额付费',true:'金额付费'}" listKey="key"  listValue="value" value="false">
+   </s:radio></td>
+   </tr>
+</s:if>

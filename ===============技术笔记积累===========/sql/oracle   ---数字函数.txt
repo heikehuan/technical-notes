@@ -1,0 +1,11 @@
+四.数字函数
+1，取整函数（ceil 向上取整,floor 向下取整）
+select ceil(66.6) N1,floor(66.6) N2 from dual;
+2, 取幂(power) 和 求平方根(sqrt)
+select power(3,2) N1,sqrt(9) N2 from dual;
+3,求余
+select mod(9,5) from dual;
+4,返回固定小数位数 (round:四舍五入，trunc:直接截断)
+select round(66.667,2) N1,trunc(66.667,2) N2 from dual;
+5,返回值的符号(正数返回为1,负数为-1)
+select sign(-32),sign(293) from dual;

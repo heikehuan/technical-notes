@@ -1,0 +1,11 @@
+
+select * from send s where to_char(s.send_time,'yyyy-mm-dd')='2013-06-30' order by s.send_id asc
+
+update send s set s.sys_time= to_timestamp('2013-06-30 12:10:10.1','yyyy-mm-dd hh24:mi:ss.ff'),
+   s.pre_send_time=to_timestamp('2013-06-30 12:10:10.1','yyyy-mm-dd hh24:mi:ss.ff'),
+   s.send_time=to_timestamp('2013-06-30 12:10:10.1','yyyy-mm-dd hh24:mi:ss.ff')
+where s.send_id in (select a.send_id from send a where rownum <=30)  
+
+
+
+to_timestamp('2013-06-30 12:10:10.1','yyyy-mm-dd hh24:mi:ss.ff')

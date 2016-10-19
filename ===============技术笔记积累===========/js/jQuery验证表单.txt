@@ -1,0 +1,76 @@
+jquery验证表单很简单的方法
+现在网上有很多jquery验证表单的插件，但都写的比较复杂。一般都有两三个文件。
+我今天写一个
+
+最简单但是很实用的验证登录表单的方法。
+我基本上只是给大家提供一种思路。jquery插件一般也是按这个思路写的。
+大家可以按这个思路去扩展，不过只要实用越简单越好
+
+代码如下,
+
+应“zhuyanrong”的要求 加入radio的验证 其实那个很简单，需要注意的是 radio要用click事件而不能用blur事件
+
+<script type="text/javascript">
+ //首先
+
+要加载jquery库文件，因为这里只是给大家演示，所以我就不加载了。
+ //下面为jquery代码
+ $(function(){
+     $("#name").blur(function(){//用户名文本框失去焦点触发验证事件
+
+       if(!$(this).val || !$(this).val.match(/([w]){2,15}$/))//只处验证不能为空并且只能为英文或者数字或者下划线组成的２－１５个字符
+        {
+
+$("#nameTip").html("用户名不能为空且只能为英文或者数字");
+        }
+        else
+        {
+            $("#nameTip").html("输入正确");
+        }
+
+});
+
+      $("#pas1").blur(function(){//用户密码框失去焦点触发验证事件
+        if(!$(this).val || !$(this).val.match(/([w]){2,15}$/))//只处验证和上面一样
+
+{
+            $("#pas1Tip").html("密码不能为空且只能为英文或者数字");
+        }
+        else
+        {
+            $("#pas1Tip").html("输入正确");
+        }
+
+     });
+     $("#pas2").blur(function(){//用户密码确认框失去焦点触发验证事件
+        if(!$(this).val || $(this).val() != $("#pas1").val() )//此处验证和上面一样
+
+        {
+            $("#pas2Tip").html("密码为空或者和上面的密码不致");
+        }
+        else
+        {
+            $("#pas2Tip").html("输入正确");
+
+   }
+
+     });
+	 $("input[name=ustype]").click(function(){
+	 	var ustype = $(this).val();
+		var ustypemsg = (ustype==1)?'企业':'个人';
+        $("#ustypeTip").html("您选择的是"+ustypemsg+'会员');
+	 });
+
+})
+ </script>
+  <form action="#">
+    用户名：<input type="text" id="name" /><span id="nameTip"></span>
+    密码：<input type="password" id="pas1" /><span id="pas1Tip"></span>
+    确认密码：
+
+<input type="password" id="pas2" /><span id="pas2Tip"></span>
+    用户类型：<input type="radio" value="0" name="ustype" checked="checked" /> 个人 
+
+<input type="radio" value="1" name="ustype" /> 企业 <span id="ustypeTip"></span>
+    <input type="submit" value="提交" />
+  </form>

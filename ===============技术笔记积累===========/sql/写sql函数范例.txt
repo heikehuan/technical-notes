@@ -1,0 +1,21 @@
+--创建sql函数名：f_get_maxlogdate
+--参数：compid；logtype 
+--RETURN DATE IS ：返回结果类型（DATE日期类型）
+--END f_get_maxlogdate  ：结束函数的执行
+--在日志表tc_comp_log通过表的限制条件comp_id和log_type查询最近的创建日期max(create_date)
+--使用方法 ： F_GET_MAXLOGDATE(ROW_ID, 'C008008') ，括号中放入自己的值
+
+****************************************************************************************
+
+CREATE OR REPLACE FUNCTION f_get_maxlogdate(compid  IN VARCHAR2,
+                                            logtype IN VARCHAR2)
+  RETURN DATE IS
+  RESULT DATE;
+BEGIN
+  SELECT max(create_date)
+    INTO RESULT
+    FROM tc_comp_log
+   WHERE log_type = logtype
+     AND comp_id = compid;
+  RETURN(RESULT);
+END f_get_maxlogdate;

@@ -1,0 +1,84 @@
+JSP学习笔记(五十八)：编写第一段基于注解驱动的Spring MVC代码
+上一篇文章，我编写了我的第一段Spring MVC代码，文章见于：JSP学习笔记(五十七)：编写第一段Spring MVC代码
+
+现在我把代码改成基于注解驱动的：
+
+web.xml文件保持不变
+
+dispatcherServlet-servlet.xml文件的内容修改为：
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+<context:component-scan base-package="cn" />
+
+<bean
+    class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
+<bean
+    class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+    p:prefix="/jsp/" p:suffix=".jsp" />
+
+</beans>
+
+<context:component-scan base-package="cn" /> 是对cn包里的所有类自动扫描，以完成bean的创建和依赖注入，相当于原来配置文件中的：
+
+    <bean id="helloWorldAction" class="cn.HelloWorldAction">
+        <property name="hello">
+            <value>Hello World!</value>
+        </property>
+    </bean>
+
+原来每写一个类都要对应写一段配置文件，现在一句话就搞定了
+
+<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" /> 是指启用Spring MVC的注解功能
+
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/jsp/" p:suffix=".jsp" /> 是指所有的页面映射路径都会加上前缀/jsp，加上后缀.jsp，这就意味着如果映射内容为hello,那么将会去找页面/jsp/hello.jsp
+
+
+然后再来修改HelloWorldAction类：
+
+
+package cn;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class HelloWorldAction {
+
+
+    @RequestMapping("/helloWorld.do")
+    public String list(String hello, ModelMap model)
+    {
+        model.put("msg", hello);
+        return "hello";
+    }
+}
+
+ 
+
+这里的代码不用再实现Controller接口了，只需要在对应的类前添加@Controller，并且通过@RequestMapping("/helloWorld.do")制定映射关系即可。
+
+如果页面提交/helloWorld.do?hello=HelloWorld请求，便会执行HelloWorldAction类中list函数的代码，把页面提交的参数hello提交给list函数的String hello，并且把ModelMap model的内容返回到页面的request中，return "hello"，就相当于返回页面/jsp/hello.jsp
+
+其实对于函数list，这里提交的参数是一种约定，而不是一种配置，看来了解Spring MVC里面的约定规则，至关重要。
+
+hello.jsp页面不用修改。
+
+到此，一个基于注解的Spring MVC代码就算完成了。
+
+ 
+
+参考文章：http://www.ibm.com/developerworks/cn/java/j-lo-spring25-mvc/

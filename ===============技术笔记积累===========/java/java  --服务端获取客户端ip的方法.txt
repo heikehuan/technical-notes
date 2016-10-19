@@ -1,0 +1,30 @@
+
+rest接口服务端获取客户端请求的ip
+步骤：
+1 在rest接口参数中，加入注解@Context HttpServletRequest request
+2 从request对象中获取到客户端ip,如下方法getIPFromRequest(HttpServletRequest request)
+
+@POST
+@Path("login")
+public JsonView login(UserBean userBean,@Context HttpServletRequest request) 
+
+
+private String getIPFromRequest(HttpServletRequest request) {
+	/**
+	 * 数据处理结束
+	 */
+	String realip = request.getHeader("x-forwarded-for");
+	if (realip == null || realip.length() == 0 || "unknown".equalsIgnoreCase(realip)) {
+		realip = request.getHeader("Proxy-Client-IP");
+	}
+	if (realip == null || realip.length() == 0 || "unknown".equalsIgnoreCase(realip)) {
+		realip = request.getHeader("WL-Proxy-Client-IP");
+	}
+	if (realip == null || realip.length() == 0 || "unknown".equalsIgnoreCase(realip)) {
+		realip = request.getRemoteAddr();
+	}
+	if(realip.equals("0:0:0:0:0:0:0:1")){
+		realip="127.0.0.1";
+	}
+	return realip;
+}

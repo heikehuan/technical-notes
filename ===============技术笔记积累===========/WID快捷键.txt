@@ -1,0 +1,77 @@
+IBM Rational Application Developer 常用快捷键大盘点
+
+常用： 
+Ctrl+F                  查找并替换 
+Ctrl+Z                  撤销 
+Ctrl+Y                  重做 
+Ctrl+C                  复制 
+Ctrl+X                  剪切 
+Ctrl+V                  粘贴 
+Ctrl+A                  全部选中 
+Ctrl+1                   鼠标放在有误的代码上按下此快捷键后会提示修正方案 
+Ctrl+/                    注释当前行 , 再按则取消注释 
+Ctrl+D                  删除当前行 
+Ctrl+T                  使用 try/catch 块来包围，默认未设置，建议自己设置。 
+Ctrl+O 或 F3         快速显示大纲（ Outline ， +F3 能够显示引用类的大纲，不需要打开该类） 
+Ctrl+M                  最大化当前的 Edit 或 View  ( 再按则反之 ) 
+Ctrl+B                  全部构建 
+Ctrl+W 或 F4       关闭当前 Editer 
+Ctrl+E                 快速显示当前 Editer 的下拉列表 ( 打开了很多页面的时候很有用 ) 
+Ctrl+Q                  转至上一个编辑位置 
+Ctrl+S                  保存 
+Ctrl+N                  新建 
+Ctrl(+Shift+)+K     查找 ( 上 ) 下一个（参照选中的 Word 快速定位到下一个） 
+Ctrl+↑ 或 ↓              滚动条上下一行 
+Ctrl(+Shift+)+J     ( 逆向 ) 正向增量查找 ( 按下 Ctrl+J 后再输入字母 ) 
+Ctrl+L                   转至行 
+Ctrl+Shift+M        添加导入 
+Ctrl+Shift+O         组织导入 
+Ctrl+Shift+X 或 Y  把当前选中的文本全部变为大 ( 小 ) 写 
+Ctrl+Shift+W        关闭当前所有 Editer 
+Ctrl+Shift+T          打开类型（查找 Java 类） 
+Ctrl+Shift+R         打开资源（查找文件） 
+Ctrl+Shift+H         在层次结构中打开类型 
+Ctrl+Shift+S         全部保存 
+Ctrl+Shift+F4              全部关闭 
+Ctrl+Shift+E         显示管理当前打开的所有的 View 的管理器 ( 可以选择关闭 , 激活等操作 ) 
+Ctrl+Shift+P         定位到对于的匹配符 ( 譬如 {}) 
+Ctrl+Shift+F         格式化 
+Ctrl+Alt+ ↓或↑     复制当前行到下（上）一行 ( 复制增加 ) 
+Shift+Enter           在当前行的下一行插入空行 ( 鼠标可以在当前行的任一位置 ) 
+Shift+Ctrl+Enter    在当前行插入空行 ( 原理同上条 ) 
+Alt+/                     内容辅助 
+Alt+ ←或→             前（下）一个编辑的页面 
+Alt+ ↓或↑            当前行和下（上）面一行交互位置 ( 特别实用 , 可以省去先剪切 , 再粘贴了 ) 
+Alt+Enter              显示当前选择资源 ( 工程 ,or 文件 or 文件 ) 的属性 
+Delete                  删除（或 Backspace ） 
+F2                        显示工具提示描述 
+F4                        打开类型层次结构（继承关系） 
+F3                        打开声明（作用跟 ctrl+ 鼠标放在类或变量上，然后点击跳进声明） 
+F12                       激活编辑器 
+
+
+重构（ ! ） 
+Alt+Shift+Z          撤销重构 
+Alt+Shift+M         抽取方法 
+Alt+Shift+L          抽取局部变量（把一些多处调用的魔法数字和字符串抽取成一个变量） 
+Alt+Shift+I           内联 
+Alt+Shift+V          移动 
+Alt+Shift+R         变量和类的重命名 
+Alt+Shift+Y      重做 
+Alt+Shift+C         修改函数结构 ( 有 N 个函数调用了这个方法 , 修改一次搞定 ) 
+注：一般重构的快捷键都是 Alt+Shift 开头的了 
+
+
+运行与调试（ ! ） 
+F7                       单步返回 
+F6                       单步跳过 
+F5                       单步跳入 
+Ctrl+F5               单步跳入选择 
+F11                     调试上次启动 
+F8                       继续 
+Shift+F5              使用过滤器单步执行 
+Ctrl+Shift+B        添加 / 去除断点 
+Ctrl+D                 显示 
+Ctrl+F11             运行上次启动 
+Ctrl+R                 运行至行 
+Ctrl+U                 执行 

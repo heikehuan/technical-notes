@@ -1,0 +1,27 @@
+private String toJsonString(PageBean page) {
+        StringBuffer json = new StringBuffer(300);
+        json.append("[");
+        int idx = 0;
+        for (Iterator iter = page.getData().iterator(); iter.hasNext();) {
+            if (idx > 0) {
+                json.append(",");
+            }
+            SuitInputVO element = (SuitInputVO) iter.next();
+            json.append("{'id':'");
+            json.append(element.getStandCode());
+            json.append("', 'text':'");
+            json.append(element.getDisplayValue());
+            json.append("', 'leaf':" + (element.isParent() ? false : true));
+            json.append(", 'pageCount':" + page.getPageCount());
+            json.append(", 'pageNum':" + page.getCurrPageNo());
+            //++ append by guxidong on $2010-5-18
+            json.append(", 'sortName':" + "'" + element.getCompSortName()+"'");// 业务名，上下级之间用"-"隔开
+            json.append("}");
+            idx++;
+        }
+        json.append("]");
+        if (sysLogger.isDebugEnabled())
+            sysLogger.debug("--------------JSON------------\n"
+                    + json.toString());
+        return json.toString();
+    }

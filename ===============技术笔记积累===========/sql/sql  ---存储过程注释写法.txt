@@ -1,0 +1,4 @@
+dbms_output.put_line(to_char(to_date('21-05-2013','dd-mm-yyyy'),'dd-mm-yyyy')||'-联通发送数量-----' || union_message_quantity); 
+
+
+dbms_output.put_line('记录数:'|| c_consume%rowcount);  --打印测试

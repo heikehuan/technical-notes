@@ -1,0 +1,47 @@
+LifecycleException: Protocol handler initialization failed: java.lang.Exception: Socket bind failed  
+
+2012-05-02 10:33:10|  分类： Tomcat |  标签：tomcat  eclipse   |字号 订阅
+五一节后上班第一天，打开eclipse，启动俺的小猫居然报错，点儿背啊 :( 
+错误信息如下：
+
+  错误信息
+2012-5-2 9:47:50 org.apache.catalina.core.AprLifecycleListener init
+信息: Loaded APR based Apache Tomcat Native library 1.1.20.
+2012-5-2 9:47:50 org.apache.catalina.core.AprLifecycleListener init
+信息: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2012-5-2 9:47:51 org.apache.coyote.http11.Http11AprProtocol init
+严重: Error initializing endpoint
+java.lang.Exception: Socket bind failed: [730048] ?????????×???(Э?é/???????/???)????í??
+ at org.apache.tomcat.util.net.AprEndpoint.init(AprEndpoint.java:649)
+ at org.apache.coyote.http11.Http11AprProtocol.init(Http11AprProtocol.java:107)
+ at org.apache.catalina.connector.Connector.initialize(Connector.java:1022)
+ at org.apache.catalina.core.StandardService.initialize(StandardService.java:703)
+ at org.apache.catalina.core.StandardServer.initialize(StandardServer.java:838)
+ at org.apache.catalina.startup.Catalina.load(Catalina.java:538)
+ at org.apache.catalina.startup.Catalina.load(Catalina.java:562)
+ at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+ at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+ at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+ at java.lang.reflect.Method.invoke(Method.java:597)
+ at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:261)
+ at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:413)
+2012-5-2 9:47:51 org.apache.catalina.core.StandardService initialize
+严重: Failed to initialize connector [Connector[HTTP/1.1-8080]]
+LifecycleException:  Protocol handler initialization failed: java.lang.Exception: Socket bind failed: [730048] ?????????×???(Э?é/???????/???)????í??
+ at org.apache.catalina.connector.Connector.initialize(Connector.java:1024)
+ at org.apache.catalina.core.StandardService.initialize(StandardService.java:703)
+ at org.apache.catalina.core.StandardServer.initialize(StandardServer.java:838)
+ at org.apache.catalina.startup.Catalina.load(Catalina.java:538)
+ at org.apache.catalina.startup.Catalina.load(Catalina.java:562)
+ at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+ at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+ at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+ at java.lang.reflect.Method.invoke(Method.java:597)
+ at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:261)
+ at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:413)
+
+  解决方案
+Step 1：运行 -> CMD -> netstat -ao -> 找到tomcat端口号对应的PID。
+Step 2：打开任务管理器 -> 查看 -> 选择列 -> 勾选PID -> 将对应的PID的进程KILL掉。
+Step 3：删除TOMCAT_HOME/work/目录文件。
+Step 4：重启eclipse & tomcat。

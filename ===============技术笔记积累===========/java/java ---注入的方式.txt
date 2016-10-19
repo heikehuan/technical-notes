@@ -1,0 +1,15 @@
+
+
+//×¢Èëservice
+private ISendSmsService sendSmsService=(ISendSmsService) SpringContextUtil.getBean("sendSmsService");
+
+
+private IcommonBusinessService commonBusinessService;
+	
+public IcommonBusinessService getCommonBusinessService() {
+	return commonBusinessService;
+}
+public void setCommonBusinessService(
+		IcommonBusinessService commonBusinessService) {
+	this.commonBusinessService = commonBusinessService;
+}

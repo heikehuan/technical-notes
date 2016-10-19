@@ -1,0 +1,99 @@
+创建存储过程
+Sql代码  
+--1、简单的存储过程  
+create or replace procedure procedure_test  
+(p_id in varchar,p_status out varchar)  --p_id为输入参数 ,p_status为输出参数  
+as  
+ t_name varchar2(20);  
+ t_count number:=0;  
+begin  
+ select votetitle,vatesum into t_name,t_count from votemaster where id=p_id; --注意：此处没有：来赋值  
+ if t_count <=0 then  
+     p_status:= t_name||':差';  
+ elsif t_count >0 and t_count <3 then  
+     p_status:= t_name||':良好';  
+ else  
+     p_status:= t_name||':优秀';  
+ end if;  
+end;  
+--执行  
+declare   
+ out_param varchar2(50);  
+begin   
+ procedure_test('1',out_param);  
+  dbms_output.put_line(out_param);  
+end;  
+  
+--2、带游标的存储过程  
+create or replace procedure procedure_cursor_test  
+(p_id in varchar2,p_status out varchar2)  
+as  
+  vote votemaster%rowtype; --声明一个对象(votemaster)类型的对象  
+  cursor my_cur is select * from votemaster; --声明一个游标并填充数据  
+begin  
+  open my_cur; --打开游标  
+       loop  
+          fetch my_cur into vote ; --循环游标，并放入对象  
+          exit when my_cur%notfound; --如果没有数据，则直接exit  
+          if vote.id=p_id then  
+             p_status := vote.votetitle||'：'||vote.vatesum;  
+             --如果想终止循环，可以直接exit;  
+          end if;  
+       end loop;  
+  close my_cur; --关闭游标  
+end;  
+--执行  
+declare   
+ out_param varchar2(50);  
+begin   
+  procedure_cursor_test('1',out_param);  
+  dbms_output.put_line(out_param);  
+end;  
+  五、程序包
+1、程序包：包是一组相关过程、函数、变量、游标、常量等PL/SQL程序设计元素的组合。它具有面向对象程序设计语言的特点，是对这些PL/SQL程序设计元素的封装。包类似于C++或Java程序中的类，而变量相当于类中的成员变量，过程和函数相当于方法，把相关的模块归类成为包，可使开发人员利用面向对象的方法进行存储过程的开发，从而提高系统性能。与类相同，包中的程序元素也分为公用元素和私有元素两种，这两种元素的区别是他们允许访问的程序范围不同，即他们的作用域不同。公用元素不仅可以被包中的函数、过程调用，也可以被包外的PL/SQl块调用。而私有元素只能被该包内部的函数或过程调用。
+2、使用程序包的优点：在PL/SQL设计中，使用包不仅可以使程序模块化，对外隐藏包内所使用的信息，而写程序包可以提高程序的运行效率。因为，当程序首次调用程序包内部的函数或过程时，Oracle将整个程序包调入内存，当再次调用程序包中的元素时，Oracle直接从内存中读取，而不需要进行磁盘的IO操作，从而使程序的执行效率提高。
+3、一个程序包分为两部分组成：
+(1)、包定义：包定义部分声明包内数据类型、变量、常量、游标、子程序和函数等元素，这些元素为包的共有元素。
+(2)、包主体：包主题则定义了包定义部分的具体实现，在包主体中还可以声明和实现私有元素。
+Sql代码  
+--包定义  
+create or replace package t_package  
+is  
+  --定义过程  
+  procedure append_proc(t varchar2,a out varchar2);  
+  --过程的重载  
+  procedure append_proc(t number,a out varchar2);  
+  --定义函数  
+  function append_fun(t varchar2) return varchar2;  
+    
+end;  
+ 
+Sql代码  
+--包主题  
+create or replace package body t_package  
+is  
+  v_t varchar2(30);  
+  --私有成员函数  
+  function private_fun(t varchar2) return varchar2 is  
+  begin  
+     v_t := t||'hello';  
+     return v_t;  
+  end;  
+  --实现过程  
+  procedure append_proc(t varchar2,a out varchar2) is  
+  begin  
+   a := t||'hello';   
+  end;  
+  --过程的重载  
+  procedure append_proc(t number,a out varchar2) is   
+  begin   
+    a := t||'hello';   
+  end;  
+  --实现函数  
+  function append_fun(t varchar2)   
+  return varchar2 is  
+  begin  
+     v_t := t||'hello';  
+     return v_t;  
+  end;  
+end;  

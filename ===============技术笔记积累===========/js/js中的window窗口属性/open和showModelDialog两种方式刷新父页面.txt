@@ -1,0 +1,8 @@
+在java web在编程中我们有时也要知道javascript在知识,在此我将刷新父窗体的两种方式(window.open()和window.showModalDialog())的javascript写出来供大家参考: 
+
+   > a.jsp中:window.open('b.jsp')我们可以在b.jsp页面中可以通过window.opener得到a.jsp的window对象再让地址刷新就可以了 --> window.opener.location.reload(); 
+
+  > a.jsp中:window.showModalDialog('b.jsp')我们可以对b.jsp页面的window对象设一个返回值(window.returnValue=1;),然后在a.jsp中得到返回值进行判断,如果正确则可以调用window.location.reload()进行刷新。 
+         a.jsp: var result =  window.showModalDialog('b.jsp');if(result ==1) window.location.reload(); 
+        b.jsp: window.returnValue=1; 
+这样就可以达到刷新的效果了。 

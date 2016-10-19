@@ -1,0 +1,10 @@
+
+得到一个月总共多少天
+public int showDaysOfMonth( int year, int month ) 
+    {
+        int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if( 2 == month && 0 == (year % 4) && ( 0 != (year % 100) || 0 == (year % 400) ) ) {
+            days[1] = 29;
+        }
+        return( days[month -1] );
+    }

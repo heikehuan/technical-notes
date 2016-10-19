@@ -1,0 +1,11 @@
+文字在输入框的位置
+<input name="" type="text" style="text-align:left;">
+<input name="" type="text" style="text-align:center;">
+<input name="" type="text" style="text-align:right;">
+
+
+input输入框，光标离输入框左边的距离    style="padding-left:10px"
+
+
+
+

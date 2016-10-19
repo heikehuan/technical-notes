@@ -1,0 +1,13 @@
+//回复
+function handle(rowId){
+ 	var url = '<c:url value="/compman/AppealHandleAction.crm?method=handle&rowId="/>' + rowId;
+	var rtn = showDialog(url,0,900,768);
+	if (rtn){
+		//刷新自己的页面
+		window.name = "__self"; 
+		window.open(window.location.href, "__self");
+	}
+}
+
+//刷新左侧菜单树
+window.parent.parent.frames['leftFrame'].location.reload();

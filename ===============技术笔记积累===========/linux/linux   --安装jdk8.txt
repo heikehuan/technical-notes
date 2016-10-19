@@ -1,0 +1,82 @@
+linux安装jdk8
+--先卸载已经存在的jdk
+查看现有的jdk
+rpm -qa|grep jdk
+ rpm -qa | grep gcj
+
+java-1.6.0-openjdk-devel-1.6.0.33-1.13.5.1.el6_6.x86_64
+jdk-1.7.0_51-fcs.x86_64
+java-1.6.0-openjdk-1.6.0.33-1.13.5.1.el6_6.x86_64
+卸载
+ rpm -e --nodeps java-1.6.0-openjdk-devel-1.6.0.33-1.13.5.1.el6_6.x86_64
+ rpm -e --nodeps  java-1.6.0-openjdk-1.6.0.33-1.13.5.1.el6_6.x86_64
+ rpm -e --nodeps jdk-1.7.0_51-fcs.x86_64
+ 
+ yum -y remove  java-1.5.0-gcj-1.5.0.0-29.1.el6.x86_64
+ 
+ 解压文件tar zvxf jdk-8u51-linux-x64.tar.gz
+ 把解压后的文件，移动到/usr/java下边
+ 设置环境变量
+（也有在~/.bashrc修改的，区别是：
+	/etc/profile的设置方法对所有登陆用户都有效
+	~/.bashrc只对当前用户有效）
+
+	修改profile
+export JAVA_HOME=/usr/java/jdk1.8.0_51
+export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$JAVA_HOME/bin:$PATH
+
+export HISTORY_FILE=/etc/share/um/`date +%Y-%m`_um.log
+
+export TOMCAT_HOME=/usr/local/tomcat
+export CATALINA_HOME=/usr/local/tomcat
+
+export MAVEN_HOME=/usr/local/apache-maven-3.3.3
+export PATH=${MAVEN_HOME}/bin:$PATH
+
+export PATH=/usr/local/git-2.4.6/bin:$PATH
+
+
+执行source /etc/profile使它生效
+
+
+
+3、安装tomcat
+
+
+1）下载
+
+$ cd /usr/local
+$ sudo wget http://mirrors.cnnic.cn/apache/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz
+
+2）解压缩
+ 
+$ cd /usr/local
+$ sudo tar -xf apache-tomcat-7.0.55.tar.gz
+
+3）配置环境变量
+
+$ sudo vim /etc/profile
+
+在末尾添加如下内容：
+
+export export TOMCAT_HOME=/export/software/apache-tomcat-7.0.42
+export PATH=$PATH:$TOMCAT_HOME/bin
+
+执行如下命令：
+
+$ cd /usr/local/apache-tomcat-7.0.55
+$ bin/startup.sh
+Using CATALINA_BASE:  /usr/local/apache-tomcat-7.0.55
+Using CATALINA_HOME:  /usr/local/apache-tomcat-7.0.55
+Using CATALINA_TMPDIR: /usr/local/apache-tomcat-7.0.55/temp
+Using JRE_HOME:        /usr/local/jdk1.7.0_67/jre
+Using CLASSPATH:      /usr/local/apache-tomcat-7.0.55/bin/bootstrap.jar:/export/software/apache-tomcat-7.0.55/bin/tomcat-juli.jar
+Tomcat started.
+
+此时，在浏览器打开http://localhost:8080，可以看到如下页面，表示启动成功。
+
+配置tomcat
+<Context docBase="/ptengineRefactor/ptengine-service" path="/" reloadable="true"/>
+
+cd  /ptengineRefactor/ptengine-service

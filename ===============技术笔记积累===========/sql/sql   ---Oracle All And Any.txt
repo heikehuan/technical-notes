@@ -1,0 +1,42 @@
+转：Oracle All And Any
+    这是在Oracle中比较容易被忽视的两个条件函数，但这两个函数其实对简化Sql语句是非常重要的作用的。
+
+　　例如
+
+scott@eddev> select ename, sal  from emp  where sal > any (1600, 2999);
+
+ENAME             SAL
+---------- ----------
+JONES            2975
+BLAKE            2850
+CLARK            2450
+SCOTT            3000
+KING             5000
+FORD             3000
+
+6 rows selected.
+
+实际上以上语句可以等于：
+
+select ename, sal  from emp where sal > 1600 or sal > 2999;
+
+所以Any是等于N个or语句。
+
+又如
+
+select ename from emp  where substr(ename,1,1) = any ('A', 'W', 'J');
+等同于：
+
+select ename from emp  where substr(ename,1,1) = 'A' or substr(ename,1,1) ='W' or substr(ename,1,1) ='J';
+另外
+scott@eddev> select ename, sal   from emp   where sal > all (1600, 2999);
+ENAME             SAL
+---------- ----------
+SCOTT            3000
+KING             5000
+FORD             3000
+实际上以上语句可以等于：
+select ename, sal   from emp   where sal > 1600 and sal > 2999;
+
+所以All是等于N个And语句。
+分类: Oracle

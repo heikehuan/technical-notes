@@ -1,0 +1,13 @@
+﻿正则表达式验证一串字符：
+str为被验证的字符
+	/**
+	 * 匹配字符串是否全是数字
+	 * */
+	private boolean checkNumber(String str){
+		Pattern p = Pattern.compile("^\\d+$");
+		Matcher m = p.matcher(str); 
+		boolean b = m.matches(); 
+		return b;
+	}
+
+//打印结果:true  / false

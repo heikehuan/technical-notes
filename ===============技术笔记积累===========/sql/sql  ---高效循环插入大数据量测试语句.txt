@@ -1,0 +1,14 @@
+高效循环插入大数据量测试语句
+ 
+    declare
+    idx number(22):=0; 
+    carnum varchar(50):=''; 
+    
+    begin 
+        loop 
+            idx := idx + 1; 
+          insert into XX  (name) values ('123456'); 
+   
+        exit when idx>10; 
+        end loop; 
+    end; 

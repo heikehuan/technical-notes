@@ -1,0 +1,7 @@
+类里边引入
+public Logger logger = Logger.getLogger(BaseAction.class);
+
+
+long start = System.currentTimeMillis();
+long end = System.currentTimeMillis();
+logger.info("本次发送统计耗时:"+(end-start)+" ms");

@@ -1,0 +1,5 @@
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+保留两位小数
+<fmt:formatNumber value="${list.costFee}" pattern="#.##"/>

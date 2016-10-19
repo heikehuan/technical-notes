@@ -1,0 +1,6 @@
+<td colspan=2>
+<center>
+	<input type="button" class="button2" value="ÉÏ´«" onclick="upload();" />
+	<input  type="button" class="button2" value="¹Ø±Õ" onclick="javascript:window.close();"/>
+</center>
+</td>

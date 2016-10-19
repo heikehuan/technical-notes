@@ -1,0 +1,8 @@
+xml 转义符 
+html 与 xml的转义符不同, xml就只有5个:
+
+< &lt; 
+> &gt; 
+& &amp; 
+" &quot; 
+' &apos; 

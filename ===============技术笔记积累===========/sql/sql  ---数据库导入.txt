@@ -1,0 +1,322 @@
+导入表结构
+impdp messagechannel/111111  dumpfile=channel_20130422.dmpdp  content=metadata_only TRANSFORM=segment_attributes:n
+只导出一个表
+expdp messagechannel/y2rFovCoj0xO7zGl dumpfile=20141202_bigblack.dmp logfile=20141202_bigblack.log compression=ALL INCLUDE=table:\"LIKE \'%BLACK_ZHUOWANG%\'\"
+
+导入表数据
+impdp messagechannel/111111  dumpfile=channel_20130422.dmpdp  content=data_only
+
+
+
+
+在开发环境新建了一个测试库，impdp已经有的dmp文件，操作过程如下：
+
+       1) 首先用scp命令从别的数据库scp一个dmp文件，
+
+        scp是通过ssh实现远程拷贝的方法
+       scp oracle@172.52.130.2:/oradata/xx.dmp /oradata/
+       --oracle为登陆该服务器的用户名
+        --scp的第一个参数是拷贝源路径和文件，第二个参数是目的路径
+       把上述两个参数交换位置则实现的是把本地文件拷贝到远程目录
+
+      2) dbca 命令新建一个数据库
+
+        现在服务器上一般都不装图形界面，在本地的windows机器上安装xmanager软件,把xmanager -passive打开。
+
+        修改服务器的oracle用户配置文件，unix的话 vi .profile    ,linux的话 vi .bash_profile
+
+         在最后一句添加或修改 export DISPLAY=本地机器ip:0.0
+
+          就可以在本地机器上打开图形界面啦。
+
+          在图形界面下成功安装数据库。
+
+      3）先建立表空间和用户，并给用户授权
+
+      4）建立目录
+
+            create directory impdp  as  '/oradata'
+
+      5)  导入 impdp system/mima@ora10g directory=impdp dumpfile=sec_expdp.dmp schemas=usr1,usr2,usr3 content=full
+
+      6) 报错，提示找不到表类型xxxxx,这是因为dmp文件中没有表的metadata引起的。
+
+          报错，文件的操作类型不正确，要看看dmp文件的owner是否是oracle，或者oracle用户是否有读的权限，
+
+          oracle用户对于impdir是否有写的权限，因为导入日志要写到impdir中。
+
+          报错：无法确定文件的状态，应该是在impdir中未找到指定的dmp文件。
+
+      7) 和导出dmp文件的人沟通，在expdp时他加了content=data_only选项，dmp文件中没有表的元数据，所以报错
+
+      8) 将原来库的重新导出了一下，指定content=metadata_only
+
+      9）先导入元数据，impdp system/mima@ora10g directory=impdp dumpfile=expdp.dmp schemas=usr1,usr2,usr3 content=metadata_only
+
+        报错，未找到表空间
+
+       10）使用expdp和impdp做数据迁移时，经常遇到源数据库的表空间和目标数据库不一致的情况，使用impdp导入时报表空间不存在的错误。
+
+      解决这个问题的办法是，使用TRANSFORM选项去掉表空间和存储子句，这样表、索引等对象都导入到用户默认表空间，增加TRANSFORM=segment_attributes:n 如下：
+
+     impdp system/mima@ora10g directory=impdp dumpfile=expdpmeta.dmp schemas=usr1,usr2,usr3 content=metadata_only TRANSFORM=segment_attributes:n
+
+      11）再导入数据
+
+           impdp system/mima@ora10g directory=impdp dumpfile=expdp.dmp schemas=usr1,usr2,usr3 content=data_only
+
+      12）导入过程中，报错，表空间不够用了，扩大表空间
+
+           alter tablespace tbs_1 add datafile '/oradata/orcl10g/tbs_102.dbf' size 2G autoextend on;
+
+      13)  导入成功。     
+
+      14 ）表空间如果需要改名 
+
+         ALTER TABLESPACE tablespacename RENAME TO newtablespacename;
+         tablespacename 和newtablespacename 分别对应原来的表空间名字和更改后的表空间名字
+
+       15）如果因为磁盘问题，datafile  要挪个地方的话，如下：
+
+           1.先将相应的表空间 offline  
+               SQL>alter tablespace test offline;  
+           2.把数据文件 move 到新位置
+           3. alter tablespace TEST  rename datafile 'D:/TEST01.DBF' to 'D:/ORACLE/ORADATA/DBA/TEST01.DBF'
+           4. 将表空间 online 
+                 SQL>alter tablespace test online; 
+
+ 
+
+       下面是完整的impdp的用法，从别的博客抄的： 
+
+1.schemas
+导入用户hxl,同时创建用户hxl,默认表空间是导出前hxl所在的表空间,同时赋予用户connect角色
+impdp system/system DIRECTORY=data_pump_dir DUMPFILE=hxl.dmpdp SCHEMAS=hxl
+ 
+2.remap_tablespace
+导入用户hxl,使用remap_tablespace将用户的表空间替换为tps_hxl01(之前是tps_hxl)
+impdp system/system DIRECTORY=data_pump_dir DUMPFILE=hxl.dmpdp SCHEMAS=hxl remap_tablespace=tps_hxl:tps_hxl01
+ 
+  REMAP_SCHEMA
+该选项用于将源方案的所有对象装载到目标方案中：REMAP_SCHEMA=source_schema:target_schema
+ 
+3.dumpfile
+针对导出的时候使用了parallel参数生成多个dmp文件,导入的时候也需要指定%u导入
+impdp system/system DIRECTORY=data_pump_dir DUMPFILE=file%u.dmp SCHEMAS=hxl
+ 
+4.content
+impdp system/system DIRECTORY=data_pump_dir DUMPFILE=hxl.dmpdp SCHEMAS=hxl content=all
+这里content的选项
+all 导入元数据和数据
+data_only 只导入数据,前提是表对象已经存在
+metadata_only 只导入元数据
+ 
+5.table_exists_action
+impdp scott/hxl directory=data_pump_dir dumpfile=hxl.dmp table_exists_action=replace
+表存在的处理方式,有三种处理方式:
+有效关键字: (SKIP), APPEND, REPLACE 和 TRUNCATE。
+ 
+6.full
+全库导入,导入前需要将所有应用用户和表空间事先创建好,否则会导致无法导入.
+impdp system/oracle directory=data_pump_dir dumpfile=full_p218.dmp full=y
+ 
+7. 忽略存储参数
+   TRANSFORM=segment_attributes:n
+8. expdp 时指定文件大小，表，指定条件等
+
+   dumpfile=his_data_%U.dmp
+
+   filesize=8G
+
+    directory=expdir
+
+   tables=(
+
+    usr1.table1,
+
+    usr2.table2
+
+   )
+
+   query=(
+
+    usr1.table1:"where t_date between '20100101' and '20101231' "，
+
+    usr1.table1:"where t_date between '20100101' and '20101231' "
+
+     ）
+
+ 
+
+完整的impdp和expdp的用法如下：
+
+四、EXPDP语法介绍：
+
+
+数据泵导出实用程序提供了一种用于在 Oracle 数据库之间传输
+数据对象的机制。该实用程序可以使用以下命令进行调用:
+
+   示例: expdp scott/tiger DIRECTORY=dmpdir DUMPFILE=scott.dmp
+
+您可以控制导出的运行方式。具体方法是: 在 'expdp' 命令后输入
+各种参数。要指定各参数, 请使用关键字:
+
+   格式:  expdp KEYWORD=value 或 KEYWORD=(value1,value2,...,valueN)
+   示例: expdp scott/tiger DUMPFILE=scott.dmp DIRECTORY=dmpdir SCHEMAS=scott
+               或 TABLES=(T1:P1,T1:P2), 如果 T1 是分区表
+
+USERID 必须是命令行中的第一个参数。
+
+关键字               说明 (默认)
+------------------------------------------------------------------------------
+ATTACH                连接到现有作业, 例如 ATTACH [=作业名]。
+COMPRESSION           减小有效的转储文件内容的大小
+                      关键字值为: (METADATA_ONLY) 和 NONE。
+CONTENT               指定要卸载的数据, 其中有效关键字为:
+                      (ALL), DATA_ONLY 和 METADATA_ONLY。
+DIRECTORY             供转储文件和日志文件使用的目录对象。
+DUMPFILE              目标转储文件 (expdat.dmp) 的列表,
+                      例如 DUMPFILE=scott1.dmp, scott2.dmp, dmpdir:scott3.dmp。
+ENCRYPTION_PASSWORD   用于创建加密列数据的口令关键字。
+ESTIMATE              计算作业估计值, 其中有效关键字为:
+                      (BLOCKS) 和 STATISTICS。
+ESTIMATE_ONLY         在不执行导出的情况下计算作业估计值。
+EXCLUDE               排除特定的对象类型, 例如 EXCLUDE=TABLE:EMP。
+FILESIZE              以字节为单位指定每个转储文件的大小。
+FLASHBACK_SCN         用于将会话快照设置回以前状态的 SCN。
+FLASHBACK_TIME        用于获取最接近指定时间的 SCN 的时间。
+FULL                  导出整个数据库 (N)。
+HELP                  显示帮助消息 (N)。
+INCLUDE               包括特定的对象类型, 例如 INCLUDE=TABLE_DATA。
+JOB_NAME              要创建的导出作业的名称。
+LOGFILE               日志文件名 (export.log)。
+NETWORK_LINK          链接到源系统的远程数据库的名称。
+NOLOGFILE             不写入日志文件 (N)。
+PARALLEL              更改当前作业的活动 worker 的数目。
+PARFILE               指定参数文件。
+QUERY                 用于导出表的子集的谓词子句。
+SAMPLE                要导出的数据的百分比;
+SCHEMAS               要导出的方案的列表 (登录方案)。
+STATUS                在默认值 (0) 将显示可用时的新状态的情况下,
+                      要监视的频率 (以秒计) 作业状态。
+TABLES                标识要导出的表的列表 - 只有一个方案。
+TABLESPACES           标识要导出的表空间的列表。
+TRANSPORT_FULL_CHECK  验证所有表的存储段 (N)。
+TRANSPORT_TABLESPACES 要从中卸载元数据的表空间的列表。
+VERSION               要导出的对象的版本, 其中有效关键字为:
+                      (COMPATIBLE), LATEST 或任何有效的数据库版本。
+
+下列命令在交互模式下有效。
+注: 允许使用缩写
+
+命令               说明
+------------------------------------------------------------------------------
+ADD_FILE              向转储文件集中添加转储文件。
+CONTINUE_CLIENT       返回到记录模式。如果处于空闲状态, 将重新启动作业。
+EXIT_CLIENT           退出客户机会话并使作业处于运行状态。
+FILESIZE              后续 ADD_FILE 命令的默认文件大小 (字节)。
+HELP                  总结交互命令。
+KILL_JOB              分离和删除作业。
+PARALLEL              更改当前作业的活动 worker 的数目。
+                      PARALLEL=<worker 的数目>。
+START_JOB             启动/恢复当前作业。
+STATUS                在默认值 (0) 将显示可用时的新状态的情况下,
+                      要监视的频率 (以秒计) 作业状态。
+                      STATUS[=interval]
+STOP_JOB              顺序关闭执行的作业并退出客户机。
+                      STOP_JOB=IMMEDIATE 将立即关闭
+                      数据泵作业。
+
+
+五、IMPDP语法介绍：
+
+数据泵导入实用程序提供了一种用于在 Oracle 数据库之间传输
+数据对象的机制。该实用程序可以使用以下命令进行调用:
+
+     示例: impdp scott/tiger DIRECTORY=dmpdir DUMPFILE=scott.dmp
+
+您可以控制导入的运行方式。具体方法是: 在 'impdp' 命令后输入
+各种参数。要指定各参数, 请使用关键字:
+
+     格式:  impdp KEYWORD=value 或 KEYWORD=(value1,value2,...,valueN)
+     示例: impdp scott/tiger DIRECTORY=dmpdir DUMPFILE=scott.dmp
+
+USERID 必须是命令行中的第一个参数。
+
+关键字               说明 (默认)
+------------------------------------------------------------------------------
+ATTACH                连接到现有作业, 例如 ATTACH [=作业名]。
+CONTENT               指定要加载的数据, 其中有效关键字为:
+                      (ALL), DATA_ONLY 和 METADATA_ONLY。
+DIRECTORY             供转储文件, 日志文件和 sql 文件使用的目录对象。
+DUMPFILE              要从 (expdat.dmp) 中导入的转储文件的列表,
+                      例如 DUMPFILE=scott1.dmp, scott2.dmp, dmpdir:scott3.dmp。
+ENCRYPTION_PASSWORD   用于访问加密列数据的口令关键字。
+                      此参数对网络导入作业无效。
+ESTIMATE              计算作业估计值, 其中有效关键字为:
+                      (BLOCKS) 和 STATISTICS。
+EXCLUDE               排除特定的对象类型, 例如 EXCLUDE=TABLE:EMP。
+FLASHBACK_SCN         用于将会话快照设置回以前状态的 SCN。
+FLASHBACK_TIME        用于获取最接近指定时间的 SCN 的时间。
+FULL                  从源导入全部对象 (Y)。
+HELP                  显示帮助消息 (N)。
+INCLUDE               包括特定的对象类型, 例如 INCLUDE=TABLE_DATA。
+JOB_NAME              要创建的导入作业的名称。
+LOGFILE               日志文件名 (import.log)。
+NETWORK_LINK          链接到源系统的远程数据库的名称。
+NOLOGFILE             不写入日志文件。
+PARALLEL              更改当前作业的活动 worker 的数目。
+PARFILE               指定参数文件。
+QUERY                 用于导入表的子集的谓词子句。
+REMAP_DATAFILE        在所有 DDL 语句中重新定义数据文件引用。
+REMAP_SCHEMA          将一个方案中的对象加载到另一个方案。
+REMAP_TABLESPACE      将表空间对象重新映射到另一个表空间。
+REUSE_DATAFILES       如果表空间已存在, 则将其初始化 (N)。
+SCHEMAS               要导入的方案的列表。
+SKIP_UNUSABLE_INDEXES 跳过设置为无用索引状态的索引。
+SQLFILE               将所有的 SQL DDL 写入指定的文件。
+STATUS                在默认值 (0) 将显示可用时的新状态的情况下,
+                      要监视的频率 (以秒计) 作业状态。
+STREAMS_CONFIGURATION 启用流元数据的加载
+TABLE_EXISTS_ACTION   导入对象已存在时执行的操作。
+                      有效关键字: (SKIP), APPEND, REPLACE 和 TRUNCATE。
+TABLES                标识要导入的表的列表。
+TABLESPACES           标识要导入的表空间的列表。
+TRANSFORM             要应用于适用对象的元数据转换。
+                      有效的转换关键字: SEGMENT_ATTRIBUTES, STORAGE
+                      OID 和 PCTSPACE。
+TRANSPORT_DATAFILES   按可传输模式导入的数据文件的列表。
+TRANSPORT_FULL_CHECK  验证所有表的存储段 (N)。
+TRANSPORT_TABLESPACES 要从中加载元数据的表空间的列表。
+                      仅在 NETWORK_LINK 模式导入操作中有效。
+VERSION               要导出的对象的版本, 其中有效关键字为:
+                      (COMPATIBLE), LATEST 或任何有效的数据库版本。
+                      仅对 NETWORK_LINK 和 SQLFILE 有效。
+
+下列命令在交互模式下有效。
+注: 允许使用缩写
+
+命令               说明 (默认)
+------------------------------------------------------------------------------
+CONTINUE_CLIENT       返回到记录模式。如果处于空闲状态, 将重新启动作业。
+EXIT_CLIENT           退出客户机会话并使作业处于运行状态。
+HELP                  总结交互命令。
+KILL_JOB              分离和删除作业。
+PARALLEL              更改当前作业的活动 worker 的数目。
+                      PARALLEL=<worker 的数目>。
+START_JOB             启动/恢复当前作业。
+                      START_JOB=SKIP_CURRENT 在开始作业之前将跳过
+                      作业停止时执行的任意操作。
+STATUS                在默认值 (0) 将显示可用时的新状态的情况下,
+                      要监视的频率 (以秒计) 作业状态。
+                      STATUS[=interval]
+STOP_JOB              顺序关闭执行的作业并退出客户机。
+                      STOP_JOB=IMMEDIATE 将立即关闭
+                      数据泵作业。
+ 
+
+ 
+
+一个写的非常好的哥们的blog：
+
+http://blog.csdn.net/indexman/article/details/7849401

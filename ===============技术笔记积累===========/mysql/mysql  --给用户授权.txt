@@ -1,0 +1,11 @@
+﻿mysql客户端能登录，在服务器却登不上，报错如下，应该是没有授权
+java.sql.SQLException: Access denied for user 'zhanhuanhuan'@'127.0.0.1' (using password: YES)
+
+
+切换到mysql帐号，执行如下命令
+例如，你想mysql用户zhanhuanhuan使用密码mypassword从任何主机连接到mysql服务器的话。 
+
+GRANT ALL PRIVILEGES ON *.* TO 'zhanhuanhuan'@'%' IDENTIFIED BY 'mypassword' WITH GRANT OPTION; 
+
+
+

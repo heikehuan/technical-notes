@@ -1,0 +1,1039 @@
+公司不能上外网了，要离开csdn了，留点自己收集的，大家基本都能用的东西。。。。
+祝大家工作顺利，一切都好。。。。
+
+
+
+CSS code. 打开MyEclipse 6.0.1，然后“window”→“Preferences”
+
+
+2.      选择“java”，展开，“Editor”，选择“Content Assist”。
+
+3.      选择“Content Assist”，然后看到右边，右边的“Auto-Activation”下面的“Auto
+
+Activation triggers for java”这个选项。其实就是指触发代码提示的就是“.”这个符号。
+
+
+4.      “Auto Activation triggers for java”这个选项，在“.”后加abc字母，方便后面的查找
+
+修改。然后“apply”，点击“OK”。
+
+
+5. 然后，“File”→“Export”，在弹出的窗口中选择“Perferences”，点击“下一步”。
+
+
+6. 选择导出文件路径，本人导出到桌面，输入“test”作为文件名，点击“保存”。
+
+
+7. 在桌面找到刚在保存的文件“test.epf”,右键选择“用记事本打开”。
+
+
+8. 可以看到很多配置MyEclipse 6.0.1的信息
+
+
+9. 按“ctrl + F”快捷键，输入“.abc”，点击“查找下一个”。
+
+
+10. 查找到“.abc”的配置信息如下：
+
+
+如下：
+
+
+11. 把“.abc”改成“.abcdefghijklmnopqrstuvwxyz(,”，保存，关闭“test.epf”。
+
+
+12. 回到MyEclipse 6.0.1界面，“File”→“Import”，在弹出的窗口中选择“Perferences”，点击
+
+“下一步”，选择刚在已经修改的“test.epf”文件，点击“打开”，点击“Finish”。该步骤和上面
+
+的导出步骤类似。
+
+
+13. 最后当然是进行代码测试了。随便新建一个工程，新建一个类。在代码输入switch，foreach等进行
+
+测试。你立即会发现，果然出了提示，而且无论是敲哪个字母都会有很多相关的提示了，很流畅，很方
+
+便。
+
+
+总结：
+
+“Auto Activation triggers for java”这个选项就是指触发代码提示的的选项，把“.”改成
+
+“.abcdefghijklmnopqrstuvwxyz(,”的意思，就是指遇到26个字母和.，（这些符号就触发代码提示功
+
+能了。
+
+顺便说一下，修改类名，接口名等以不同颜色高亮的，可以这样配置在“java”→“enditor”→
+
+“syntac”，右边展开“java”→“classes”，勾上“Enable”这个选项，选择自己喜欢的颜色即可。
+
+当然还有其他相关的颜色配置。具体就不说啦。其实，在“Preferences”这个东西，有很多可以配置的
+
+东西，使得MyEclipse 优化的，具体的就要各个人根据自己个人喜好去配置了
+
+
+CSS codeEclipse 常用快捷键
+Eclipse的编辑功能非常强大，掌握了Eclipse快捷键功能，能够大大提高开发效率。Eclipse中有如下一些和编辑相关的快捷键。
+  1. 【ALT+/】
+  此快捷键为用户编辑的好帮手，能为用户提供内容的辅助，不要为记不全方法和属性名称犯愁，当记不全类、方法和属性的名字时，多体验一下【ALT+/】快捷键带来的好处吧。
+  2. 【Ctrl+O】
+  显示类中方法和属性的大纲，能快速定位类的方法和属性，在查找Bug时非常有用。
+
+  3. 【Ctrl+/】
+  快速添加注释，能为光标所在行或所选定行快速添加注释或取消注释，在调试的时候可能总会需要注释一些东西或取消注释，现在好了，不需要每行进行重复的注释。
+
+  4. 【Ctrl+D】
+  删除当前行，这也是笔者的最爱之一，不用为删除一行而按那么多次的删除键。
+
+  5. 【Ctrl+M】
+  窗口最大化和还原，用户在窗口中进行操作时，总会觉得当前窗口小（尤其在编写代码时），现在好了，试试【Ctrl+M】快捷键。
+
+  查看和定位快捷键
+
+  在程序中，迅速定位代码的位置，快速找到Bug的所在，是非常不容易的事，Eclipse提供了强大的查找功能，可以利用如下的快捷键帮助完成查找定位的工作。
+
+  1. 【Ctrl+K】、【Ctrl++Shift+K】
+  快速向下和向上查找选定的内容，从此不再需要用鼠标单击查找对话框了。
+
+  2. 【Ctrl+Shift+T】
+  查找工作空间（Workspace）构建路径中的可找到Java类文件，不要为找不到类而痛苦，而且可以使用“*”、“？”等通配符。
+
+  3. 【Ctrl+Shift+R】
+  和【Ctrl+Shift+T】对应，查找工作空间（Workspace）中的所有文件（包括Java文件），也可以使用通配符。
+
+  4. 【Ctrl+Shift+G】
+  查找类、方法和属性的引用。这是一个非常实用的快捷键，例如要修改引用某个方法的代码，可以通过【Ctrl+Shift+G】快捷键迅速定位所有引用此方法的位置。
+
+  5. 【Ctrl+Shift+O】
+快速生成import，当从网上拷贝一段程序后，不知道如何import进所调用的类，试试【Ctrl+Shift+O】快捷键，一定会有惊喜。
+
+  6. 【Ctrl+Shift+F】
+  格式化代码，书写格式规范的代码是每一个程序员的必修之课，当看见某段代码极不顺眼时，选定后按【Ctrl+Shift+F】快捷键可以格式化这段代码，如果不选定代码则默认格式化当前文件（Java文件）。
+
+  7. 【ALT+Shift+W】
+  查找当前文件所在项目中的路径，可以快速定位浏览器视图的位置，如果想查找某个文件所在的包时，此快捷键非常有用（特别在比较大的项目中）。
+
+  8. 【Ctrl+L】
+  定位到当前编辑器的某一行，对非Java文件也有效。
+
+  9. 【Alt+←】、【Alt+→】
+  后退历史记录和前进历史记录，在跟踪代码时非常有用，用户可能查找了几个有关联的地方，但可能记不清楚了，可以通过这两个快捷键定位查找的顺序。
+
+  10. 【F3】
+快速定位光标位置的某个类、方法和属性。
+
+  11. 【F4】
+  显示类的继承关系，并打开类继承视图。
+
+  调试快捷键
+
+  Eclipse中有如下一些和运行调试相关的快捷键。
+
+  1. 【Ctrl+Shift+B】：在当前行设置断点或取消设置的断点。
+  2. 【F11】：调试最后一次执行的程序。
+  3. 【Ctrl+F11】：运行最后一次执行的程序。
+  4. 【F5】：跟踪到方法中，当程序执行到某方法时，可以按【F5】键跟踪到方法中。
+  5. 【F6】：单步执行程序。
+  6. 【F7】：执行完方法，返回到调用此方法的后一条语句。
+  7. 【F8】：继续执行，到下一个断点或程序结束。
+
+  常用编辑器快捷键
+
+  通常文本编辑器都提供了一些和编辑相关的快捷键，在Eclipse中也可以通过这些快捷键进行文本编辑。
+  1. 【Ctrl+C】：复制。
+  2. 【Ctrl+X】：剪切。
+  3. 【Ctrl+V】：粘贴。
+  4. 【Ctrl+S】：保存文件。
+  5. 【Ctrl+Z】：撤销。
+  6. 【Ctrl+Y】：重复。
+  7. 【Ctrl+F】：查找。
+
+  其他快捷键
+
+  Eclipse中还有很多快捷键，无法一一列举，用户可以通过帮助文档找到它们的使用方式，另外还有几个常用的快捷键如下。
+  1. 【Ctrl+F6】：切换到下一个编辑器。
+  2. 【Ctrl+Shift+F6】：切换到上一个编辑器。
+  3. 【Ctrl+F7】：切换到下一个视图。
+  4. 【Ctrl+Shift+F7】：切换到上一个视图。
+  5. 【Ctrl+F8】：切换到下一个透视图。
+  6. 【Ctrl+Shift+F8】：切换到上一个透视图。
+
+  Eclipse中快捷键比较多，可以通过帮助文档找到所有快捷键的使用，但要掌握所有快捷键的使用是不可能的，也没有必要，如果花点时间熟悉本节列举的快捷键，必将会事半功倍
+
+
+1. edit->content Assist - >  add      Alt+/  代码关联
+2. Window -> Next Editor -> add    Ctrl+Tab 切换窗口
+3. Run/Debug Toggle Line Breakpoint -> add Ctrl+` 在调试的时候 增删断点
+4. Source-> Surround with try/catch Block -> Ctrl+Shift+v  增加try catch 框框
+5. Source -> Generate Getters and Setters -> Ctrl+Shift+. 增加get set 方法
+
+
+-----------有用的快捷键-----------
+Alt+/ 代码助手完成一些代码的插入(但一般和输入法有冲突,可以修改输入法的热键,也可以暂用Alt+/来代替)
+Ctrl+1:光标停在某变量上，按Ctrl+1键，可以提供快速重构方案。选中若干行，按Ctrl+1键可将此段代码放入for、while、if、do或try等代码块中。
+双击左括号（小括号、中括号、大括号），将选择括号内的所有内容。
+Alt+Enter 显示当前选择资源(工程,or 文件 or文件)的属性
+
+-----------Ctrl系列-----------
+Ctrl+K:将光标停留在变量上，按Ctrl+K键可以查找到下一个同样的变量
+Ctrl+Shift+K:和Ctrl+K查找的方向相反
+Ctrl+E 快速显示当前Editer的下拉列表(如果当前页面没有显示的用黑体表示)
+Ctrl+Shift+E 显示管理当前打开的所有的View的管理器(可以选择关闭,激活等操作)
+Ctrl+Q 定位到最后编辑的地方
+Ctrl+L 定位在某行 (对于程序超过100的人就有福音了)
+Ctrl+M 最大化当前的Edit或View (再按则反之)
+Ctrl+/ 注释当前行,再按则取消注释
+Ctrl+T 快速显示当前类的继承结构
+Ctrl+Shift-T: 打开类型（Open type）。如果你不是有意磨洋工，还是忘记通过源码树（source tree）打开的方式吧。
+Ctrl+O:在代码中打开类似大纲视图的小窗口
+Ctrl+鼠标停留:可以显示类和方法的源码
+Ctrl+H:打开搜索窗口
+Ctrl+/(小键盘) 折叠当前类中的所有代码
+Ctrl+×(小键盘) 展开当前类中的所有代码
+
+-----------Ctrl+Shift 系列-----------
+Ctrl+Shift+F 格式化当前代码
+Ctrl+Shift+X 把当前选中的文本全部变味小写
+Ctrl+Shift+Y 把当前选中的文本全部变为小写
+Ctrl+Shift+O:快速地导入import
+Ctrl+Shift+R:打开资源 open Resource
+
+-----------F快捷键 系列-----------
+F3:打开声明该引用的文件
+F4:打开类型层次结构
+F5:单步跳入
+F6:单步跳过
+F7:单步跳出
+F8:继续，如果后面没有断点，程序将运行完
+
+-----------行编辑用-----------
+Ctrl+D: 删除当前行
+Ctrl+Alt+↓ 复制当前行到下一行(复制增加)
+Ctrl+Alt+↑ 复制当前行到上一行(复制增加)
+Alt+↓ 当前行和下面一行交互位置(特别实用,可以省去先剪切,再粘贴了)
+Alt+↑ 当前行和上面一行交互位置(同上)
+Shift+Enter 在当前行的下一行插入空行(这时鼠标可以在当前行的任一位置,不一定是最后)
+Ctrl+Shift+Enter 在当前行插入空行(原理同上条)
+
+-----------不常用的-----------
+Alt+← 前一个编辑的页面
+Alt+→ 下一个编辑的页面(当然是针对上面那条来说了)
+Ctrl+Shift+S:保存全部
+Ctrl+W 关闭当前Editer
+Ctrl+Shift+F4 关闭所有打开的Editer
+
+Ctrl+Shift+G: 在workspace中搜索引用
+Ctrl+Shift+P 定位到对于的匹配符(譬如{}) (从前面定位后面时,光标要在匹配符里面,后面到前面,则反之)
+-----------不明白-----------
+Ctrl+J 正向增量查找(按下Ctrl+J后,你所输入的每个字母编辑器都提供快速匹配定位到某个单词,如果没有,则在stutes line中显示没有找到了,查一个单词时,特别实用,这个功能Idea两年前就有了)
+Ctrl+Shift+J 反向增量查找(和上条相同,只不过是从后往前查) 
+attribute：
+$(”p”).addClass(css中定义的样式类型); 给某个元素添加样式
+$(”img”).attr({src:”test.jpg”,alt:”test Image”}); 给某个元素添加属性/值，参数是map
+$(”img”).attr(”src”,”test.jpg”); 给某个元素添加属性/值
+$(”img”).attr(”title”, function() { return this.src }); 给某个元素添加属性/值
+$(”元素名称”).html(); 获得该元素内的内容（元素，文本等）
+$(”元素名称”).html(”<b>new stuff</b>”); 给某元素设置内容
+$(”元素名称”).removeAttr(”属性名称”) 给某元素删除指定的属性以及该属性的值
+$(”元素名称”).removeClass(”class”) 给某元素删除指定的样式
+$(”元素名称”).text(); 获得该元素的文本
+$(”元素名称”).text(value); 设置该元素的文本值为value
+$(”元素名称”).toggleClass(class) 当元素存在参数中的样式的时候取消,如果不存在就设置此样式
+$(”input元素名称”).val(); 获取input元素的值
+$(”input元素名称”).val(value); 设置input元素的值为value
+Manipulation：
+$(”元素名称”).after(content); 在匹配元素后面添加内容
+$(”元素名称”).append(content); 将content作为元素的内容插入到该元素的后面
+$(”元素名称”).appendTo(content); 在content后接元素
+$(”元素名称”).before(content); 与after方法相反
+$(”元素名称”).clone(布尔表达式) 当布尔表达式为真时，克隆元素（无参时，当作true处理）
+$(”元素名称”).empty() 将该元素的内容设置为空
+$(”元素名称”).insertAfter(content); 将该元素插入到content之后
+$(”元素名称”).insertBefore(content); 将该元素插入到content之前
+$(”元素”).prepend(content); 将content作为该元素的一部分，放到该元素的最前面
+$(”元素”).prependTo(content); 将该元素作为content的一部分，放content的最前面
+$(”元素”).remove(); 删除所有的指定元素
+$(”元素”).remove(”exp”); 删除所有含有exp的元素
+$(”元素”).wrap(”html”); 用html来包围该元素
+$(”元素”).wrap(element); 用element来包围该元素
+Traversing：
+add(expr)
+add(html)
+add(elements)
+children(expr)
+contains(str)
+end()
+filter(expression)
+filter(filter)
+find(expr)
+is(expr)
+next(expr)
+not(el)
+not(expr)
+not(elems)
+parent(expr)
+parents(expr)
+prev(expr)
+siblings(expr)
+
+Core：
+$(html).appendTo(”body”) 相当于在body中写了一段html代码
+$(elems) 获得DOM上的某个元素
+$(function(){……..}); 执行一个函数
+$(”div > p”).css(”border”, “1px solid gray”); 查找所有div的子节点p，添加样式
+$(”input:radio”, document.forms[0]) 在当前页面的第一个表单中查找所有的单选按钮
+$.extend(prop) prop是一个jquery对象，
+举例：
+jQuery.extend({
+min: function(a, b) { return a < b ? a : b; },
+max: function(a, b) { return a > b ? a : b; }
+});
+jQuery( expression, [context] ) —$( expression, [context]); 在默认情况下，$()查询的是当前HTML文档中的DOM元素。
+
+each( callback ) 以每一个匹配的元素作为上下文来执行一个函数
+举例：1
+$(”span”).click(function){
+$(”li”).each(function(){
+$(this).toggleClass(”example”);
+});
+});
+举例：2
+$(”button”).click(function () {
+$(”div”).each(function (index, domEle) {
+// domEle == this
+$(domEle).css(”backgroundColor”, “yellow”);
+if ($(this).is(”#stop”)) {
+$(”span”).text(”Stopped at div index #” + index);
+return false;
+}
+});
+});
+
+
+jQuery Event:
+
+ready(fn); $(document).ready()注意在body中没有onload事件，否则该函数不能执行。在每个页面中可以
+有很多个函数被加载执行，按照fn的顺序来执行。
+bind( type, [data], fn ) 为每一个匹配元素的特定事件（像click）绑定一个或多个事件处理器函数。可能的事件属性有：blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove,
+mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress,
+keyup, error
+one( type, [data], fn ) 为每一个匹配元素的特定事件（像click）绑定一个或多个事件处理器函数。在每个对
+象上，这个事件处理函数只会被执行一次。其他规则与bind()函数相同。
+
+trigger( type, [data] ) 在每一个匹配的元素上触发某类事件。
+triggerHandler( type, [data] ) 这一特定方法会触发一个元素上特定的事件(指定一个事件类型)，同时取消浏览器对此事件的默认行动
+unbind( [type], [data] ) 反绑定，从每一个匹配的元素中删除绑定的事件。
+$(”p”).unbind() 移除所有段落上的所有绑定的事件
+$(”p”).unbind( “click” ) 移除所有段落上的click事件
+hover( over, out ) over,out都是方法, 当鼠标移动到一个匹配的元素上面时，会触发指定的第一个函数。当鼠标移出这个元素时，会触发指定的第二个函数。
+$(”p”).hover(function(){
+$(this).addClass(”over”);
+},
+function(){
+$(this).addClass(”out”);
+}
+);
+
+toggle( fn, fn ) 如果点击了一个匹配的元素，则触发指定的第一个函数，当再次点击同一元素时，则触发指定的第二个函数。
+$(”p”).toggle(function(){
+$(this).addClass(”selected”);
+},
+function(){
+$(this).removeClass(”selected”);
+}
+);
+
+ 
+元素事件列表说明
+注：不带参数的函数，其参数为可选的 fn。jQuery不支持form元素的reset事件。
+事件 描述 支持元素或对象
+blur( ) 元素失去焦点 a, input, textarea, button, select, label, map, area
+change( ) 用户改变域的内容 input, textarea, select
+click( ) 鼠标点击某个对象 几乎所有元素
+dblclick( ) 鼠标双击某个对象 几乎所有元素
+error( ) 当加载文档或图像时发生某个错误 window, img
+focus( ) 元素获得焦点 a, input, textarea, button, select, label, map, area
+keydown( ) 某个键盘的键被按下 几乎所有元素
+keypress( ) 某个键盘的键被按下或按住 几乎所有元素
+keyup( ) 某个键盘的键被松开 几乎所有元素
+load( fn ) 某个页面或图像被完成加载 window, img
+mousedown( fn ) 某个鼠标按键被按下 几乎所有元素
+mousemove( fn ) 鼠标被移动 几乎所有元素
+mouseout( fn ) 鼠标从某元素移开 几乎所有元素
+mouseover( fn ) 鼠标被移到某元素之上 几乎所有元素
+mouseup( fn ) 某个鼠标按键被松开 几乎所有元素
+resize( fn ) 窗口或框架被调整尺寸 window, iframe, frame
+scroll( fn ) 滚动文档的可视部分时 window
+select( ) 文本被选定 document, input, textarea
+submit( ) 提交按钮被点击 form
+unload( fn ) 用户退出页面 window
+
+JQuery Ajax 方法说明:
+
+load( url, [data], [callback] ) 装入一个远程HTML内容到一个DOM结点。
+$(”#feeds”).load(”feeds.html”); 将feeds.html文件载入到id为feeds的div中
+$(”#feeds”).load(”feeds.php”, {limit: 25}, function(){
+alert(”The last 25 entries in the feed have been loaded”);
+});
+
+jQuery.get( url, [data], [callback] ) 使用GET请求一个页面。
+$.get(”test.cgi”, { name: “John”, time: “2pm” }, function(data){
+alert(”Data Loaded: ” + data);
+});
+
+jQuery.getJSON( url, [data], [callback] ) 使用GET请求JSON数据。
+$.getJSON(”test.js”, { name: “John”, time: “2pm” }, function(json){
+alert(”JSON Data: ” + json.users[3].name);
+});
+
+jQuery.getScript( url, [callback] ) 使用GET请求javascript文件并执行。
+$.getScript(”test.js”, function(){
+alert(”Script loaded and executed.”);
+});
+jQuery.post( url, [data], [callback], [type] ) 使用POST请求一个页面。
+
+ajaxComplete( callback ) 当一个AJAX请求结束后，执行一个函数。这是一个Ajax事件
+$(”#msg”).ajaxComplete(function(request, settings){
+$(this).append(”<li>Request Complete.</li>”);
+});
+ajaxError( callback ) 当一个AJAX请求失败后，执行一个函数。这是一个Ajax事件
+$(”#msg”).ajaxError(function(request, settings){
+$(this).append(”<li>Error requesting page ” + settings.url + “</li>”);
+});
+
+ajaxSend( callback ) 在一个AJAX请求发送时，执行一个函数。这是一个Ajax事件
+$(”#msg”).ajaxSend(function(evt, request, settings){
+$(this).append(”<li<Starting request at ” + settings.url
++ “</li<”);
+});
+
+ajaxStart( callback ) 在一个AJAX请求开始但还没有激活时，执行一个函数。这是一个Ajax事件
+当AJAX请求开始(并还没有激活时)显示loading信息
+$(”#loading”).ajaxStart(function(){
+$(this).show();
+});
+
+ajaxStop( callback ) 当所有的AJAX都停止时，执行一个函数。这是一个Ajax事件
+当所有AJAX请求都停止时，隐藏loading信息。
+$(”#loading”).ajaxStop(function(){
+$(this).hide();
+});
+
+ajaxSuccess( callback ) 当一个AJAX请求成功完成后，执行一个函数。这是一个Ajax事件
+当AJAX请求成功完成时，显示信息。
+$(”#msg”).ajaxSuccess(function(evt, request, settings){
+$(this).append(”<li>Successful Request!</li>”);
+});
+
+jQuery.ajaxSetup( options ) 为所有的AJAX请求进行全局设置。查看$.ajax函数取得所有选项信息。
+设置默认的全局AJAX请求选项。
+$.ajaxSetup({
+url: “/xmlhttp/”,
+global: false,
+type: “POST”
+});
+$.ajax({ data: myData });
+
+serialize( ) 以名称和值的方式连接一组input元素。实现了正确表单元素序列
+function showValues() {
+var str = $(”form”).serialize();
+$(”#results”).text(str);
+}
+$(”:checkbox, :radio”).click(showValues);
+$(”select”).change(showValues);
+showValues();
+
+serializeArray( ) 连接所有的表单和表单元素(类似于.serialize()方法)，但是返回一个JSON数据格式。
+从form中取得一组值，显示出来
+function showValues() {
+var fields = $(”:input”).serializeArray();
+alert(fields);
+$(”#results”).empty();
+jQuery.each(fields, function(i, field){
+$(”#results”).append(field.value + ” “);
+});
+}
+$(”:checkbox, :radio”).click(showValues);
+$(”select”).change(showValues);
+showValues();
+
+JQuery Effects 方法说明
+
+show( ) 显示隐藏的匹配元素。
+show( speed, [callback] ) 以优雅的动画显示所有匹配的元素，并在显示完成后可选地触发一个回调函数。
+hide( ) 隐藏所有的匹配元素。
+hide( speed, [callback] ) 以优雅的动画隐藏所有匹配的元素，并在显示完成后可选地触发一个回调函数
+toggle( ) 切换元素的可见状态。如果元素是可见的，切换为隐藏的；如果元素是隐藏的，
+切换为可见的。
+slideDown( speed, [callback] ) 通过高度变化（向下增大）来动态地显示所有匹配的元素，在显示完成后可选
+地触发一个回调函数。这个动画效果只调整元素的高度，可以使匹配的元素以
+“滑动”的方式显示出来。
+slideUp( speed, [callback] ) 通过高度变化（向上减小）来动态地隐藏所有匹配的元素，在隐藏完成后可选地
+触发一个回调函数。这个动画效果只调整元素的高度，可以使匹配的元素以”滑动”
+的方式隐藏起来。
+slideToggle( speed, [callback] ) 通过高度变化来切换所有匹配元素的可见性，并在切换完成后可选地触发一个回
+调函数。 这个动画效果只调整元素的高度，可以使匹配的元素以”滑动”的方式隐
+藏或显示。
+fadeIn( speed, [callback] ) 通过不透明度的变化来实现所有匹配元素的淡入效果，并在动画完成后可选地触
+发一个回调函数。 这个动画只调整元素的不透明度，也就是说所有匹配的元素的
+高度和宽度不会发生变化。
+fadeOut( speed, [callback] ) 通过不透明度的变化来实现所有匹配元素的淡出效果，并在动画完成后可选地触
+发一个回调函数。 这个动画只调整元素的不透明度，也就是说所有匹配的元素的
+高度和宽度不会发生变化。
+fadeTo( speed, opacity, [callback] ) 把所有匹配元素的不透明度以渐进方式调整到指定的不透明度，并在动画完成
+后可选地触发一个回调函数。 这个动画只调整元素的不透明度，也就是说所
+有匹配的元素的高度和宽度不会发生变化。
+stop( ) 停止所有匹配元素当前正在运行的动画。如果有动画处于队列当中，他们就会立即开始。
+queue( ) 取得第一个匹配元素的动画序列的引用(返回一个内容为函数的数组)
+queue( callback ) 在每一个匹配元素的事件序列的末尾添加一个可执行函数，作为此元素的事件函数
+queue( queue ) 以一个新的动画序列代替所有匹配元素的原动画序列
+dequeue( ) 执行并移除动画序列前端的动画
+animate( params, [duration], [easing], [callback] ) 用于创建自定义动画的函数。
+animate( params, options ) 创建自定义动画的另一个方法。作用同上。
+
+JQuery Traversing 方法说明
+
+eq( index ) 从匹配的元素集合中取得一个指定位置的元素，index从0开始
+filter( expr ) 返回与指定表达式匹配的元素集合，可以使用”,”号分割多个expr，用于实现多个条件筛选
+filter( fn ) 利用一个特殊的函数来作为筛选条件移除集合中不匹配的元素。
+is( expr ) 用一个表达式来检查当前选择的元素集合，如果其中至少有一个元素符合这个给定的
+表达式就返回true。
+map( callback ) 将jQuery对象中的一组元素利用callback方法转换其值，然后添加到一个jQuery数组中。
+not( expr ) 从匹配的元素集合中删除与指定的表达式匹配的元素。
+slice( start, [end] ) 从匹配元素集合中取得一个子集，和内建的数组的slice方法相同。
+add( expr ) 把与表达式匹配的元素添加到jQuery对象中。
+children( [expr] ) 取得一个包含匹配的元素集合中每一个元素的所有子元素的元素集合。可选的过滤器
+将使这个方法只匹配符合的元素(只包括元素节点，不包括文本节点)。
+contents( ) 取得一个包含匹配的元素集合中每一个元素的所有子孙节点的集合(只包括元素节点，不
+包括文本节点)，如果元素为iframe，则取得其中的文档元素
+find( expr ) 搜索所有与指定表达式匹配的元素。
+next( [expr] ) 取得一个包含匹配的元素集合中每一个元素紧邻的后面同辈元素的元素集合。
+nextAll( [expr] ) 取得一个包含匹配的元素集合中每一个元素所有的后面同辈元素的元素集合
+parent( [expr] ) 取得一个包含着所有匹配元素的唯一父元素的元素集合。
+parents( [expr] ) 取得一个包含着所有匹配元素的唯一祖先元素的元素集合（不包含根元素）。
+prev( [expr] ) 取得一个包含匹配的元素集合中每一个元素紧邻的前一个同辈元素的元素集合。
+prevAll( [expr] ) 取得一个包含匹配的元素集合中每一个元素的之前所有同辈元素的元素集合。
+siblings( [expr] ) 取得一个包含匹配的元素集合中每一个元素的所有同辈元素的元素集合。
+andSelf( ) 将前一个匹配的元素集合添加到当前的集合中
+取得所有div元素和其中的p元素，添加border类属性。取得所有div元素中的p元素，
+添加background类属性
+$(”div”).find(”p”).andSelf().addClass(”border”);
+$(”div”).find(”p”).addClass(”background”);
+end( ) 结束当前的操作，回到当前操作的前一个操作
+找到所有p元素其中的span元素集合，然后返回p元素集合，添加css属性
+$(”p”).find(”span”).end().css(”border”, “2px red solid”);
+
+JQuery Selectors 方法说明
+
+基本选择器
+$(”#myDiv”) 匹配唯一的具有此id值的元素
+$(”div”) 匹配指定名称的所有元素
+$(”.myClass”) 匹配具有此class样式值的所有元素
+$(”*”) 匹配所有元素
+$(”div,span,p.myClass”) 联合所有匹配的选择器
+层叠选择器
+$(”form input”) 后代选择器，选择ancestor的所有子孙节点
+$(”#main > *”) 子选择器，选择parent的所有子节点
+$(”label + input”) 临选择器，选择prev的下一个临节点
+$(”#prev ~ div”) 同胞选择器，选择prev的所有同胞节点
+基本过滤选择器
+$(”tr:first”) 匹配第一个选择的元素
+$(”tr:last”) 匹配最后一个选择的元素
+$(”input:not(:checked) + span”)从原元素集合中过滤掉匹配selector的所有元素（这里有是一个临选择器）
+$(”tr:even”) 匹配集合中偶数位置的所有元素(从0开始)
+$(”tr:odd”) 匹配集合中奇数位置的所有元素(从0开始)
+$(”td:eq(2)”) 匹配集合中指定位置的元素(从0开始)
+$(”td:gt(4)”) 匹配集合中指定位置之后的所有元素(从0开始)
+$(”td:gl(4)”) 匹配集合中指定位置之前的所有元素(从0开始)
+$(”:header”) 匹配所有标题
+$(”div:animated”) 匹配所有正在运行动画的所有元素
+内容过滤选择器
+$(”div:contains(’John’)”) 匹配含有指定文本的所有元素
+$(”td:empty”) 匹配所有空元素(只含有文本的元素不算空元素)
+$(”div:has(p)”) 从原元素集合中再次匹配所有至少含有一个selector的所有元素
+$(”td:parent”) 匹配所有不为空的元素(含有文本的元素也算)
+$(”div:hidden”) 匹配所有隐藏的元素，也包括表单的隐藏域
+$(”div:visible”) 匹配所有可见的元素
+属性过滤选择器
+$(”div[id]”) 匹配所有具有指定属性的元素
+$(”input[name=’newsletter’]”) 匹配所有具有指定属性值的元素
+$(”input[name!=’newsletter’]”) 匹配所有不具有指定属性值的元素
+$(”input[name^=’news’]”) 匹配所有指定属性值以value开头的元素
+$(”input[name$=’letter’]”) 匹配所有指定属性值以value结尾的元素
+$(”input[name*=’man’]”) 匹配所有指定属性值含有value字符的元素
+$(”input[id][name$=’man’]”) 匹配同时符合多个选择器的所有元素
+子元素过滤选择器
+$(”ul li:nth-child(2)”),
+$(”ul li:nth-child(odd)”), 匹配父元素的第n个子元素
+$(”ul li:nth-child(3n + 1)”)
+
+$(”div span:first-child”) 匹配父元素的第1个子元素
+$(”div span:last-child”) 匹配父元素的最后1个子元素
+$(”div button:only-child”) 匹配父元素的唯一1个子元素
+表单元素选择器
+$(”:input”) 匹配所有的表单输入元素，包括所有类型的input, textarea, select 和 button
+$(”:text”) 匹配所有类型为text的input元素
+$(”:password”) 匹配所有类型为password的input元素
+$(”:radio”) 匹配所有类型为radio的input元素
+$(”:checkbox”) 匹配所有类型为checkbox的input元素
+$(”:submit”) 匹配所有类型为submit的input元素
+$(”:image”) 匹配所有类型为image的input元素
+$(”:reset”) 匹配所有类型为reset的input元素
+$(”:button”) 匹配所有类型为button的input元素
+$(”:file”) 匹配所有类型为file的input元素
+$(”:hidden”) 匹配所有类型为hidden的input元素或表单的隐藏域
+表单元素过滤选择器
+$(”:enabled”) 匹配所有可操作的表单元素
+$(”:disabled”) 匹配所有不可操作的表单元素
+$(”:checked”) 匹配所有已点选的元素
+$(”select option:selected”) 匹配所有已选择的元素
+JQuery CSS 方法说明
+
+css( name ) 访问第一个匹配元素的样式属性。
+css( properties ) 把一个”名/值对”对象设置为所有匹配元素的样式属性。
+$(”p”).hover(function () {
+$(this).css({ backgroundColor:”yellow”, fontWeight:”bolder” });
+}, function () {
+var cssObj = {
+backgroundColor: “#ddd”,
+fontWeight: “”,
+color: “rgb(0,40,244)”
+}
+$(this).css(cssObj);
+});
+css( name, value ) 在所有匹配的元素中，设置一个样式属性的值。
+offset( ) 取得匹配的第一个元素相对于当前可视窗口的位置。返回的对象有2个属性，
+top和left，属性值为整数。这个函数只能用于可见元素。
+var p = $(”p:last”);
+var offset = p.offset();
+p.html( “left: ” + offset.left + “, top: ” + offset.top );
+width( ) 取得当前第一匹配的元素的宽度值，
+width( val ) 为每个匹配的元素设置指定的宽度值。
+height( ) 取得当前第一匹配的元素的高度值，
+height( val ) 为每个匹配的元素设置指定的高度值。
+
+JQuery Utilities 方法说明
+jQuery.browser
+.msie 表示ie
+jQuery.browser.version 读取用户浏览器的版本信息
+jQuery.boxModel 检测用户浏览器针对当前页的显示是否基于w3c CSS的盒模型
+jQuery.isFunction( obj ) 检测传递的参数是否为function
+function stub() { }
+var objs = [
+function () {},
+{ x:15, y:20 },
+null,
+stub,
+“function”
+];
+jQuery.each(objs, function (i) {
+var isFunc = jQuery.isFunction(objs[i]);
+$(”span:eq( ” + i + “)”).text(isFunc);
+});
+jQuery.trim( str ) 清除字符串两端的空格，使用正则表达式来清除给定字符两端的空格
+jQuery.each( object, callback ) 一个通用的迭代器，可以用来无缝迭代对象和数组
+jQuery.extend( target, object1, [objectN] ) 扩展一个对象，修改原来的对象并返回，这是一个强大的实现继承的
+工具，这种继承是采用传值的方法来实现的，而不是JavaScript中的
+原型链方式。
+合并settings和options对象，返回修改后的settings对象
+var settings = { validate: false, limit: 5, name: “foo” };
+var options = { validate: true, name: “bar” };
+jQuery.extend(settings, options);
+
+合并defaults和options对象，defaults对象并没有被修改。options对象中的值
+代替了defaults对象的值传递给了empty。
+
+var empty = {}
+var defaults = { validate: false, limit: 5, name: “foo” };
+var options = { validate: true, name: “bar” };
+var settings = $.extend(empty, defaults, options);
+jQuery.grep( array, callback, [invert] ) 通过一个筛选函数来去除数组中的项
+$.grep( [0,1,2], function(n,i){
+return n > 0;
+});
+jQuery.makeArray( obj ) 将一个类似数组的对象转化为一个真正的数组
+将选取的div元素集合转化为一个数组
+var arr = jQuery.makeArray(document.getElementsByTagName(”div”));
+arr.reverse(); // use an Array method on list of dom elements
+$(arr).appendTo(document.body);
+jQuery.map( array, callback ) 使用某个方法修改一个数组中的项，然后返回一个新的数组
+jQuery.inArray( value, array ) 返回value在数组中的位置，如果没有找到，则返回-1
+jQuery.unique( array ) 删除数组中的所有重复元素，返回整理后的数组
+
+键盘上每个键作用!!! （史上最全的）
+F1帮助
+F2改名
+F3搜索
+F4地址
+F5刷新
+F6切换
+F10菜单
+CTRL+A全选
+CTRL+C复制
+CTRL+X剪切
+CTRL+V粘贴
+CTRL+Z撤消
+CTRL+O打开
+SHIFT+DELETE永久删除
+DELETE删除
+ALT+ENTER属性
+ALT+F4关闭
+CTRL+F4关闭
+ALT+TAB切换
+ALT+ESC切换
+ALT+空格键窗口菜单
+CTRL+ESC开始菜单
+拖动某一项时按CTRL复制所选项目
+拖动某一项时按CTRL+SHIFT创建快捷方式
+将光盘插入到CD-ROM驱动器时按SHIFT键阻止光盘自动播放
+Ctrl+1,2,3...　切换到从左边数起第1,2,3...个标签
+Ctrl+A　全部选中当前页面内容
+Ctrl+C　复制当前选中内容
+Ctrl+D　打开“添加收藏”面版(把当前页面添加到收藏夹中)
+Ctrl+E　打开或关闭“搜索”侧边栏(各种搜索引擎可选)
+Ctrl+F　打开“查找”面版
+Ctrl+G　打开或关闭“简易收集”面板
+Ctrl+H　打开“历史”侧边栏
+Ctrl+I　打开“收藏夹”侧边栏/另:将所有垂直平铺或水平平铺或层叠的窗口恢复
+Ctrl+K　关闭除当前和锁定标签外的所有标签
+Ctrl+L　打开“打开”面版(可以在当前页面打开Iternet地址或其他文件...)
+Ctrl+N　新建一个空白窗口(可更改,Maxthon选项→标签→新建)
+Ctrl+O　打开“打开”面版(可以在当前页面打开Iternet地址或其他文件...)
+Ctrl+P　打开“打印”面板(可以打印网页,图片什么的...)
+Ctrl+Q　打开“添加到过滤列表”面板(将当前页面地址发送到过滤列表)
+Ctrl+R　刷新当前页面
+Ctrl+S　打开“保存网页”面板(可以将当前页面所有内容保存下来)
+Ctrl+T　垂直平铺所有窗口
+Ctrl+V　粘贴当前剪贴板内的内容
+Ctrl+W　关闭当前标签(窗口)
+Ctrl+X　剪切当前选中内容(一般只用于文本操作)
+Ctrl+Y　重做刚才动作(一般只用于文本操作)
+Ctrl+Z　撤消刚才动作(一般只用于文本操作)
+Ctrl+F4　关闭当前标签(窗口)
+Ctrl+F5　刷新当前页面
+Ctrl+F6　按页面打开的先后时间顺序向前切换标签(窗口)
+Ctrl+F11　隐藏或显示菜单栏
+Ctrl+Tab　以小菜单方式向下切换标签(窗口)
+Ctrl+Enter　域名自动完成[url=]http://www.**.com[/url](内容可更改,Maxthon选项→地址栏→常规)/另:当输入焦点在搜索栏中时,为高亮关键字
+Ctrl+拖曳　保存该链接的地址或已选中的文本或指定的图片到一个文件夹中(保存目录可更改,Maxthon选项→保存)
+Ctrl+小键盘'+'　当前页面放大20%
+Ctrl+小键盘'-'　当前页面缩小20%
+Ctrl+小键盘'*'　恢复当前页面的缩放为原始大小
+Ctrl+Alt+S　自动保存当前页面所有内容到指定文件夹(保存路径可更改,Maxthon选项→保存)
+Ctrl+Shift+小键盘'+'　所有页面放大20%
+Ctrl+Shift+小键盘'-'　所有页面缩小20%
+Ctrl+Shift+F　输入焦点移到搜索栏
+Ctrl+Shift+G　关闭“简易收集”面板
+Ctrl+Shift+H　打开并激活到你设置的主页
+Ctrl+Shift+N　在新窗口中打开剪贴板中的地址,如果剪贴板中为文字,则调用搜索引擎搜索该文字(搜索引擎可选择,Maxthon选项→搜索)
+Ctrl+Shift+S　打开“保存网页”面板(可以将当前页面所有内容保存下来,等同于Ctrl+S)　
+Ctrl+Shift+W　关闭除锁定标签外的全部标签(窗口)
+Ctrl+Shift+F6　按页面打开的先后时间顺序向后切换标签(窗口)
+Ctrl+Shift+Tab　以小菜单方式向上切换标签(窗口)
+Ctrl+Shift+Enter　域名自动完成
+Alt+1　保存当前表单
+Alt+2　保存为通用表单
+Alt+A　展开收藏夹列表
+资源管理器
+END显示当前窗口的底端
+HOME显示当前窗口的顶端
+NUMLOCK+数字键盘的减号(-)折叠所选的文件夹
+NUMLOCK+数字键盘的加号(+)显示所选文件夹的内容
+NUMLOCK+数字键盘的星号(*)显示所选文件夹的所有子文件夹
+向左键当前所选项处于展开状态时折叠该项，或选定其父文件夹
+向右键当前所选项处于折叠状态时展开该项，或选定第一个子文件夹
+自然键盘
+【窗口】显示或隐藏“开始”菜单
+【窗口】+F1帮助
+【窗口】+D显示桌面
+【窗口】+R打开“运行”
+【窗口】+E打开“我的电脑”
+【窗口】+F搜索文件或文件夹
+【窗口】+U打开“工具管理器”
+【窗口】+BREAK显示“系统属性”
+【窗口】+TAB在打开的项目之间切换
+辅助功能
+按右边的SHIFT键八秒钟切换筛选键的开和关
+按SHIFT五次切换粘滞键的开和关
+按NUMLOCK五秒钟切换切换键的开和关
+左边的ALT+左边的SHIFT+NUMLOCK切换鼠标键的开和关
+左边的ALT+左边的SHIFT+PRINTSCREEN切换高对比度的开和关
+运行
+按“开始”－“运行”，或按WIN键+R，在『运行』窗口中输入：
+（按英文字符顺序排列）
+%temp%---------打开临时文件夹
+.--------------C:\DocumentsandSettings\用户名所在文件夹
+..-------------C:\DocumentsandSettings
+...------------我的电脑
+\--------------C盘
+appwize.cpl----添加、删除程序
+access.cpl-----辅助功能选项
+Accwiz---------辅助功能向导
+cmd------------CMD命令提示符
+command--------CMD命令提示符
+chkdsk.exe-----Chkdsk磁盘检查
+certmgr.msc----证书管理实用程序
+calc-----------启动计算器
+charmap--------启动字符映射表
+cintsetp-------仓颉拼音输入法
+cliconfg-------SQLSERVER客户端网络实用程序
+clipbrd--------剪贴板查看器
+control--------打开控制面板
+conf-----------启动netmeeting
+compmgmt.msc---计算机管理
+cleanmgr-------垃圾整理
+ciadv.msc------索引服务程序
+dcomcnfg-------打开系统组件服务
+ddeshare-------打开DDE共享设置
+dxdiag---------检查DirectX信息
+drwtsn32-------系统医生
+devmgmt.msc----设备管理器
+desk.cpl-------显示属性
+dfrg.msc-------磁盘碎片整理程序
+diskmgmt.msc---磁盘管理实用程序
+dvdplay--------DVD播放器
+eventvwr-------一个事情查看器
+eudcedit-------造字程序
+explorer-------打开资源管理器
+fsmgmt.msc-----共享文件夹管理器
+firewall.cpl---WINDOWS防火墙
+gpedit.msc-----组策略
+hdwwiz.cpl-----添加硬件
+iexpress-------木马捆绑工具，系统自带
+inetcpl.cpl----INTETNET选项
+intl.cpl-------区域和语言选项（输入法选项）
+irprops.cpl----无线链接
+joy.cpl--------游戏控制器
+lusrmgr.msc----本机用户和组
+logoff---------注销命令
+main.cpl-------鼠标
+mem.exe--------显示内存使用情况
+migwiz---------文件转移向导
+mlcfg32.cpl----邮件
+mplayer2-------简易widnowsmediaplayer
+mspaint--------画图板
+msconfig.exe---系统配置实用程序
+mstsc----------远程桌面连接
+magnify--------放大镜实用程序
+mmc------------打开控制台
+mmsys.cpl------声音和音频设备
+mobsync--------同步命令
+ncpa.cpl-------网络连接
+nslookup-------IP地址侦测器
+netstartX----开始X服务
+netstopX-----停止X服务
+netstat-an----命令检查接口
+netsetup.cpl---无线网络安装向导
+notepad--------打开记事本
+nslookup-------IP地址侦探器
+narrator-------屏幕“讲述人”
+ntbackup-------系统备份和还原
+ntmsmgr.msc----移动存储管理器
+ntmsoprq.msc---移动存储管理员操作请求
+nusrmgr.cpl----用户账户
+nwc.cpl--------NetWare客户服务
+osk------------打开屏幕键盘
+odbcad32-------ODBC数据源管理器
+odbccp32.cpl---ODBC数据源管理器
+oobe/msoobe/a-检查XP是否激活
+packager-------对象包装程序
+perfmon.msc----计算机性能监测程序
+powercfg.cpl---电源选项
+progman--------程序管理器
+regedit--------注册表
+rsop.msc-------组策略结果集
+regedt32-------注册表编辑器
+regsvr32/?----调用、卸载DLL文件运行（详细请在cmd中输入regsvr32/?）
+sapi.cpl-------语音
+services.msc---本地服务设置
+syncapp--------创建一个公文包
+sysedit--------系统配置编辑器
+sigverif-------文件签名验证程序
+sndrec32-------录音机
+sndvol32-------音量控制程序
+shrpubw--------共享文件夹设置工具
+secpol.msc-----本地安全策略
+sysdm.cpl------系统
+syskey---------系统加密（一旦加密就不能解开，保护windowsxp系统的双重密码）
+services.msc---本地服务设置
+sfc.exe--------系统文件检查器
+sfc/scannow---windows文件保护
+shutdown-------关机命令（详细请在cmd中输入shutdown/?）
+taskmgr--------任务管理器
+telephon.cpl---电话和调制解调器选项
+telnet---------远程连接程序
+timedate.cpl---日期和时间
+tourstart------xp简介（安装完成后出现的漫游xp程序）
+tsshutdn-------60秒倒计时关机命令
+utilman--------辅助工具管理器
+winver---------检查Windows版本
+winmsd---------系统信息
+wiaacmgr-------扫描仪和照相机向导
+winchat--------XP自带局域网聊天
+wmimgmt.msc----打开windows管理体系结构(WMI)
+wordpad--------写字板
+wuaucpl.cpl----自动更新
+wupdmgr--------windows更新程序
+write----------写字板
+wscript--------windows脚本宿主设置
+wscui.cpl------安全中心
+C:/windows/fonts字体
+经典：从追MM谈Java的23种设计模式
+2007-07-27 12:54 
+
+
+　　从追MM谈Java的23种设计模式
+
+　　1、FACTORY—追MM少不了请吃饭了，麦当劳的鸡翅和肯德基的鸡翅都是MM爱吃的东西，虽然口味有所不同，但不管你带MM去麦当劳或肯 德基，只管向服务员说“来四个鸡翅”就行了。麦当劳和肯德基就是生产鸡翅的Factory.
+
+　　　　工厂模式：客户类和工厂类分开。消费者任何时候需要某种产品，只需向工厂请求即可。消费者无须修改就可以接纳新产品。缺点 是当产品修改时，工厂类也要做相应的修改。如：如何创建及如何向客户端提供。
+
+　　程序代码
+
+　　以下是引用片段：
+
+    public class Factory{ 
+　　　　　　public String Boy = "boy" ; 
+　　　　 　 public String Girl = "girl" ; 
+　　　　　　public People getPeople (String people){ 
+　　　　　　　　if (people.equals("boy")){ 
+　　　　　　　　　　return new Boy(); 
+　　　　　　　　}else if(people.equals("girl")){ 
+　　　　　　　　　　return new Girl(); 
+　　　　　 　　　} 
+　　　　　　} 
+    } 
+
+
+　　2、BUILDER—MM最爱听的就是“我爱你”这句话了，见到不同地方的MM,要能够用她们的方言跟她说这句话哦，我有一个多种语言翻译机，上面每种语言都有一个按键，见到MM我只要按对应的键，它就能够用相应的语言说出“我爱你”这句话了，国外的MM也可以轻松搞掂，这就是我的“我爱你”builder。(这一定比美军在伊拉克用的翻译机好卖)
+
+　　 建造模式：将产品的内部表象和产品的生成过程分割开来，从而使一个建造过程生成具有不同的内部表象的产品对象。建造模式使得 产品内部表象可以独立的变化，客户不必知道产品内部组成的细节。建造模式可以强制实行一种分步骤进行的建造过程。
+
+　　3、FACTORY METHOD—请MM去麦当劳吃汉堡，不同的MM有不同的口味，要每个都记住是一件烦人的事情，我一般采用Factory Method模 式，带着MM到服务员那儿，说“要一个汉堡”，具体要什么样的汉堡呢，让MM直接跟服务员说就行了。
+
+　　　　工厂方法模式：核心工厂类不再负责所有产品的创建，而是将具体创建的工作交给子类去做，成为一个抽象工厂角色，仅负责给出 具体工厂类必须实现的接口，而不接触哪一个产品类应当被实例化这种细节。
+
+　　4、PROTOTYPE—跟MM用QQ聊天，一定要说些深情的话语了，我搜集了好多肉麻的情话，需要时只要copy出来放到QQ里面就行了，这就是 我的情话prototype了。(100块钱一份，你要不要)
+
+　　　　原始模型模式：通过给出一个原型对象来指明所要创建的对象的类型，然后用复制这个原型对象的方法创建出更多同类型的对象。 原始模型模式允许动态的增加或减少产品类，产品类不需要非得有任何事先确定的等级结构，原始模型模式适用于任何的等级结构。缺点是每 一个类都必须配备一个克隆方法。
+
+　　5、SINGLETON—俺有6个漂亮的老婆，她们的老公都是我，我就是我们家里的老公Sigleton，她们只要说道“老公”，都是指的同一个人，那就是我(刚才做了个梦啦，哪有这么好的事)
+
+　　　　单例模式：单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例单例模式。单例模式只应在有真正的 “单一实例”的需求时才可使用。
+
+　　以下是引用片段：
+
+　　　　public　class SingLeton{ 
+　　　　　　private static SingLeton instance = new SingLeton(); 
+　　　　　　public static SingLeton getInstance(){ 
+　　　　　　　　return instance; 
+　　　　　　} 
+　　　　} 
+
+
+　　6、ADAPTER—在朋友聚会上碰到了一个美女Sarah，从香港来的，可我不会说粤语，她不会说普通话，只好求助于我的朋友kent了，他作为我和Sarah之间的Adapter，让我和Sarah可以相互交谈了(也不知道他会不会耍我)
+
+　　　　适配器(变压器)模式：把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口原因不匹配而无法一起工作的两个类能够一起工作。适配类可以根据参数返还一个合适的实例给客户端。
+
+　　7、BRIDGE—早上碰到MM，要说早上好，晚上碰到MM，要说晚上好;碰到MM穿了件新衣服，要说你的衣服好漂亮哦，碰到MM新做的发型，要说你的头发好漂亮哦。不要问我“早上碰到MM新做了个发型怎么说”这种问题，自己用BRIDGE组合一下不就行了
+
+　　桥梁模式：将抽象化与实现化脱耦，使得二者可以独立的变化，也就是说将他们之间的强关联变成弱关联，也就是指在一个软件系统的抽象化和实现化之间使用组合/聚合关系而不是继承关系，从而使两者可以独立的变化。
+
+　　8、COMPOSITE—Mary今天过生日。“我过生日，你要送我一件礼物。”“嗯，好吧，去商店，你自己挑。”“这件T恤挺漂亮，买，这 条裙子好看，买，这个包也不错，买。”“喂，买了三件了呀，我只答应送一件礼物的哦。”“什么呀，T恤加裙子加包包，正好配成一套呀，小姐，麻烦你包起来。”“……”，MM都会用Composite模式了，你会了没有?
+
+　　　　合成模式：合成模式将对象组织到树结构中，可以用来描述整体与部分的关系。合成模式就是一个处理对象的树结构的模式。合成模式把部分与整体的关系用树结构表示出来。合成模式使得客户端把一个个单独的成分对象和由他们复合而成的合成对象同等看待。
+
+　　9、DECORATOR—Mary过完轮到Sarly过生日，还是不要叫她自己挑了，不然这个月伙食费肯定玩完，拿出我去年在华山顶上照的照片，在背面写上“最好的的礼物，就是爱你的Fita”，再到街上礼品店买了个像框(卖礼品的MM也很漂亮哦)，再找隔壁搞美术设计的Mike设计了一个漂亮的盒子装起来……，我们都是Decorator，最终都在修饰我这个人呀，怎么样，看懂了吗?
+
+　　　　装饰模式：装饰模式以对客户端透明的方式扩展对象的功能，是继承关系的一个替代方案，提供比继承更多的灵活性。动态给一个 对象增加功能，这些功能可以再动态的撤消。增加由一些基本功能的排列组合而产生的非常大量的功能。
+
+　　10、FA?ADE—我有一个专业的Nikon相机，我就喜欢自己手动调光圈、快门，这样照出来的照片才专业，但MM可不懂这些，教了半天也 不会。幸好相机有Fa?ade设计模式，把相机调整到自动档，只要对准目标按快门就行了，一切由相机自动调整，这样MM也可以用这个相机给我 拍张照片了。
+
+　　　　门面模式：外部与一个子系统的通信必须通过一个统一的门面对象进行。门面模式提供一个高层次的接口，使得子系统更易于使用 。每一个子系统只有一个门面类，而且此门面类只有一个实例，也就是说它是一个单例模式。但整个系统可以有多个门面类。
+
+　　11、FLYWEIGHT—每天跟MM发短信，手指都累死了，最近买了个新手机，可以把一些常用的句子存在手机里，要用的时候，直接拿出来 ，在前面加上MM的名字就可以发送了，再不用一个字一个字敲了。共享的句子就是Flyweight，MM的名字就是提取出来的外部特征，根据上下文 情况使用。
+
+　　　　享元模式：FLYWEIGHT在拳击比赛中指最轻量级。享元模式以共享的方式高效的支持大量的细粒度对象。享元模式能做到共享的关 键是区分内蕴状态和外蕴状态。内蕴状态存储在享元内部，不会随环境的改变而有所不同。外蕴状态是随环境的改变而改变的。外蕴状态不能 影响内蕴状态，它们是相互独立的。将可以共享的状态和不可以共享的状态从常规类中区分开来，将不可以共享的状态从类里剔除出去。客户 端不可以直接创建被共享的对象，而应当使用一个工厂对象负责创建被共享的对象。享元模式大幅度的降低内存中对象的数量。
+
+　　12、PROXY—跟MM在网上聊天，一开头总是“hi,你好”,“你从哪儿来呀?”“你多大了?”“身高多少呀?”这些话，真烦人，写个程序 做为我的Proxy吧，凡是接收到这些话都设置好了自动的回答，接收到其他的话时再通知我回答，怎么样，酷吧。
+
+　　　　代理模式：代理模式给某一个对象提供一个代理对象，并由代理对象控制对源对象的引用。代理就是一个人或一个机构代表另一个 人或者一个机构采取行动。某些情况下，客户不想或者不能够直接引用一个对象，代理对象可以在客户和目标对象直接起到中介的作用。客户 端分辨不出代理主题对象与真实主题对象。代理模式可以并不知道真正的被代理对象，而仅仅持有一个被代理对象的接口，这时候代理对象不 能够创建被代理对象，被代理对象必须有系统的其他角色代为创建并传入。
+
+以下是引用片段：
+　　　　public interface FactoryProxy{ 
+　　　　　　public People createBoy(); 
+　　　　　　 public People creteGirl(); 
+　　　　} 
+
+
+　　13、CHAIN OF RESPONSIBLEITY—晚上去上英语课，为了好开溜坐到了最后一排，哇，前面坐了好几个漂亮的MM哎，找张纸条，写上 “Hi,可以做我的女朋友吗?如果不愿意请向前传”，纸条就一个接一个的传上去了，糟糕，传到第一排的MM把纸条传给老师了，听说是个老处 女呀，快跑!
+
+　　　　责任链模式：在责任链模式中，很多对象由每一个对象对其下家的引用而接
+
+　　　　起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。客户并不知道链上的哪一个对象最终处理这个请 求，系统可以在不影响客户端的情况下动态的重新组织链和分配责任。处理者有两个选择：承担责任或者把责任推给下家。一个请求可以最终 不被任何接收端对象所接受。
+
+　　14、COMMAND—俺有一个MM家里管得特别严，没法见面，只好借助于她弟弟在我们俩之间传送信息，她对我有什么指示，就写一张纸条 让她弟弟带给我。这不，她弟弟又传送过来一个COMMAND，为了感谢他，我请他吃了碗杂酱面，哪知道他说：“我同时给我姐姐三个男朋友送 COMMAND，就数你最小气，才请我吃面。”，
+
+　　　　命令模式：命令模式把一个请求或者操作封装到一个对象中。命令模式把发出命令的责任和执行命令的责任分割开，委派给不同的 对象。命令模式允许请求的一方和发送的一方独立开来，使得请求的一方不必知道接收请求的一方的接口，更不必知道请求是怎么被接收，以 及操作是否执行，何时被执行以及是怎么被执行的。系统支持命令的撤消。
+
+
+　　15、INTERPRETER—俺有一个《泡MM真经》，上面有各种泡MM的攻略，比如说去吃西餐的步骤、去看电影的方法等等，跟MM约会时，只 要做一个Interpreter，照着上面的脚本执行就可以了。
+
+　　　　解释器模式：给定一个语言后，解释器模式可以定义出其文法的一种表示，并同时提供一个解释器。客户端可以使用这个解释器来 解释这个语言中的句子。解释器模式将描述怎样在有了一个简单的文法后，使用模式设计解释这些语句。在解释器模式里面提到的语言是指任 何解释器对象能够解释的任何组合。在解释器模式中需要定义一个代表文法的命令类的等级结构，也就是一系列的组合规则。每一个命令对象 都有一个解释方法，代表对命令对象的解释。命令对象的等级结构中的对象的任何排列组合都是一个语言。
+
+　　16、ITERATOR—我爱上了Mary，不顾一切的向她求婚。
+
+　　　　Mary：“想要我跟你结婚，得答应我的条件”
+
+　　　　我：“什么条件我都答应，你说吧”
+
+　　　　Mary：“我看上了那个一克拉的钻石”
+
+　　　　我：“我买，我买，还有吗?”
+
+　　　　Mary：“我看上了湖边的那栋别墅”
+
+　　　　我：“我买，我买，还有吗?”
+
+　　　　Mary：“我看上那辆法拉利跑车”
+
+　　　　我脑袋嗡的一声，坐在椅子上，一咬牙：“我买，我买，还有吗?”
+
+　　　　……
+
+　　　　迭代子模式：迭代子模式可以顺序访问一个聚集中的元素而不必暴露聚集的内部表象。多个对象聚在一起形成的总体称之为聚集， 聚集对象是能够包容一组对象的容器对象。迭代子模式将迭代逻辑封装到一个独立的子对象中，从而与聚集本身隔开。迭代子模式简化了聚集 的界面。每一个聚集对象都可以有一个或一个以上的迭代子对象，每一个迭代子的迭代状态可以是彼此独立的。迭代算法可以独立于聚集角色 变化。
+
+　　17、MEDIATOR—四个MM打麻将，相互之间谁应该给谁多少钱算不清楚了，幸亏当时我在旁边，按照各自的筹码数算钱，赚了钱的从我这 里拿，赔了钱的也付给我，一切就OK啦，俺得到了四个MM的电话。
+
+　　　　调停者模式：调停者模式包装了一系列对象相互作用的方式，使得这些对象不必相互明显作用。从而使他们可以松散偶合。当某些 对象之间的作用发生改变时，不会立即影响其他的一些对象之间的作用。保证这些作用可以彼此独立的变化。调停者模式将多对多的相互作用 转化为一对多的相互作用。调停者模式将对象的行为和协作抽象化，把对象在小尺度的行为上与其他对象的相互作用分开处理。
+
+　　18、MEMENTO—同时跟几个MM聊天时，一定要记清楚刚才跟MM说了些什么话，不然MM发现了会不高兴的哦，幸亏我有个备忘录，刚才与 哪个MM说了什么话我都拷贝一份放到备忘录里面保存，这样可以随时察看以前的记录啦。
+
+　　　　备忘录模式：备忘录对象是一个用来存储另外一个对象内部状态的快照的对象。备忘录模式的用意是在不破坏封装的条件下，将一 个对象的状态捉住，并外部化，存储起来，从而可以在将来合适的时候把这个对象还原到存储起来的状态。
+
+　　19、OBSERVER—想知道咱们公司最新MM情报吗?加入公司的MM情报邮件组就行了，tom负责搜集情报，他发现的新情报不用一个一个通知 我们，直接发布给邮件组，我们作为订阅者(观察者)就可以及时收到情报啦
+
+　　　　观察者模式：观察者模式定义了一种一队多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生 变化时，会通知所有观察者对象，使他们能够自动更新自己。
+
+　　20、STATE—跟MM交往时，一定要注意她的状态哦，在不同的状态时她的行为会有不同，比如你约她今天晚上去看电影，对你没兴趣的 MM就会说“有事情啦”，对你不讨厌但还没喜欢上的MM就会说“好啊，不过可以带上我同事么?”，已经喜欢上你的MM就会说“几点钟?看完电 影再去泡吧怎么样?”，当然你看电影过程中表现良好的话，也可以把MM的状态从不讨厌不喜欢变成喜欢哦。
+
+　　　　状态模式：状态模式允许一个对象在其内部状态改变的时候改变行为。这个对象看上去象是改变了它的类一样。状态模式把所研究 的对象的行为包装在不同的状态对象里，每一个状态对象都属于一个抽象状态类的一个子类。状态模式的意图是让一个对象在其内部状态改变 的时候，其行为也随之改变。状态模式需要对每一个系统可能取得的状态创立一个状态类的子类。当系统的状态变化时，系统便改变所选的子 类。
+
+　　21、STRATEGY—跟不同类型的MM约会，要用不同的策略，有的请电影比较好，有的则去吃小吃效果不错，有的去海边浪漫最合适，单目 的都是为了得到MM的芳心，我的追MM锦囊中有好多Strategy哦。
+
+　　　　策略模式：策略模式针对一组算法，将每一个算法封装到具有共同接口的独立的类中，从而使得它们可以相互替换。策略模式使得 算法可以在不影响到客户端的情况下发生变化。策略模式把行为和环境分开。环境类负责维持和查询行为类，各种算法在具体的策略类中提供 。由于算法和环境独立开来，算法的增减，修改都不会影响到环境和客户端。
+
+　　22、TEMPLATE METHOD——看过《如何说服女生上床》这部经典文章吗?女生从认识到上床的不变的步骤分为巧遇、打破僵局、展开追求 、接吻、前戏、动手、爱抚、进去八大步骤(Template method)，但每个步骤针对不同的情况，都有不一样的做法，这就要看你随机应变啦(具 体实现);
+
+　　　　模板方法模式：模板方法模式准备一个抽象类，将部分逻辑以具体方法以及具体构造子的形式实现，然后声明一些抽象方法来迫使 子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。先制定一个顶级逻辑框架，而将逻 辑的细节留给具体的子类去实现。
+
+　　23、VISITOR—情人节到了，要给每个MM送一束鲜花和一张卡片，可是每个MM送的花都要针对她个人的特点，每张卡片也要根据个人的 特点来挑，我一个人哪搞得清楚，还是找花店老板和礼品店老板做一下Visitor，让花店老板根据MM的特点选一束花，让礼品店老板也根据每个人特点选一张卡，这样就轻松多了;
+
+　　　　访问者模式：访问者模式的目的是封装一些施加于某种数据结构元素之上的操作。一旦这些操作需要修改的话，接受这个操作的数 据结构可以保持不变。访问者模式适用于数据结构相对未定的系统，它把数据结构和作用于结构上的操作之间的耦合解脱开，使得操作集合可 以相对自由的演化。访问者模式使得增加新的操作变的很容易，就是增加一个新的访问者类。访问者模式将有关的行为集中到一个访问者对象 中，而不是分散到一个个的节点类中。当使用访问者模式时，要将尽可能多的对象浏览逻辑放在访问者类中，而不是放到它的子类中。访问者模式可以跨过几个类的等级结构访问属于不同的等级结构的成员类。
+
+
+
+
+
+

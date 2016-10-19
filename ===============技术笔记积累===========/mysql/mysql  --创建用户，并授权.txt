@@ -1,0 +1,30 @@
+1.登录mysql
+
+#mysql -u root -p
+
+2.新增用户
+
+insert into mysql.user(Host,User,Password) values("localhost","xxx",password("***"));
+
+注释：xxx为新建用户名，***为用户密码
+
+3.执行该句后，还需要刷新权限表
+
+flush privileges;
+
+4.赋予用户权限
+
+grant all on ttt.* to xxx@localhost identified by "***";
+
+注视:ttt为表名，当然你也可以填* 为所有表
+
+5.赋予权限，还需要再刷新权限表
+
+flush privileges;
+
+6.通过sql语句查询出新增结果
+
+select user,host,password from mysql.user;
+
+7 例如，你想mysql用户zhanhuanhuan使用密码ptmind2008从任何主机连接到mysql服务器的话。 
+GRANT ALL PRIVILEGES ON *.* TO 'ptengine'@'%' IDENTIFIED BY 'ptmind2008' WITH GRANT OPTION; 

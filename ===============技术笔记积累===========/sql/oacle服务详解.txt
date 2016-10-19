@@ -1,0 +1,32 @@
+成功安装Oracle 11g数据库后，你会发现自己电脑运行速度会变慢，配置较低的电脑甚至出现非常卡的状况，通过禁止非必须开启的Oracle服务可以提升电脑的运行速度。那么，具体该怎么做呢？
+按照win7 64位环境下Oracle 11g R2安装详解中的方法成功安装Oracle 11g后，共有7个服务，分别为Oracle ORCL VSS Writer Service，OracleDBConsoleorcl，OracleJobSchedulerORCL，
+OracleMTSRecoveryService，OracleOraDb11g_home1ClrAgent，OracleOraDb11g_home1TNSListener，OracleServiceORCL。其中OracleDBConsoleorcl，
+OracleMTSRecoveryService，OracleOraDb11g_home1TNSListener，OracleServiceORCL是默认自动启动的，OracleJobSchedulerORCL是默认自动禁止的，其余的默认为手动操作。假设您的全局数据库名为orcl，则您的Oracle服务应该和上面的一样。如下图所示：
+
+这七个服务的含义分别为：
+Oracle ORCL VSS Writer Service：Oracle卷映射拷贝写入服务，VSS（Volume Shadow Copy Service）能够让存储基础设备（比如磁盘，阵列等）创建高保真的时间点映像，即映射拷贝（shadow copy）。它可以在多卷或者单个卷上创建映射拷贝，同时不会影响到系统的系统能。（非必须启动）
+OracleDBConsoleorcl：Oracle数据库控制台服务，orcl是Oracle的实例标识，默认的实例为orcl。在运行Enterprise Manager（企业管理器OEM）的时候，需要启动这个服务。（非必须启动）
+OracleJobSchedulerORCL：Oracle作业调度（定时器）服务，ORCL是Oracle实例标识。（非必须启动）
+OracleMTSRecoveryService：服务端控制。该服务允许数据库充当一个微软事务服务器MTS、COM/COM+对象和分布式环境下的事务的资源管理器。（非必须启动）
+OracleOraDb11g_home1ClrAgent：Oracle数据库.NET扩展服务的一部分。 （非必须启动）
+OracleOraDb11g_home1TNSListener：监听器服务，服务只有在数据库需要远程访问的时候才需要。（非必须启动，下面会有详细详解）。
+OracleServiceORCL：数据库服务(数据库实例)，是Oracle核心服务该服务，是数据库启动的基础， 只有该服务启动，Oracle数据库才能正常启动。(必须启动)
+那么在开发的时候到底需要启动哪些服务呢？
+对新手来说，要是只用Oracle自带的sql*plus的话，只要启动OracleServiceORCL即可，要是使用PL/SQL Developer等第三方工具的话，OracleOraDb11g_home1TNSListener服务也要开启。OracleDBConsoleorcl是进入基于web的EM必须开启的，其余服务很少用。
+注：ORCL是数据库实例名，默认的数据库是ORCL，你可以创建其他的，即OracleService+数据库名。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

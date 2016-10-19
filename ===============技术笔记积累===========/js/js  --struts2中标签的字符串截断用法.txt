@@ -1,0 +1,7 @@
+struts2中标签的字符串截断用法
+<s:if test="serviceName.length()>6">
+<s:property value="serviceName.substring(0,6)"/>
+</s:if>
+<s:else>
+<s:property value="serviceName"/>
+</s:else>

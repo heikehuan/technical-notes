@@ -1,0 +1,23 @@
+对二楼进行补充
+字段类型为 
+如果想改小，没有数据可能直接用 alter table table_name modify column datatype；
+如果有数据，改小的话可以会丢失数据。
+比如：
+表：stu(name varchar2(20)) 要将字段name的长度改为10
+表中有一条数据：name(中国华西村刀光剑影) 长度超过10，截取的时候必然要丢失数据。
+当然 如果表中的数据长度都小于10，则可以用sql语句段来直接搞定。
+begin
+      alter table stu add (name2 varchar2(10));   增加新字段
+      update stu set name2=substr(trim(name),1,10);  赋值给新字段
+      alter table stu drop(name);                           删除原字段
+      alter table stu rename column name2 to name; 将新字段改名
+end;
+
+
+
+根据字段类型决定
+alter table  表名   modify 字段名   varchar2(长度); 或
+alter table  表名   modify 字段名   number(长度 );
+只能改大。
+想改小只能重新建表将数据导到新表，再将旧表drop掉。 
+alter table th_user_func_rel  modify ROW_ID VARCHAR2(40); 

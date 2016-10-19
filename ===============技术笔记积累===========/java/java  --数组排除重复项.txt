@@ -1,0 +1,9 @@
+String[] mobileArr=total_mobile.split(",");
+List<String> strList = Arrays.asList(mobileArr); // 第一步：将字符串数组转化为字符串list
+Set<String> strSet = new HashSet<String>(strList); // 第二步：将字符串list转化为hashset.利用hashset无重复元素的特性解决问题。
+String[] newMobileArr = new String[strSet.size()]; //第三步：从set中取出元素，装入新数组
+Iterator<String> iterator = strSet.iterator();
+for (int i = 0; iterator.hasNext(); i++) {
+newMobileArr[i] = iterator.next();
+}
+mobileArr= newMobileArr; //第四步：将新数组赋值给原来老数组

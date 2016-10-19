@@ -1,0 +1,46 @@
+---校验js里是否选中了一条
+//校验是否选中了预占单
+function checkbox(){
+    var r = null;
+    var checkbox = document.getElementsByName("radio");
+    for (var i = 0; i < checkbox.length; i++){
+    	if (checkbox[i].checked){
+    		r = checkbox[i];
+    		break;
+    	}    
+    }
+    return r;
+}
+
+
+//弹出窗口居中
+function openwindow(url,name,iWidth,iHeight)
+{
+    var url;                             //转向网页的地址;
+    var name;                            //网页名称，可为空;
+    var iWidth;                          //弹出窗口的宽度;
+    var iHeight;                         //弹出窗口的高度;
+    //获得窗口的垂直位置
+    var iTop = (window.screen.availHeight-30-iHeight)/2;        
+    //获得窗口的水平位置
+    var iLeft = (window.screen.availWidth-10-iWidth)/2;           
+    window.open(url,name,'height='+iHeight+',innerHeight='+iHeight+',width='+iWidth+',innerWidth='+iWidth+',top='+iTop+',left='+iLeft+',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no,resizable=yes');
+}
+
+
+//checkbox校验
+function checkCode(){
+    var cbxs = document.getElementsByName('mobileRowId');
+	var s=0;
+	for(var i=0;i<cbxs.length;i++){
+		if(cbxs[i].checked){s+=1;}
+	}
+	if (s<1){
+		alert('请到少选择一项！');
+		return false;
+	}
+	return true;
+}
+
+//刷新左侧菜单树
+window.parent.parent.frames['leftFrame'].location.reload();

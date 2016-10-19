@@ -1,0 +1,10 @@
+对于解压版tomcat，需要配置tomcat环境变量。
+在我的电脑->属性->高级->环境变量->系统变量中添加以下环境变量(假定你的tomcat目录在D:\apache-tomcat-5.5.26）： 
+CATALINA_HOME=D:\apache-tomcat-5.5.26; 
+CATALINA_BASE=D:\apache-tomcat-5.5.26; 
+然后修改环境变量中的classpath，把tomat安装目录下的common\lib下的servlet.jar追加到classpath中去，修改后的classpath如下： 
+classpath=.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;%CATALINA_HOME%\common\lib\servlet.jar; 
+
+
+<!--  配置java工程例子，只需修改path，docBase就可以-->
+<Context path="/MessagePlat_xyzq20140722" reloadable="true" docBase="D:\workspace\MessagePlat_xyzq20140722" workDir="MobileInfoPlatemp"/>

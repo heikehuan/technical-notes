@@ -1,0 +1,28 @@
+~雷帝&&杜铭烊~(419911395)  11:17:43		<!-- 配置任务执行频率 -->		
+	        <bean id="task" class="org.springframework.scheduling.timer.ScheduledTimerTask">			
+                <!-- 配置任务随系统启动立即调度 -->		
+	 	<property name="delay" value="0"/>		
+		<!-- 任务调度时间间隔(毫秒) -->	
+			<property name="period" value="5000000000"/>	
+			<!-- 调度那个任务 -->				
+		<property nam~雷帝&&杜铭烊~(419911395)  11:17:43e="timerTask" ref="所要执行的bean"/>	</bean>
+		<!-- 配置任务执行频率 -->			
+		<bean id="task" class="org.springframework.scheduling.timer.ScheduledTimerTask">		
+		<!-- 配置任务随系统启动立即调度 -->		
+		<property name="delay" value="0"/>		
+		<!-- 任务调度时间间隔(毫秒) -->		
+		<property name="period" value="5000000000"/>		
+		<!-- 调度那个任务 -->			
+		<property name="timerTask" ref="所要执行的bean"/>	
+		</bean>
+
+
+
+<!-- 配置任务执行频率 -->
+<bean id="task" class="org.springframework.scheduling.timer.ScheduledTimerTask"><!-- 配置任务随系统启动立即调度 -->
+<property name="delay" value="0"/>
+<!-- 任务调度时间间隔(毫秒) -->
+<property name="period" value="5000000000"/>
+<!-- 调度那个任务 -->
+<property name="timerTask" ref="所要执行的bean"/>
+</bean>

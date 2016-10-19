@@ -1,0 +1,17 @@
+Group By语句从英文的字面意义上理解就是“根据(by)一定的规则进行分组(Group)”。
+
+FruitName ProductPlace Price
+
+Apple     China        $1.1
+Apple     Japan        $2.1 
+Apple     USA          $2.5 
+Orange    China        $0.8
+Banana    China        $3.1
+Peach     USA          $3.0
+
+如果我们想知道每个国家有多少种水果，那么我们可以通过如下SQL语句来完成：
+SELECT COUNT(a.FruitName) AS 水果种类,a.ProductPlace AS 出产国
+FROM T_TEST_FRUITINFO a
+GROUP BY a.ProductPlace
+
+

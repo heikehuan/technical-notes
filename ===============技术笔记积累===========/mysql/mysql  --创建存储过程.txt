@@ -1,0 +1,73 @@
+
+1.创建触发器的语句：
+CREATE TRIGGER <触发器名称> <--
+{ BEFORE | AFTER }
+{ INSERT | UPDATE | DELETE }
+ON <表名称>
+FOR EACH ROW
+<触发器SQL语句>
+
+
+1,用户表user
+
+CREATE TABLE `user` (  
+`id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',  
+`name` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '名称',  
+`sex` INT(1) NOT NULL DEFAULT '0' COMMENT '0为男，1为女',  
+PRIMARY KEY  (`id`)  
+) ENGINE=MYISAM  DEFAULT CHARSET=utf8 ;  
+
+INSERT INTO `user` (`id`, `name`, `sex`) VALUES  
+(1, '张映', 0),  
+(2, 'tank', 0); 
+
+2,评论表comment
+
+CREATE TABLE `comment` (  
+`c_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '评论ID',  
+`u_id` INT(11) NOT NULL COMMENT '用户ID',  
+`name` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '用户名称',  
+`content` VARCHAR(1000) NOT NULL DEFAULT '' COMMENT '评论内容',  
+PRIMARY KEY  (`c_id`)  
+) ENGINE=MYISAM  DEFAULT CHARSET=utf8 ;  
+
+INSERT INTO `comment` (`c_id`, `u_id`, `name`, `content`) VALUES  
+(1, 1, '张映', '触发器测试'),  
+(2, 1, '张映', '解决字段冗余'),  
+(3, 2, 'tank', '使代码更简单');  
+
+-------------创建触发器------------
+3，更新name触发器
+
+DELIMITER $$
+  DROP TRIGGER IF EXISTS updatename $$
+
+CREATE TRIGGER updatename 
+   AFTER UPDATE ON USER 
+   FOR EACH ROW 
+   BEGIN  
+	   IF new.name!=old.name THEN   
+		UPDATE COMMENT SET comment.name=new.name WHERE comment.u_id=old.id;  
+	   END IF;  
+   END;
+$$
+
+DELIMITER ;
+
+4，触发器删除comment数据
+
+delimiter$$
+
+drop trigger if exists deletecomment$$ 
+
+create trigger deletecomment 
+before delete on user for each row  
+begin  
+  delete from comment where comment.u_id=old.id;  
+end;
+$$
+delimiter ;  
+
+/** 测试sql */
+update user set name='苍鹰'  where id = 1;
+更新后去comment表里面看看，里面name字段里面的段有没有改变

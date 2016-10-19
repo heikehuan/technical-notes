@@ -1,0 +1,7 @@
+var param = document.frames["upAllFile"].document.getElementById("idFileListSuccessUploadCount").innerText;
+
+父页面：
+<iframe id="upAllFile" style="width: 100%;border: none;height: 200px;" frameborder="0" src=""></iframe>
+
+子页面元素：
+<span id="idFileListSuccessUploadCount">0</span> 

@@ -1,0 +1,10 @@
+//add by zhanhh 把文件名赋值到文件名称框
+function uploadDocFile(){
+	if(!isEmpty(document.forms(0).docFile.value)){
+		var filePath = document.forms(0).docFile.value;    //获取完整路径
+		var fileName = filePath.substring(filePath.lastIndexOf("\\")+1);	//从完整路径中获取文件名
+	//	fileName = fileName.substring(0,fileName.lastIndexOf("."));		//去除文件扩展名
+	//	alert(fileName);
+		document.forms(0).documentName.value = fileName;
+	}
+}

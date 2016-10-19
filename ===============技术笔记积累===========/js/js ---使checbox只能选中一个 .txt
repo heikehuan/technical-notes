@@ -1,0 +1,100 @@
+<a id="memberrecharge" href="javascript:void(0)">成员充值</a>
+
+javascript:void(0)  : 表示此链接为死链接
+
+需要重新启用时 ：
+$("#toDoMoney").click(function(){
+	var orglist=selectObject();
+	if(orglist!=""){
+	var param=orglist.split(',');
+	window.location.href="toClientMoneyAccounts.action?organizationBeanClient.userId="+param[0];
+	}
+});
+//返回checkbox选中的值
+function selectObject(){
+		var orglist = "";
+		$("#All input:checkbox").each(function() {
+			if ($(this).attr("checked") == true) {
+				orglist = $(this).attr("value");
+			}
+		});
+		if(orglist=="")
+		{
+			alert("未选择客户");
+		}
+		return orglist;
+}
+//使checkbox只能选中一个
+$('input[name="orgCheckBox"]').click(function(){
+		$("#All input:checkbox").attr("checked",false);
+		$(this).attr("checked", true);
+	});
+
+
+
+
+
+
+
+//全景：
+$(function(){
+	$('input[name="orgCheckBox"]').click(function(){
+		$("#All input:checkbox").attr("checked",false);
+		$(this).attr("checked", true);
+	});
+	$("#clientrecharge").click(function(){
+		var orglist=selectObject();
+		if(orglist!=""){
+		var param=orglist.split(',');
+		window.location.href="toClientRechargeAction.action?organizationBeanClient.userId="+param[0];
+		}
+		});
+	$("#memberrecharge").click(function(){
+	//	var orgid="<s:property value="#session.user.organizationId"/>";
+		var orglist=selectObject();
+		if(orglist!=""){
+			var param=orglist.split(',');
+		}
+		window.location.href="getClientUserByIdAction.action?organizationBeanClient.userId="+param[0];
+	});
+	
+	$("#toDoMoney").click(function(){
+		var orglist=selectObject();
+		if(orglist!=""){
+		var param=orglist.split(',');
+		window.location.href="toClientMoneyAccounts.action?organizationBeanClient.userId="+param[0];
+		}
+		});
+	function selectObject(){
+		var orglist = "";
+		$("#All input:checkbox").each(function() {
+			if ($(this).attr("checked") == true) {
+				orglist = $(this).attr("value");
+			}
+		});
+		if(orglist=="")
+		{
+			alert("未选择客户");
+		}
+		return orglist;
+	}
+});
+
+<s:iterator value="#request.orgClientList" id="org">
+	<tr>
+		<td><input type="checkbox" name="orgCheckBox"
+			id="org<s:property value="#org.userId"/>"
+			value="<s:property value="#org.userId"/>,<s:property value="#org.FeeMode"/>">
+		</td>
+		<td><s:property value="#org.userName" /></td>
+		<td><s:property value="#org.userMome" />
+		</td>
+		<s:if test="#org.FeeMode==false">
+			<td>自付费</td>
+		</s:if>
+		<s:elseif test="#org.FeeMode==true">
+			<td>机构付费</td>
+		</s:elseif>
+		<td>短信<s:property value="#org.userQuota" />条, 彩信<s:property
+				value="#org.mmsQuota" />条</td>
+</s:iterator>

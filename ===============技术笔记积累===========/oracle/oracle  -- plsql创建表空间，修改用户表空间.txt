@@ -1,0 +1,17 @@
+-----plsql创建表空间
+CREATE TABLESPACE messagechannel
+
+LOGGING
+
+DATAFILE 'D:\app\Administrator\oradata\orcl\messagechannel.DBF'
+
+SIZE 32M
+
+AUTOEXTEND ON
+
+NEXT 32M MAXSIZE 2048M
+
+EXTENT MANAGEMENT LOCAL;
+
+----plsql修改用户默认表空间
+alter user messagechannel default tablespace messagechannel;

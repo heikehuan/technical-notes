@@ -1,0 +1,35 @@
+七.分组函数
+max min avg count sum
+1，整个结果集是一个组
+1) 求部门30 的最高工资，最低工资,平均工资，总人数，有工作的人数，工种数量及工资总和
+select max(ename),max(sal), 
+min(ename),min(sal),
+avg(sal),
+count(*) ,count(job),count(distinct(job)) ,
+sum(sal) from emp where deptno=30;
+2, 带group by 和 having 的分组
+1)按部门分组求最高工资，最低工资，总人数，有工作的人数，工种数量及工资总和
+select deptno, max(ename),max(sal),
+min(ename),min(sal),
+avg(sal),
+count(*) ,count(job),count(distinct(job)) ,
+sum(sal) from emp group by deptno;
+
+2)部门30的最高工资，最低工资，总人数，有工作的人数，工种数量及工资总和 
+select deptno, max(ename),max(sal),
+min(ename),min(sal),
+avg(sal),
+count(*) ,count(job),count(distinct(job)) ,
+sum(sal) from emp group by deptno having deptno=30;
+
+3, stddev 返回一组值的标准偏差
+select deptno,stddev(sal) from emp group by deptno;
+variance 返回一组值的方差差
+select deptno,variance(sal) from emp group by deptno;
+4, 带有rollup和cube操作符的Group By
+rollup 按分组的第一个列进行统计和最后的小计
+cube 按分组的所有列的进行统计和最后的小计
+select deptno,job ,sum(sal) from emp group by deptno,job;
+select deptno,job ,sum(sal) from emp group by rollup(deptno,job); 
+cube 产生组内所有列的统计和最后的小计
+select deptno,job ,sum(sal) from emp group by cube(deptno,job);

@@ -1,0 +1,21 @@
+
+
+--把输入域前边有文字时吗，将文字置于框的顶端-----
+  (1) div 标签用style="vertical-align:top;"
+	<div>
+	  <span class="zi_000000" style="width:80px; vertical-align:top;">&nbsp;&nbsp;&nbsp;&nbsp;手&nbsp;&nbsp;机&nbsp;&nbsp;号：</span>
+	  <span class="zi_000000"><textarea id="mobile" name="mobile" cols="60" rows="4"></textarea>&nbsp;(以逗号或分号，换行符分隔手机号)</span>
+	</div>
+	<br/> 
+  (2)td标签用valign="top"
+	<tr>
+		<td align="right" valign="top" class="zi_000000">短信内容：</td>
+		<td>
+			<textarea id="context" name="context" onfocus="postAjax()" onkeyup="jisuan(this)" style="width:90%" rows="5" class="tab4" >
+				<s:property value="#request.content"/>
+			</textarea>
+		</td>
+	</tr>
+
+	
+	

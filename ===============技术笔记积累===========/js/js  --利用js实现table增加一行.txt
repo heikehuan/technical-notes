@@ -1,0 +1,15 @@
+利用js实现table增加一行
+
+用jquery插件吧，很方便的，比如设置该table的id为mytable
+<table id="mytable">
+<tr><td>第一行</td></tr>
+</table>
+
+<script>
+//选取你的table，添加一行
+$("#mytable").append("<tr><td>第二行</td></tr>")
+</script>
+
+
+
+

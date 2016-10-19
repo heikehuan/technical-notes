@@ -1,0 +1,20 @@
+oracle中最简单的行转列的例子
+例子一：有一个字符串，按字母拆成多行记录，SQL 语句如下：
+
+select substr(field1,rownum,1) as field2 from (select 'abcdefg' as field1 from dual) connect by rownum<=length(field1)
+ 
+
+该例子中：select 'abcdefg' as field1 from dual 只是查询了一条记录，由于使用了connect by 就把一条记录遍历成多条记录输出了，rownum是指当前遍历到第几次了，所以connect by 后面一定要加条件，不然就成死循环了，由于rownum就相当于一个索引，所以就可以使用substr(field1,rownum,1) 查询单个字母了。
+
+ 
+
+例子二：有一个字符串，要按字符串中的特定字符拆成多行记录，相当于split，SQL语句如下：
+
+select substr(field1,
+              instr(field1, ',', 1, rownum) + 1,
+              instr(field1, ',', 1, rownum + 1) - instr(field1, ',', 1, rownum) - 1) as field2
+  from (select ',' || 'a,bbb,cccc,ddddd,ee' || ',' as field1 from dual)
+connect by instr(',' || 'a,bbb,cccc,ddddd,ee' || ',', ',', 2, rownum) > 0
+ 
+
+该例子中：select ',' || 'a,bbb,cccc,ddddd,ee' || ',' as field1 from dual，实际字符串为'a,bbb,cccc,ddddd,ee'，为了便于connect by中的条件，以及方便substr的查询，我在字符串前后分别加了一个','。如果不加','，connect by 只能遍历4次，而实际上我们是需要拆分成5条记录，前后都加','的话，再使用instr(x,2,rownum)的话，就刚好遍历5次。

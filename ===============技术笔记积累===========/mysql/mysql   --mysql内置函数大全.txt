@@ -1,0 +1,66 @@
+﻿位置：select语句，及子句where order by having 中
+      update delete语句及子句
+
+函数中可以将字段名当作变量来用，变量的值就是该列对应的所有值
+
+select concat(id,'is in',name) from cats;
+
+一、字符串函数
+    PHP中用的，MYSQL中大部分都有
+
+    1.concat(s1,s2....sn):把传入的参数连接成一个字符串
+    2.insert(str,x,y,insert):从str的x位置开始，替换y长度的字符串为insert
+      select insert('abcdefg',2,3,'hello');
+    3.lower(str),upper(str):将字符串转换为大写，小写
+    4.left(str,x) right(str,x) 返回str左边（右边）x个字符，x为null则返回null
+    5.lpad(str,n,pad) rpad(str,n,pad)  用pad对字符串str从最左边（右边）进行填充，直到总长度
+
+达到n 
+      select name,lpad(name,10,'#'),rpad(name,10,'(') from cats;
+    6.trim(),ltrim(),rtrim()去掉两边，左边，右边空格
+      select concat('1',trim('   abc   '),'2'),concat('1',ltrim('   abc   '),'2'),concat
+
+('1',rtrim('   abc   '),'2')\G;  
+    7.replace(str,a,b) 在字符串str中用字符串b替换所有的字符串a
+    8.strcmp(s1,s2):如果S1比S2小，返回-1；如果S1比S2大则返回1；如果相等则返回0（比较的是
+
+ASC2码）
+    9.substring(str,x,y) 返回字符串str中从位置x起，长度为y的子字符串
+      
+二、数值函数
+    abs(x):返回绝对值
+    ceil(x):返回大于x的最小整数
+    floor(x):返回小于x的最大整数
+    mod(x,y):返回x与y的模
+    rand():返回0-1之间的随机数   select round(rand()*100);
+    round(x,y):返回参数x的y位小数的四舍五入结果
+    truncate(x,y):返回数字x截断为y位小数的结果
+
+三、日期函数
+    用PHP时间戳来完成
+    curdate() curtime() now();   select curdate();
+        select unix_timestamp(now());
+        select from_unixtime(1331110656);
+        select week(now()),year(now());
+        select hour(curtime()),minute(curtime());
+        select monthname(now());
+        日期转字符串
+        select date_format(now(),"%Y-%m-%d %H:%i:%s");  
+	字符串转换为日期
+	select str_to_date('2008-4-2 15:3:28','%Y-%m-%d %H:%i:%s'); 
+四、流程控制语句
+    create table salary(id int,salary decimal(9,2));
+
+    if(value,t,f);   select id,salary,if(salary>300,'high','low') from salary;
+    ifnull(t,f)    select id,salary,ifnull(salary,0) from salary;
+    case when [value1] then [result1]...else[default]end;
+         select case when salary<=300 then 'low' else 'high' end from salary; 
+五、其它函数(\s可以看到)
+    database()  select database();
+    version()
+    user()
+    inet_aton(ip)  将字符串地址转换为网络地址
+    password()  对mysql用户加密
+    md5() 对用户密码加密
+      select * from mysql.user \G;
+   

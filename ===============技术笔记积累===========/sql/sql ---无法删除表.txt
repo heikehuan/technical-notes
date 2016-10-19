@@ -1,0 +1,7 @@
+1.disable 所有constraint无果
+
+2.raname foreign table 也无果
+
+3.drop table table_name cascade constraints 正常完成;
+
+未知原因,先记录下;

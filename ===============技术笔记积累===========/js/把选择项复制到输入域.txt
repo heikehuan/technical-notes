@@ -1,0 +1,72 @@
+function  logCommentCommon(o) {
+	if(o.value == "") 
+	{
+		document.getElementById("logComment").value = "";
+	} else{
+		alert(o.options[o.options.selectedIndex].text);
+		alert(o.options[o.options.selectedIndex].value);
+		document.getElementById("logComment").value = o.options[o.selectedIndex].text;
+	}
+} 
+
+
+
+
+<table>
+		<c:if test="${tVo.orgMsg=='批量转发单位'}">
+			<tr>
+				<td class="td_label">常用转派意见:</td>
+				
+				<td> 
+					<select  name="logCommentcommon" onchange="logCommentCommon(this);">
+						<option value="">--- 请选择 ---</option>
+						<c:forEach items="${audshangbaoList}" var="pb">
+							<option value="${pb.standCode}">${pb.displayValue}</option>
+						</c:forEach>
+					</select>
+				</td>
+				
+			</tr>
+			<tr id="zpyj">
+				<td class="td_label" style="color:red;">转派意见</td>
+				<td colspan="2">
+					<textarea class="textarea" name="logComment" id="logComment" row="4" cols="30"></textarea>
+				</td>
+			</tr>
+		</c:if>
+		<c:if test="${tVo.orgMsg=='上报单位'}">
+				<td class="td_label" >常用上报意见</td>
+				<td> 
+					<select  name="logCommentcommon" onchange="logCommentCommon(this);">
+						<option value="">--- 请选择 ---</option>
+						<c:forEach items="${audshangbaoList}" var="pb">
+							<option value="${pb.standCode}">${pb.displayValue}</option>
+						</c:forEach>
+					</select>
+				</td>
+			<tr id="zpyj">
+				<td class="td_label" style="color:red;">上报意见</td>
+				<td colspan="2">
+					<textarea class="textarea" name="logComment" id="logComment" row="4" cols="30"></textarea>
+				</td>
+			</tr>
+		</c:if>
+	</table>
+
+
+
+***********************************************************************
+<select name="mdep" id="mdep">
+  <option value="部门1">部门1</option>
+  <option value="部门2">部门2</option>
+  <option value="部门3">部门3</option>
+</select>
+
+
+<script>
+
+var text = document.getElementById('mdep');
+text.onchange = function(){
+alert( text.options[text.options.selectedIndex].value );
+}
+</script>

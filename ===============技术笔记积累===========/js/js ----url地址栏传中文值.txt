@@ -1,0 +1,17 @@
+JSP页面：
+需要在JS里转码两次 http://www.liangjian.com?title=encodeURI(encodeURI(title))
+
+在Action里取值：
+String title = request.getParameter("title")==null?"":java.net.URLDecoder.decode(request.getParameter("title"),"UTF-8");
+
+
+-----用jQuery方式调用方法
+var url = "${pageContext.request.contextPath}/view/admin/home/user-listUser.action?login_name="+login_name+"&user_name="+user_name+"&WORK_UNIT_KIND="+WORK_UNIT_KIND+"&USER_STATUS="+USER_STATUS;
+$('#queryForm').attr('action',encodeURI(encodeURI(url)));
+
+
+方法二：
+地址栏直接传值
+url = http://localhost:8080/MessageChannelPlat/smsSendServlet.htm?command=sendSMSMD5&username=ztAdmin&pwd=BBF2DEAD374654CBB32A917AFD236656&mobiles=13161718880&content=.urlencode(短信内容).&incode=GBK&outcode=GBK&rstype=xml
+
+后台转码方法：String content = request.getParameter("content")==null?"":new String(request.getParameter("content").getBytes("ISO-8859-1"),"GBK");

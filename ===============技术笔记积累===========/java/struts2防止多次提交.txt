@@ -1,0 +1,22 @@
+struts2 防止多次提交页面
+
+
+在保存方法的标签配置上加入拦截
+<!-- 短信发送 -->
+<action name="sendSms" class="sendSmsAction" method="sendSms">
+<!-- 加入标签，防止表单多次递交  -->
+    <interceptor-ref name="defaultStack" />           
+    <interceptor-ref name="tokenSession" />
+<!-- 加入标签，防止表单多次递交 end -->
+	<result name="commonSend">/jsp/send/send.jsp</result>
+	<!-- update by zhanhh on$20130806 批量发送,发送完成跳转回导入页面 -->
+	<result name="batchSend">/jsp/send/excel.jsp</result>
+</action>
+
+
+send.jsp页面的form中加入标签
+<s:token></s:token>
+
+
+
+

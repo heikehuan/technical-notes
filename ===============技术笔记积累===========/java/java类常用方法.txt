@@ -1,0 +1,95 @@
+---获取系统当前时间
+DateUtil.getDateTimeHelper()
+
+
+---表示字符串为空
+引入包import com.cthq.crm.util.StringUtils; 
+---StringUtils.isEmpty(XXX)
+
+
+---字符串串联
+StringBuffer  String = new StringBuffer("");
+串联方法：String.append("XXX");
+StringBuffer类型转换为String类型：String.toString();
+
+
+--字符串分割(java类和js中通用)
+通过逗号分割字符串：
+String a = "a,b,c";
+java类中                                                    在js中
+String arr[] = a.split(","); 用数据存储                     var arr = a.split(","); //js中数组不用[]
+使用数组arr时 : arr[0],arr[1].....			    使用数组arr时 : arr[0],arr[1].....
+
+//使用空格分割
+String str="a b c d";  //定义一个字符串
+String s[]=str.split("\\s+");   //用空格拆分
+
+
+
+---插入表
+ICommonBean cb = new DefaultCommonBean("TH_PARTNER", "ROW_ID=?ROW_ID?");
+cb.addRow();
+cb.addValue("ROW_ID", find());  //rowI用find()方法自动生成
+cb.addValue("PTNR_STATUS", "10470007");
+cb.addValue("LAST_MODIFY_DATE",DateUtil.getDateTimeHelper());
+insert(cb);  //插入数据	
+
+---修改表
+ICommonBean cb = new DefaultCommonBean("TH_PARTNER", "ROW_ID=?ROW_ID?");
+cb.addRow();
+cb.addValue("PTNR_STATUS", "10470007");
+cb.addValue("LAST_MODIFY_DATE",DateUtil.getDateTimeHelper());
+cb.addCondition("ROW_ID",(String)map.get("ROW_ID")); //通过此条件插入
+update(cb);  //修改数据	
+
+
+---Dao中打印sql语句
+String sql = QueryParse.getInstance().parseSQL(sqlName,sqlMap);
+
+
+---执行sql语句
+ICommonBean cb = selectByDefineWithPrepared(sqlName,sqlMap);
+ICommonBean cb = (ICommonBean) select(sql);
+取总数： int count = cb.getInt(0,"total");   //sql中把要统计的属性重命名为total
+取sql查出的值：cb.getString(0,"DOCUMENT_NAME")
+
+
+public void updateMobileProDetail(Map map){
+    String sql = QueryParse.getInstance().parseSQL("updateMobileProDetail", map);
+    exeSql(sql);
+}
+// 执行sql
+public void exeSql(String sql){
+    super.execute(sql);
+}
+
+
+---赋值框架
+BeanUtils.copyProperties(category, sForm);
+
+
+---分页方法
+//action
+ public ActionForward statisticsMain(ActionMapping mapping, ActionForm form, 
+	HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int pageNo = getPageNo(request);
+        int pageSize = getPageSize(request);
+	PageBean page = mobileNumResourcesService.getAllProLineInfo("selectAllProLineInfo",map,pageSize,pageNo);
+        request.setAttribute("page", page);
+}
+//service中方法
+    public  PageBean getAllProLineInfo(String sqlName,Map map,int pageSize,int pageNo)throws  Exception{
+        List list = new ArrayList();
+        String  sql = QueryParse.getInstance().parseSQL("selectAllProLineInfo", map);
+        ICommonBean cb = mobileNumResourcesDao.getAllProLineInfo(sqlName, map,pageNo,pageSize );
+        if (cb.getRows() > 0) {
+            for (int i = 0; i < cb.getRows(); i++) {
+                MobileResourcesVO vo = new MobileResourcesVO();
+                vo.setNumbType(cb.getString(i, "numb_type"));
+                vo.setRowId(cb.getString(i, "row_id"));
+                list.add(vo);
+            }
+        } 
+        return new PageBean(pageSize, pageNo, cb.count(), list);
+    }
+

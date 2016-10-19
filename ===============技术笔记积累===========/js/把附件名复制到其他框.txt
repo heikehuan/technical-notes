@@ -1,0 +1,69 @@
+<tr>
+				<td class="label-req-nowrap">文件名称</td>
+				<td class="text-nowrap"><html:text property="documentName"
+					styleClass="textfield" /></td>
+			</tr>
+			<tr>
+				<td class="label-req-nowrap" style="background-repeat:repeat-y">上传</td>
+				<td class="text-nowrap"><html:file property="docFile" size="30" onmouseout="uploadDocFile();"/></td>
+			</tr>
+
+
+
+//add by zhanhh 把文件名赋值到文件名称框
+function uploadDocFile(){
+	if(!isEmpty(document.forms(0).docFile.value)){
+		var filePath = document.forms(0).docFile.value;    //获取完整路径
+		var fileName = filePath.substring(filePath.lastIndexOf("\\")+1);	//从完整路径中获取文件名
+	//	fileName = fileName.substring(0,fileName.lastIndexOf("."));		//去除文件扩展名
+	//	alert(fileName);
+		document.forms(0).documentName.value = fileName;
+	}
+}
+
+function check(){
+    var ret = true;
+    var msg = "";
+   /** update by zhanhh 把文件名赋值到文件名称框
+    if (isEmpty(document.forms(0).documentName.value)){
+        msg += "文件名称不能为空．\n";
+        ret = false;
+    }
+   */ 
+    if (isEmpty(document.forms(0).docFile.value)){
+        msg += "上传文件不能为空．\n";
+        ret = false;
+    }
+    if (!isEmpty(msg))
+    {
+    	alert(msg);
+        return ret;
+    }
+    /**update by zhanhh 把文件名赋值到文件名称框
+    var dName=document.forms(0).documentName.value;	
+ 	var b=dName.indexOf(".");
+	if(b<=0)
+	{
+	 	alert("请在文件名称后加文件类型");
+	 	return false;
+	
+	}
+	else
+	{
+	 		if(b==dName.length-1)
+	 		{
+	 			 alert("请在文件名称后加文件类型");
+	 			 return false;
+	 		}
+	 		
+	}	
+	*/
+	var docDesc = document.getElementById("docDesc").value;
+	if(docDesc.length>100){
+		alert("描述的字符长度不能大于100!");
+		return false;
+	}
+	
+	return ret;
+	   
+}

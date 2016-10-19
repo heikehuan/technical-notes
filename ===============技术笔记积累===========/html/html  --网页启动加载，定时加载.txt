@@ -1,0 +1,84 @@
+-------初始化执行单个任务用object.event = handler; 多个用：attachEvent（IE），addEventListener（火狐）
+
+//初始化加载任务getCalcResult和setCalcInterval
+if(document.all){ //IE
+    window.attachEvent('onload', setCalcInterval);
+    window.attachEvent('onload', getCalcResult);
+}else{//火狐
+    window.addEventListener('load',setCalcInterval,false);
+    window.addEventListener('load',getCalcResult,false);
+}
+//定时任务,每个10秒查询一次
+function setCalcInterval(){
+	timer = window.setInterval("getCalcResult()",10000);
+}
+//通过原生ajax查询
+function getCalcResult(){
+	var url = "<%=request.getContextPath()%>/statisticsAction.do?cmd=getLoginInfo";
+	if (window.XMLHttpRequest)
+	{ 
+		req = new XMLHttpRequest(); 
+	}
+	else if(window.ActiveXObject)
+	{
+		req = new ActiveXObject("Microsoft.XMLHTTP"); 
+	}
+	if(req){ 
+	    var os=getOs();
+	    req.onreadystatechange =(os!="Firefox")?(calcComplete):(calcComplete());
+		req.open("GET",url, false); 
+		//当得到response后，由complete方法进行处理
+		req.send(null); 
+		req.onreadystatechange =(os!="Firefox")?(calcComplete):(calcComplete());
+	} 
+} 
+//判断浏览器
+function getOs()   
+{   
+   var OsObject = "";   
+   if(navigator.userAgent.indexOf("MSIE")>0) {   
+        return "MSIE";       //IE浏览器
+   }
+   if(navigator.userAgent.indexOf("Firefox")>0){   
+        return "Firefox";     //Firefox浏览器
+   }
+   if(navigator.userAgent.indexOf("Safari")>0) {   
+        return "Safari";      //Safan浏览器
+   }
+   if(navigator.userAgent.indexOf("Camino")>0){   
+        return "Camino";   //Camino浏览器
+   }
+   if(navigator.userAgent.indexOf("Gecko/")>0){   
+        return "Gecko";    //Gecko浏览器
+   }   
+} 
+//ajax返回函数，执行结果
+function calcComplete(){
+    if(req.readyState == 4&&req.status == 200){
+	try{
+		//alert(req.responseText);
+		calcs = eval(req.responseText);
+		if(calcs.length != length){
+			window.location.reload();
+			return;
+		}
+		
+		//alert(calcs.length);
+		//填写通道信息
+		for(i = 0; i < calcs.length; i++){
+			var channel = calcs[i];
+			user_id = channel['SessionId'];
+			if(user_id){
+			}else{
+				user_id = channel['UserName'];
+			}
+		}
+	}catch(e){
+	    //alert(e.name + ":" + e.message);
+	}	
+    }	
+}
+
+
+
+					

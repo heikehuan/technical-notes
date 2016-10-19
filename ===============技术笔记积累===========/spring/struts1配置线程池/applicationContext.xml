@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- 发送短信任务线程池  -->
+	<bean id="taskexecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" 
+	scope="singleton">
+	<!-- 线程池维护线程的最少数量 -->  
+	<property name="corePoolSize" value="5" />
+    <!-- 	允许任务等待队列数量 -->
+    <property name="queueCapacity" value="30" />
+     <!-- 线程池维护线程的最大数量 -->
+    <property name="maxPoolSize" value="100" />
+   <!--     线程空闲时间 -->
+    <property name="keepAliveSeconds" value="5" />
+    <property name="rejectedExecutionHandler">
+<!-- 处理当线程池繁忙时，任务无法进入队列时的处理策略 目前使用CallerRunsPolicy-->
+<!--     AbortPolicy 抛出java.util.concurrent.RejectedExecutionException异常 -->
+<!--     CallerRunsPolicy 重试添加当前的任务，自动重复调用execute()方法 -->
+<!--     DiscardOldestPolicy 抛弃旧的任务 -->
+<!--     DiscardPolicy 抛弃当前的任务 -->
+    <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+    </property>
+	</bean>
+	<!-- 注册action并注入对象，此处name必须跟struts中action配置的path一样 -->
+	<bean name="/sendAction" class="com.hjhz.sms.struts.action.SendAction"  scope="prototype">
+	<property name="taskexecutor"  ref="taskexecutor"></property>
+	</bean>
+	
+</beans>

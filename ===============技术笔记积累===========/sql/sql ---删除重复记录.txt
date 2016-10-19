@@ -1,0 +1,4 @@
+sql SQLserver:
+DELETE FROM [dbo].[myTable]
+    WHERE 主键 NOT IN
+    (SELECT MAX(主键) From [dbo].[myTable] GROUP BY 列1, 列2, 列3, 列4) 

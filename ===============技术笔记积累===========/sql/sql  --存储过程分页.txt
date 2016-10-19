@@ -1,0 +1,26 @@
+create or replace procedure QUERY_ORGSMS_MANAGER_AND_TIME(p_date in varchar2,p_cm in varchar2,mycursor out sys_refcursor,p_pageSize number,p_page number,p_count out number,user_type in varchar2)
+is
+v_sql varchar2(1000);
+v_time number(8);
+v_id varchar2(100);
+p_customer_manager varchar2(100);
+begin
+p_customer_manager := ''''||p_cm||'''';
+if user_type = '1' then 
+v_id := 'o.parentid =';
+select count(o.user_id) into p_count from organization o where o.parentid=p_cm;
+else 
+v_id :='o.customer_manager_id =';
+select count(o.user_id) into p_count from organization o where o.customer_manager_id=p_cm;
+end if;
+v_time:= to_number(to_char(to_date(p_date,'yyyy-MM-dd hh24:mi:ss'),'YYYYMMDD'));
+v_sql:='select t2.* from (select rownum r,o.user_name,o.user_id,us.nick_name,o.customer_manager_id,o.pay_mode,o.user_quota,o.mms_quota,o.user_balance,orgconfig.company_tel,(select vd.quantity from  v_sms_analyze vd where o.user_id = vd.org_id and vd.stat_time ='''||v_time||''' ) as quantity
+ from organization o
+ left join org_config orgconfig on orgconfig.organization_id = o.user_id left join user_info us on o.customer_manager_id = us.user_id
+ where '||v_id||p_customer_manager||' and  rownum<='||p_page||'*'||p_pageSize||') t2 where t2.r>('||p_page||'-1)*'||p_pageSize||'';
+dbms_output.put_line('v_sql:'||v_sql);
+open mycursor for v_sql;
+exception
+when others then
+dbms_output.put_line('error:'||sqlcode||':'||sqlerrm);
+end QUERY_ORGSMS_MANAGER_AND_TIME;

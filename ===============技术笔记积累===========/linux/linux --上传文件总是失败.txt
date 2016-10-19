@@ -1,0 +1,10 @@
+首先出现的问题：
+上传所有的文件，都上传不了，zmodem transfer canceled by remote side 
+上传命令被禁止。
+用命令df -hl查看磁盘空间使用率，发现home目录使用率100%。
+然后用命令
+1、cd /home
+2、du -sh * 看哪个目录占用空间大
+3、重复前两步，根据实际情况删除或者移走
+4、日志的话可以运行cat /dev/null > file.log清空
+5、软件包的可以rpm -e 卸载或者rm -rf dir

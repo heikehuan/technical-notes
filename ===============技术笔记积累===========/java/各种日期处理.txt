@@ -1,0 +1,287 @@
+各种日期处理
+
+一.  java中日期处理
+
+       1) 特殊格式的字符串转成日期格式
+
+                   String  s = "2012-04-26";
+
+                   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        sdf.parse(s);
+
+    2) 对日期格式进行转换
+
+        Date date = new Date(20120425);
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        sdf.format(date);
+
+    3) 日期对比大小
+
+       Date date1 = new Date(20120425);
+
+Date date2 = new Date(20130425);
+
+        If(Date1.compareTo(date2) >0){
+
+            System.out.print("Date1大");
+
+        }  
+
+        If(Date1.compareTo(date2) =0){
+
+           System.out.print("Date1等于Date2");
+
+        }else{
+
+           System.out.print("Date2大");
+
+        }
+
+          4) 日期增加和减少(减少就是加个负号)
+
+                   Date date1, date2,date3,date4;
+
+       Calendar cal1,cal2,cal3,cal4=Calendar.getInstance();
+
+       cal1=Calendar.getInstance();
+
+       date1 = new Date();
+
+       cal1.setTime(date1);
+
+       cal1.add(Calendar.MONTH,2);//加两个月
+
+       cal2=Calendar.getInstance();
+
+       date2 = new Date();
+
+       cal2.setTime(date2);
+
+       cal2.add(Calendar.DAY_OF_MONTH,20);//加20天
+
+       cal3=Calendar.getInstance();
+
+       date3 = new Date();
+
+       cal3.setTime(date3);
+
+       cal3.add(Calendar.YEAR,1);//加一年
+
+       cal4=Calendar.getInstance();
+
+       date4 = new Date();
+
+       cal4.setTime(date4);
+
+       cal4.add(Calendar.WEDNESDAY, 2);//加两个星期
+
+                          System.out.println(cal1.getTime()+"\n"+cal2.getTime()+"\n"+cal3.getTime()+"\n"+cal4.getTime());
+
+       输出结果为：
+
+                  Mon Jun 25 11:45:58 CST 2012
+
+Tue May 15 11:45:58 CST 2012
+
+Thu Apr 25 11:45:58 CST 2013
+
+Wed May 09 11:45:58 CST 2012
+
+         5) 分别获得指定日期的年月日
+
+                   Calendar cal = Calendar.getInstance();
+
+       cal.setTime(new Date());
+
+       //获取天
+
+       int day = cal.get(Calendar.DAY_OF_MONTH);
+
+       //获取月注意要加1
+
+       int month = cal.get(Calendar.MONTH)+1;
+
+       //获得年
+
+       int year = cal.get(Calendar.YEAR);
+
+       System.out.println(day+"\n"+month+"\n"+year);
+
+       输出结果：
+
+25
+
+4
+
+2012
+
+    6) 判断二个时间是否在同一个周                 (http://www.cnblogs.com/edwardlauxh/archive/2010/03/21/1918615.html)
+
+        public static boolean isSameWeekDates(Date date1, Date date2) {
+
+        Calendar cal1 = Calendar.getInstance();
+
+        Calendar cal2 = Calendar.getInstance();
+
+        cal1.setTime(date1);
+
+        cal2.setTime(date2);
+
+        int subYear = cal1.get(Calendar.YEAR) -                            cal2.get(Calendar.YEAR);
+
+        if (0 == subYear) {
+
+           if (cal1.get(Calendar.WEEK_OF_YEAR)    ==                           cal2.get(Calendar.WEEK_OF_YEAR))
+
+            return true;
+
+        } else if (1 == subYear && 11 == cal2.get(Calendar.MONTH)) {
+
+        // 如果12月的最后一周横跨来年第一周的话则最后一周即算做来年的第一周
+
+         if (cal1.get(Calendar.WEEK_OF_YEAR) ==                             cal2.get(Calendar.WEEK_OF_YEAR))
+
+        return true;
+
+       } else if (-1 == subYear && 11 == cal1.get(Calendar.MONTH))           {      
+
+            if (cal1.get(Calendar.WEEK_OF_YEAR) ==                             cal2.get(Calendar.WEEK_OF_YEAR))
+
+            return true;
+
+        }
+
+        return false;
+
+ }
+
+7) 得到当前时间所在的年度是第几周
+
+ public static String getSeqWeek() {
+
+  Calendar c = Calendar.getInstance(Locale.CHINA);
+
+  String week = Integer.toString(c.get(Calendar.WEEK_OF_YEAR));
+
+  if (week.length() == 1)
+
+   week = "0" + week;
+
+  String year = Integer.toString(c.get(Calendar.YEAR));
+
+  return year + week;
+
+ }
+
+ 
+
+二．Sql日期处理
+
+1）获取日期的年、月、日
+
+    ① 获取之后是字符串可以和日期拼在一起形成“MM-DD”格式
+
+    select substring(convert(char(10),GETDATE(),120),6,2),//获取月
+
+       substring(convert(char(10),GETDATE(),120),9,2) //获取日
+
+    from  SPA_CUSTMER 
+
+    where substring(CBIRTHDATE,6,2)+substring(CBIRTHDATE,9,2)>'0101'
+
+    ②获取之后是int类型
+
+    select                                                   MONTH(CONVERT(DATE,CBIRTHDATE)),DAY(CONVERT(DATE,CBIRTHDATE)) 
+
+    from  SPA_CUSTMER
+
+    ③获取之后是日期类型
+
+    select DATEPART(YY,GETDATE()) from SPA_CUSTMER
+
+    select DATEPART(MM,GETDATE()) from SPA_CUSTMER
+
+    select DATEPART(DD,GETDATE()) from SPA_CUSTMER
+
+2）将特殊char、varchar类型转换成日期格式/将日期转换成char、varchar
+
+    convert(char(10),GETDATE(),120) //将日期转换成char类型
+
+    CONVERT(DATE,CBIRTHDATE) //将char类型转换成date类型
+
+    
+
+Style ID
+ Style 格式
+ 
+100 或者 0
+ mon dd yyyy hh:miAM （或者 PM）
+ 
+101
+ mm/dd/yy
+ 
+102
+ yy.mm.dd
+ 
+103
+ dd/mm/yy
+ 
+104
+ dd.mm.yy
+ 
+105
+ dd-mm-yy
+ 
+106
+ dd mon yy
+ 
+107
+ Mon dd, yy
+ 
+108
+ hh:mm:ss
+ 
+109 或者 9
+ mon dd yyyy hh:mi:ss:mmmAM（或者 PM）
+ 
+110
+ mm-dd-yy
+ 
+111
+ yy/mm/dd
+ 
+112
+ yymmdd
+ 
+113 或者 13
+ dd mon yyyy hh:mm:ss:mmm(24h)
+ 
+114
+ hh:mi:ss:mmm(24h)
+ 
+120 或者 20
+ yyyy-mm-dd hh:mi:ss(24h)
+ 
+121 或者 21
+ yyyy-mm-dd hh:mi:ss.mmm(24h)
+ 
+126
+ yyyy-mm-ddThh:mm:ss.mmm（没有空格）
+ 
+130
+ dd mon yyyy hh:mi:ss:mmmAM
+ 
+131
+ dd/mm/yy hh:mi:ss:mmmAM
+ 
+
+3）日期进行增加减少操作(2为-2是即为减少)
+
+    select DATEADD(MM,2,GETDATE()) from SPA_CUSTMER  //两个月后
+
+    select DATEADD(DD,2,GETDATE()) from SPA_CUSTMER //两天后
+
+    select DATEADD(YY,2,GETDATE()) from SPA_CUSTMER  //两年后

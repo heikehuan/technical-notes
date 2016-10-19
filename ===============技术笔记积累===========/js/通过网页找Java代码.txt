@@ -1,0 +1,1 @@
+右键：属性->找到路径，一个Action，然后在wid里search，类型为*.xml，找到strust.通过path的路径找到action,然后用快捷键Ctrl+Shift+T找到查找类型框，输入刚才找到的action,可以查找到。

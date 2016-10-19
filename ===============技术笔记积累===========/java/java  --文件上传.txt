@@ -1,0 +1,25 @@
+ 
+  File in= 从表单获取文件;
+  path = 输出目录 + 文件名.扩展名
+  File newFile=this.uploadImage(path);
+/**文件上传通用方法*/ 
+ private boolean uploadImage(File in, File out){
+	  try {
+		  //以服务起器文件保存地址和原文件名建立上传文件输出流
+		   FileOutputStream fos = new FileOutputStream(out);
+		   //以上传文件建立文件上传流
+		   FileInputStream fis = new FileInputStream(in);
+		   //将上传文件写到服务器
+		   byte[] buffer = new byte[1024];
+		   int len = 0;
+		   while((len = fis.read(buffer))>0){
+			fos.write(buffer,0,len);
+		   }
+		   fos.close();
+		   fis.close();
+		   return true;
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+	}
+}

@@ -1,0 +1,8 @@
+ALTER TABLE tab_large add col_new Number(9) Default 1;
+该语句会对所有记录进行填值操作，对于现场tab_large中存在3000W条左右数据，该步骤需要执行数小时。
+
+可以将该语句改为：
+ALTER TABLE tab_large add col_new Number(9);
+ALTER TABLE tab_large modify col_new number(9) default 1;
+该语句只会对新增的记录进行填值操作，只需要数秒。
+如果需要对原来的值进行操作，可以在升级后进行update操作，这样能够节省大量的升级时间。

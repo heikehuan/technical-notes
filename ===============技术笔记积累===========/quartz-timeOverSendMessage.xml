@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+	<beans>
+	<!-- create by zhanhh on $2011-1107 普通投诉工单逾期短信提醒 -->
+	<!-- 注：所有的bean的id都要改成唯一的 -->
+	<!-- 配置需要调用的service类 -->
+	<bean id="timerExpiredMessageRemind" class="com.cthq.compman.web.action.TimerExpiredMessageRemind">
+		<property name="timerRemindMessageService" ref="timerRemindMessageService"></property>
+	</bean>
+	<!-- 配置工作类中的方法 -->
+	<bean id="jobDailyOverTime" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="timerExpiredMessageRemind"></property>
+		<property name="targetMethod" value="sendMsg"></property>
+		<property name="concurrent" value="false"></property> 
+	</bean>
+	<!-- 定义触发时间 :每小时执行一次--> 
+	<bean id="cronTriggerOverTime" class="org.springframework.scheduling.quartz.CronTriggerBean" >
+		<property name="jobDetail" ref="jobDailyOverTime"></property>
+		<!-- 每60分（一小时）触发一次 -->
+	<!--   	<property name="cronExpression" value="0 0/60 * * * ?"/>    -->
+	<!--  	<property name="cronExpression" value="30 0 0 1 1 ? 2012"/>  -->
+		<!-- 每10秒钟触发一次 -->
+	   	<property name="cronExpression" value="0/10 * * * * ? "/>   	  
+	</bean>
+	 <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序   -->
+	<bean id="overTimeStartQuartzQuartz" lazy-init="default" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
+		<property name="schedulerName" value="overTimeStartQuartzQuartz" />
+		<property name="triggers">
+			<list>
+				<ref bean="cronTriggerOverTime" /> 
+			</list>
+		</property>
+	</bean>
+
+</beans>

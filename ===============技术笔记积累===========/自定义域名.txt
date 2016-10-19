@@ -1,0 +1,2 @@
+修改host文件，配置域名
+C:\Windows\System32\drivers\etc\hosts

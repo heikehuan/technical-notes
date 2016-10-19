@@ -1,0 +1,9 @@
+$(":radio[name=blackType]").click(function(){
+		   var str=$(this).val();
+		   if(str=="ORG"){
+			   $("#org_import").show();
+		   }else{
+			   $("#org_import").hide();
+		   }
+			
+	});

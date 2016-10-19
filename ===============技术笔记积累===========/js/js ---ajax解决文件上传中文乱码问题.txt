@@ -1,0 +1,69 @@
+在上传文件时，如果文件名为中文，在action会接到乱码
+--在url外面包裹一层encodeURI,可以解决中文乱码
+如果url内容包含#，则井号后边的会被忽略，需要用encodeURIComponent包裹
+ 井号在URL中指定的是页面中的一个位置，井号后面的数据不会发送到HTTP请求中，任务位于井号后面的字符都是位置标识符
+
+附：js中调用actioin中检验方法
+function uploadInfoShare(){
+		//上传文件不能为空
+		var filePath = document.getElementById("uploadFile").value;
+		if((null==filePath)||(""==filePath)){
+			alert("请选择文件进行上传！");
+			return false;
+		}
+		var fileNameAll = filePath.substring(filePath.lastIndexOf("\\")+1);	//从完整路径中获取文件名
+		fileName = fileNameAll.substring(0,fileNameAll.lastIndexOf("."));		//去除文件扩展名
+		if(fileName.length>50){
+			alert('文件名长度超过50，无法上传');
+			return false;
+		}
+		
+		var uploadUrl = '<c:url value="/compman/blackListAction.crm?method=checkInfoChareListFile&fileName="/>'+fileNameAll;
+		
+		if(confirm("您确定要上传吗？")){
+			$.ajax({
+			   type:"get",
+			   url: encodeURI(uploadUrl),
+			   data: '',
+			   cache:false,
+			   success: function(info){
+			   		if(info=='yes'){
+			   			if(confirm("文件已经存在，是否进行覆盖？")){
+							document.forms[0].submit();
+						}	
+			   		}else{
+							document.forms[0].submit();
+			   		}
+			   }
+			});
+		}
+		
+	}
+
+
+ /**
+     *add by zhanhh on $2011-8-7	
+     * 校验黑名单上传文件是否重名
+     * @param mapping
+     * @param form
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    public void checkInfoChareListFile(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	 //判断是否有同名文件
+    	String fileName = request.getParameter("fileName");
+    	response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+       
+        if(blackListService.checkTrueUpload( request,fileName)){
+        	writer.write("yes");
+		}else{
+			writer.write("no");
+		}
+        writer.flush();
+        writer.close();
+        
+    }

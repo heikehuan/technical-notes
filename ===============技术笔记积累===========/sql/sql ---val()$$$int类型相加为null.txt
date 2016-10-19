@@ -1,0 +1,20 @@
+两个int 类型数相加，一个是null时，总数为null
+
+这里可以看到，在奖金为NULL的列上，虽然都为number类型，但这位老师的月收入为空了。显然是不对的。oracle没有默认的实现这个功能。
+ 
+这个时候需要我们采用nvl函数来给列设置默认值，假如是空的，默认为零
+ 
+SQL> select t.name as "姓名", nvl(t.bonus,0)+t.wage as "月总收入" from teachers t;
+
+还可以使用nvl2函数
+SQL> select t.name as "姓名" ,nvl2(t.bonus,t.bonus+t.wage,t.wage) as "总收入" from teachers t;
+
+
+
+
+NVL2(expr1,expr2,expr3) 
+　　功能：如果参数表达式expr1值为NULL，则NVL2()函数返回参数表达式expr3的值；如果参数表达式expr1值不为NULL，则NVL2()函数返回参数表达式expr2的值。
+
+NVL( string1, replace_with) 
+
+　　功能：如果string1为NULL，则NVL函数返回replace_with的值，否则返回string1的值，如果两个参数都为NULL ，则返回NULL。

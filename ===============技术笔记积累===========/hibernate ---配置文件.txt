@@ -1,0 +1,30 @@
+cascade属性的可能值有
+    all: 所有情况下均进行关联操作，即save-update和delete。
+    none: 所有情况下均不进行关联操作。这是默认值。 
+    save-update: 在执行save/update/saveOrUpdate时进行关联操作。 
+    delete: 在执行delete 时进行关联操作。
+    all-delete-orphan: 当一个节点在对象图中成为孤儿节点时，删除该节点。比如在一个一对多的关系中，Student包含多个book，当在对象关系中删除一个book时，此book即成为孤儿节点。
+像你的问题，设置成save-update就可以了
+
+
+不用特殊使用，hibernate默认都是lazy=true 
+lazy是延时的意思，如果lazy=true，那么就是说数据库中关联子表的信息在hibernate容器启动的时候不会加载，而是在你真正的访问到字表非标识字段的时候，才会去加载。
+反之，如果lazy=false的话，就是说，子表的信息会同主表信息同时加载。
+一般用只有完全用到子表信息的时候，才会lazy=false
+
+
+
+select a.row_id,a.user_name,a.create_date,
+(select b.user_name  from th_user b where b.row_id = a.create_by) as create_by,
+(select c.display_value from pb_list_of_value01 c where c.stand_code = a.work_unit_kind) as work_unit_kind,
+(select d.display_value from pb_list_of_value01 d where d.stand_code = a.user_status) as  user_status,
+ from th_user a 
+ join 
+ where 
+ a.user_name = ??
+ a.login_name =??
+ a.work_unit_kind=??
+ a.user_status=??
+ 
+ 
+

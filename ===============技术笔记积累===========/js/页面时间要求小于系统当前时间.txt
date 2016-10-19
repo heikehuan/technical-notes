@@ -1,0 +1,14 @@
+if(!isEmpty(document.IntegrationForm.terminateDate.value)){
+  			var terminateDate = document.IntegrationForm.terminateDate.value;
+  			var terminateDate_arr = terminateDate.split("-");
+	  		var year = parseInt(terminateDate_arr[0]);     
+	  		var month = parseInt(terminateDate_arr[1])-1;  
+	  		var day = parseInt(terminateDate_arr[2]);  
+	  		terminateDate=new Date(year,month,day);
+	  		 var nowDate = new Date(); 
+			  if(nowDate.valueOf()>terminateDate.valueOf())
+			   {
+			  	   alert("有效期终止时间必须大于系统当前时间，请重新选择!");
+			  	   return;
+			   }
+  		}

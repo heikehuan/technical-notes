@@ -1,0 +1,49 @@
+<!--日期选择 start -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/js/jscalendar/calendar-system.css'/>" />
+<script type="text/javascript" src="<c:url value='/js/jscalendar/calendar.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/jscalendar/lang/calendar-zh.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/DatePicker.js'/>"></script>
+<!-- 日期选择 end -->
+
+
+function getDelayMonth(){
+	if(!isEmpty(IntegrationForm.delayTerminateDate.value)&&compareDate(document.IntegrationForm.terminateDate.value,document.IntegrationForm.delayTerminateDate.value)){
+		//延期前时间数组
+		var startTime = document.IntegrationForm.terminateDate.value.split("-");
+		//延期后时间数组
+		var endTime = document.IntegrationForm.delayTerminateDate.value.split("-");
+		
+		if(compareDate(document.IntegrationForm.terminateDate.value,document.IntegrationForm.delayTerminateDate.value)){
+			if(endTime[0]!=startTime[0]){//延期后的年份大于延期前得年份
+				document.IntegrationForm.delayMonth.value = (endTime[0]-startTime[0]-1)*12+(endTime[1]-startTime[1]+12);
+			}else{//年份相等
+				document.IntegrationForm.delayMonth.value = endTime[1]-startTime[1];
+			}
+			
+		}
+		
+	}
+}
+
+
+function saveAutoDelay(){
+	getDelayMonth();
+	if(isEmpty(document.IntegrationForm.delayTerminateDate.value)){
+		alert("延期后集团终止时间不能为空!");
+		return;
+	}
+	if(!compareDate(document.IntegrationForm.terminateDate.value,document.IntegrationForm.delayTerminateDate.value)){
+			alert("延期前集团终止时间不能晚于延期后集团终止时间!");
+			return;
+	}
+}
+
+ <tr>
+<td class="label-nowrap">延期前集团终止日期</td>
+<td><html:text  name="IntegrationForm" property="terminateDate" styleClass="textfieldread"/>&nbsp;
+<td class="label-nowrap">延期后集团终止日期</td>
+<td><html:text  name="IntegrationForm" property="delayTerminateDate" styleClass="textfield" readonly="true"/>
+<img src="<c:url value='/images/calendar1.gif'/>" align="absmiddle" border="0"
+ style="margin-left: 3px; cursor: pointer" onclick="showCal('delayTerminateDate', null)" />
+</td>
+</tr>

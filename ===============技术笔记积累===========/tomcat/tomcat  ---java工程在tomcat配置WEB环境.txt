@@ -1,0 +1,8 @@
+有的工程是java工程，但仍然是web方式访问。在myeclipse里无法加载到tomcat里，需要配置tomcat配置文件。
+
+在conf目录下的server.xml文件中，host中加入下边一行
+<!--  配置java工程例子，只需修改path，docBase就可以 （兴业证券例子） -->
+<Context path="/MessagePlat_xyzq20140722" reloadable="true" docBase="D:\workspace\MessagePlat_xyzq20140722" workDir="MobileInfoPlatemp"/>
+
+<!-- 资讯平台例子	在myeclipse里tomcat下的jdk里拷贝-Xmx1024M -Xms512M -XX:MaxPermSize=256m -Dofbiz.home=D:\workspace\mobileInfoPlat_20131224 -->
+<Context path="/mobileInfoPlat_20131224" reloadable="true" docBase="D:\workspace\mobileInfoPlat_20131224" workDir="MobileInfoPlatemp"/>

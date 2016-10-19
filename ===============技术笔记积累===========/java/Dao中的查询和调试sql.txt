@@ -1,0 +1,5 @@
+String sql = QueryParse.getInstance().parseSQL(sqlName,sqlMap);
+
+ ICommonBean cb = selectByDefineWithPrepared(sqlName,sqlMap);
+
+

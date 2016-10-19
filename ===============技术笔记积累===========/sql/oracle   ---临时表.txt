@@ -1,0 +1,12 @@
+八、临时表
+只在会话期间或在事务处理期间存在的表.
+临时表在插入数据时，动态分配空间 
+create global temporary table temp_dept
+(dno number,
+dname varchar2(10))
+on commit delete rows;
+insert into temp_dept values(10,'ABC');
+commit;
+select * from temp_dept; --无数据显示,数据自动清除
+on commit preserve rows:在会话期间表一直可以存在（保留数据）
+on commit delete rows:事务结束清除数据（在事务结束时自动删除表的数据）

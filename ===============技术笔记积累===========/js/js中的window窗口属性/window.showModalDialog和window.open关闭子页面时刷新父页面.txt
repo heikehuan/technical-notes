@@ -1,0 +1,28 @@
+ window.showModalDialog和window.open关闭子页面时刷新父页面
+分类： Javascript 2011-12-16 18:20 14人阅读 评论(0) 收藏 举报
+父窗体打开页面的javascript
+function GoToPage(id)
+        {
+       
+           var title="title";
+           var url="xxxxx.aspx?ID="+id+"&Radom="+Math.random();;
+           var Width="700";
+           var Height="600";
+           var arguemnts = new Object();
+           arguemnts.window = window;
+            if (document.all&&window.print)
+            {
+                window.showModalDialog(url,arguemnts,"dialogWidth:" + Width + "px;dialogHeight:" + Height + "px;center:yes;status:no;scroll:yes;help:no;");
+        
+            }
+            else 
+           { 
+                window.open(url,"","width=" + Width + "px,height=" + Height + "px,resizable=1,scrollbars=1"); 
+           }
+        }
+子页面执行代码后：
+Response.Write("<script language='javascript'>window.dialogArguments.window.location = window.dialogArguments.window.location;</script>");
+            Response.Write("<script>self.close();</script>");
+如果是window.open打开的：
+Response.Write("<script language='javascript'>window.opener.location.热reload();</script>") ; 
+Response.Write("<script language='javascript'>window.opener=null;window.close();</script>");

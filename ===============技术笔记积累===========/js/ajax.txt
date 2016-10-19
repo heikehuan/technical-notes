@@ -1,0 +1,15 @@
+$.ajax({
+	   type:"get",
+	   url: encodeURI('<c:url value="/marketing/mobileResources/preemptive.crm?method=selectAreaRowId&num1="/>'+num1+"&number1="+number1+"&number2="+number2+"&theChoose="+theChoose),
+	   data: '',
+	   cache:false,
+	   success: function(areaAndRowId){
+		if(areaAndRowId!=''){
+			var arr = areaAndRowId.split(",");
+			document.getElementById("numArea").value = arr[0];
+			document.getElementById("addMobileNum").value = arr[1]; 
+			unaFrame.window.location.href='<c:url value="/marketing/mobileResources/preemptive.crm?method=unAvailMobileSource&number1="/>'+number1+"&number2="+number2;
+			aFrame.window.location.href='<c:url value="/marketing/mobileResources/preemptive.crm?method=availMobileSource&number1="/>'+number1+"&number2="+number2;
+		}
+	   }
+	});

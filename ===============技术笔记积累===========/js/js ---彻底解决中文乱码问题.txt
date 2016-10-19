@@ -1,0 +1,16 @@
+tomcat安装目录：D:\Tomcat 6.0\conf下的文件server.xml修改下配置
+<Connector port="8080" protocol="HTTP/1.1" 
+		   maxThreads="150" connectionTimeout="20000" 
+		   redirectPort="8443" />
+		   
+中加入useBodyEncodingForURI="true" URIEncoding="UTF-8"  如下：
+
+<Connector port="8080" protocol="HTTP/1.1" 
+		   maxThreads="150" connectionTimeout="20000" 
+		   useBodyEncodingForURI="true" URIEncoding="UTF-8"
+		   redirectPort="8443" />
+		   
+jsp页面设置格式为UTF-8
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+		   
+		   

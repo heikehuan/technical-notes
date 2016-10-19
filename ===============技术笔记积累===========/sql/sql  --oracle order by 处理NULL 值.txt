@@ -1,0 +1,19 @@
+【转】oracle order by 处理NULL 值
+适用情况： 
+oracle 对查询结果进行排序时，被排序的栏位存在null值，且要指定NULL值排在最前面或者最后面 
+
+关键字：Nulls First；Nulls Last 
+
+默认情况：null 默认为最大值（即：asc 升序<小-->大>，null值排在最后；desc 降序<大-->小>，null值排在最前面） 
+
+指定： 
+1. Oracle Order by支持的语法 
+2. 指定Nulls first 则表示null值的记录将排在最前(不管是asc 还是desc) 
+3. 指定Nulls last 则表示null值的记录将排在最后(不管是asc 还是desc) 
+语法举例：(Table：Tab_A 有部分空值的栏位Col_A) 
+select * from Tab_A order by Tab_A. Col_A (asc/desc) nulls first ------>null 值排在最前面 
+select * from Tab_A order by Tab_A. Col_A (asc/desc) nulls last ------>null 值排在最后面 
+
+其他方法： 
+在order by 的时候，用Nvl、NVL2 、Decode、case .....when....end;等函数对栏位的null值进行处理 
+例如：select * from Tab_A order by NVL（Tab_A. Col_A,'abc' ） (asc/desc) ; 

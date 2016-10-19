@@ -1,0 +1,36 @@
+Html代码  
+Jquery的选择器帮你轻松实现这个效果 摒弃复杂的js代码   
+$(function(){   
+    $('#inputChkAll').click(function(){   
+        $("input[name='chkJob']").attr("checked", $(this).attr("checked")); //注意此处   
+        //#inputChkAll用来全选或者全不选的CheckBox控件，其控制了name='chkJob'这个复选组。   
+ });   
+});  
+
+Jquery的选择器帮你轻松实现这个效果 摒弃复杂的js代码
+$(function(){
+	$('#inputChkAll').click(function(){
+		$("input[name='chkJob']").attr("checked", $(this).attr("checked")); //注意此处
+        //#inputChkAll用来全选或者全不选的CheckBox控件，其控制了name='chkJob'这个复选组。
+ });
+});
+  Html代码  
+//全选   
+function checkall() {   
+    var all = document.getElementsByTagName("input");   
+    for (var i = 0; i < all.length; i++) {   
+        if (all[i].type == "checkbox") {   
+            all[i].checked = true;   
+        }   
+    }   
+}   
+    
+// 反选   
+function checknull() {   
+    var all = document.getElementsByTagName("input");   
+    for (var i = 0; i < all.length; i++) {   
+        if (all[i].type == "checkbox") {   
+            all[i].checked = false;   
+        }   
+    }   
+}  

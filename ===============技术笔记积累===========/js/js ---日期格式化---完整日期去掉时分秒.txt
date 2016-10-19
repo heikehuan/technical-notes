@@ -1,0 +1,22 @@
+数据库中存储的日期是带年月日和时分秒的日期格式：2012-07-07 9:23:15，现在jsp页面需要只显示年月日，去掉时分秒。方式如下
+style1:
+---使用jstl标签，可以格式化日期显示格式。
+
+1 要是没有用struts2框架的话需要引入这个包才可以jstl-1.2.jar
+
+2 在页面第一行引入如下jstl标签库
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+3 在属性中加入如下标签，设置日期格式(time是后台传过来的,你放到request或者session都可以)
+<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>
+
+
+style2:
+
+---<ec:table>标签自带日期格式，设置 cell="date" format="yyyy-MM-dd"，即可只显示年月日，不显示时分秒
+<ec:column property="createDate" title="创建时间"  cell="date" format="yyyy-MM-dd" >
+
+
+struts2去掉时分秒
+<s:date format="HH:mm:ss" name="#c.sendTime"/>
+

@@ -1,0 +1,34 @@
+转：Oracle中以一个表的几列更新另一个表的几列
+今天有这样一个需求：因为要加快查询速度，避免表的联合查询的效率问题，所以要把一个表的几个字段填到另一个表的几个字段上去。 
+一开始做法如下： 
+
+update tbl1 a, tbl2 b 
+   set a.col1=b.col1,a.col2=b.col2
+   where a.key=b.key
+
+
+  
+这个语句在 MySQL 上是可以运行的，但在 ORACLE 上无法执行。在网上查了一个发现可以这样： 
+ 
+update tbl1 a
+    set a.col1=(select b.col1 from tbl2 b where a.key=b.key),
+        a.col2=(select b.col2 from tbl2 b where a.key=b.key)
+
+但我感觉这样的效率好像比较低，写得SQL又很长，更新一行数据要写两个嵌套，直观上感觉 "select xxx from tbl2 b where a.key=b.key" 语句好像被执行了两遍（实际我没有测试验证）。于是接着在网上搜，查到一个比较好看的写法，如下：
+
+update tbl1 a
+   set (a.col1, a.col2) = (select b.col1, b.col2
+                              from tbl2 b
+                              where a.key = b.key)
+
+这种写法感觉还比较满意。但注意了，经过测试，这种语法在 MySQL 中是不合法的。
+
+今天继续使用最后这个SQL的时候，也发现了一些缺点：如果 tbl1.key 的值在 tbl2.key 中没有此值是，这个更新的两个字段 tbl1.col1 和 tbl1.col2 字段会被更新为空值(null)。这个结果是我不想看到的。也是没办法解决的。如果想解决的话，也可以在最后加入一个条件，如下表中加大字体的部分：
+update tbl1 a
+   set (a.col1, a.col2) = (select b.col1, b.col2
+                              from tbl2 b
+                              where a.key = b.key)
+   where a.key in(select key from tbl2)
+
+
+但这种做法肯定会导致性能严重下降。所以，我写一个更复杂的方法来解决这个问题，现在没时间。。。

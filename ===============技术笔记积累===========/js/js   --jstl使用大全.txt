@@ -1,0 +1,119 @@
+日期格式数据在jsp页面显示使用如下标签
+<fmt:formatDate value="${date}" pattern="yyyy-MM-dd"/>
+其中${date}是实际数据中的java.util.Date类型数据
+pattern="yyyy-MM-dd" 中的"yyyy-MM-dd"按照标准时间格式字符串定义即可，
+可以显示到时分秒即为"yyyy-MM-dd HH:mm:ss"注意其中大小写
+数字标签
+<fmt:formatNumber value="${num}" pattern="#" type="number"/>
+其中${num}是任意的基础数据类型数据，pattern指定当前数字的格式，可以指定格式”#”
+（只有整数类型）、”#.#”（带一位小数类型）、” ￥#,###.###”（带千位分割符，和“￥”类型）等等；type指定当前数字的类型，type有number（数值）、currency（货币）、percent（百分数）三种；
+数字标签实例
+Double num = new Double("123456789012.3456");
+整数带千分符显示：
+<fmt:formatNumber value="${num}" type="number"/> 
+整数显示：
+<fmt:formatNumber value="${num}" pattern="#" type="number"/> 
+两位小数舍入显示：
+<fmt:formatNumber value="${num}" pattern="#.##" type="number"/>
+两位小数舍入，不足两位小数补0显示：
+<fmt:formatNumber value="${num}" pattern="#.00" type="number"/>
+货币显示：（与number类似扩展pattern）
+<fmt:formatNumber value="${num}" type="currency"/>
+百分数显示：（与number类似扩展pattern）
+<fmt:formatNumber value="${num}" type="percent"/>
+实例结果
+整数带千分符显示： 123,456,789,012.346
+整数显示： 123456789012
+两位小数舍入显示： 123456789012.35
+两位小数舍入，不足两位小数补0显示： 123456789012.35
+货币显示：￥123,456,789,012.35
+百分数显示 12,345,678,901,235%
+
+
+<fmt:formatNumber value="12" type="currency" pattern="＄.00"/> －－ ＄12.00  
+<br/>  
+<fmt:formatNumber value="12" type="currency" pattern="＄.0#"/> －－ ＄12.0  
+<br/>  
+<fmt:formatNumber value="1234567890" type="currency"/> －－ ＄1,234,567,890.00(那个货币的符号和当前web服务器的 local 设定有关)  
+<br/>  
+<fmt:formatNumber value="123456.7891" pattern="#,#00.0#"/> －－ 123,456.79  
+<br/>  
+<fmt:formatNumber value="123456.7" pattern="#,#00.0#"/> －－ 123,456.7  
+<br/>  
+<fmt:formatNumber value="123456.7" pattern="#,#00.00#"/> －－ 123,456.70  
+<br/>  
+<fmt:formatNumber value="12" type="percent" /> -- 1,200%type 可以是currency、 number、 和percent  
+<br/>  
+<fmt:formatNumber value="12.345" pattern="#.##" />  -- 12.34 
+
+
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> 
+
+数字格式化（value部分可为EL表达式）：
+
+1.<fmt:formatNumber value="12" type="currency" pattern="＄.00"/> //－－ ＄12.00
+
+2.<fmt:formatNumber value="12" type="currency" pattern="＄.0#"/> //－－ ＄12.0
+
+3.<fmt:formatNumber value="1234567890" type="currency"/> //－－ ＄1,234,567,890.00(那个货币的符号和当前web服务器的 local 设定有关)
+
+4.<fmt:formatNumber value="123456.7891" pattern="#,#00.0#"/>// －－ 123,456.79
+
+5.<fmt:formatNumber value="123456.7" pattern="#,#00.0#"/> //－－ 123,456.7
+
+6.<fmt:formatNumber value="123456.7" pattern="#,#00.00#"/>// －－ 123,456.70
+
+7.<fmt:formatNumber value="12" type="percent" /> //-- 1,200% (type 可以是currency、 number、 和percent)。
+
+Java程序中格式化数字的代码：
+
+DecimalFormat df = new DecimalFormat("格式");
+
+String fmt =df.format(double);
+
+"格式"部分自己定义：
+
+符号 意义
+0 一个数位
+# 一个数位，前导零和追尾零不显示
+. 小数点分割位置
+， 组分隔符的位置
+- 负数前缀
+% 用100乘，并显示百分号
+其他任何符号 在输出字符串中包括指定符号
+
+主要功能格式化
+
+日期格式(2008年5月5日22点00分23秒)
+
+<fmt:formatDate value="<%=new Date() %>" pattern="yyyy年MM月dd日HH点mm分ss秒" />
+保留两位小数
+<fmt:formatNumber value="123.123456789" pattern="0.00"/>
+格式数字(45,678.234)
+<fmt:formatNumber type="number" value="45678.2345" />
+格式百分比(23%)
+<fmt:formatNumber type="percent" value="0.2345" />
+其他
+<fmt:bundle>：资源绑定。除了以前提到过的在web.xml中声明以外，还可以利用此标签。
+例<fmt:bundle basename="message"></fmt:bundle>
+<fmt:setLocale>：设置locale，主要是用于这种情况，一个中国人在国外，locale是en_US，但想用中文显示。
+例：<fmt:setLocal value="zh_CN"/>
+<fmt:message>：输出properties文件中的指定内容。
+例<fmt:message key="user"/>
+<fmt:formatNumber type="number">格式化普通数字
+<fmt:formatNumber type="percent">格式化百分比
+三种数字类型参数：currency,number,percent
+<fmt:parseNumber var="i" type="number" value="45678.2345" />
+<c:out value="${i}" escapeXml="false" /> 分析出数字
+
+<fmt:requestEncoding value="GB18030"/> 格式化文本编码
+<fmt:formatDate value="${date}" type="both" timeStyle="long" dateStyle="long" />
+type="both" 输入日期也同时输出具体时间
+timeStyle="long" 时间以"长"格式输出 差别：下午02时06分59秒 与 14:06:59
+dateStyle="long" 日期以"长"格式输出 差别：2006年9月7日 与 2006-9-7
+四种长短参数：long,short,medium,full
+<fmt:timeZone value="${timezone}"/> 时区偏移，与上面可配合使用：
+<fmt:formatDate value="${d}" timeZone="${zn}" type="both" />
+<fmt:parseDate var="i" type="date" value="2006-12-11" />
+<c:out value="${i}" escapeXml="false" /> 分析出时间

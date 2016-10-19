@@ -1,0 +1,21 @@
+//对输入金额四舍五入，保留2位小数
+var totalFee1 = $("#totalFee1").val(); //取值
+totalFee1 = parseFloat(totalFee1).toFixed(2)+""; //转换成数字然后保留2位，然后转换成字符串
+document.getElementById("totalFee1").value=totalFee1; //赋值
+
+<input type="text" onpaste="return false" value="" name="totalFee1" id="totalFee1"  onblur="javascript:checkBlur(this.value)"  
+onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,4})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"/>
+
+
+function checkBlur(v)
+{
+	if(v!=""&&v.length>0)
+	{
+		if(v>1000000)
+		{
+			alert("您的充值金额大于100万元，请重新输入！");
+			document.getElementById("totalFee1").value="";
+			document.getElementById("totalFee1").focus();
+		}
+	}
+}

@@ -1,0 +1,24 @@
+Javascript中把字符串转换为日期的方法
+
+我这里有一个例子，用来把字符串类型转换为日期类型，并且比较两个日期是不是同一天：
+
+
+
+<input type="hidden" id="a1" value="2010-4-15 12:34:00" />
+<input type="hidden" id="a2" value="2010-4-15 12:34:00" />
+<script type="text/javascript">
+function parseDate(str) // 这个函数用来把字符串转换为日期格式
+{
+    return new Date(Date.parse(str.replace(/-/g,"/")));
+}
+var a1Date = parseDate(document.getElementById("a1").value);
+var a2Date = parseDate(document.getElementById("a2").value);
+if(a1Date.toLocaleDateString()==a2Date.toLocaleDateString())
+{
+    alert("是同一天");
+}
+else
+{
+    alert("不是同一天");
+}
+</script>

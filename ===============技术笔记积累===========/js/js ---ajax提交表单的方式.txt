@@ -1,0 +1,133 @@
+ajax提交表单的方式
+
+-----------------------------------------------------------
+$.ajax({
+	cache: true,
+	type: "POST",
+	url:ajaxCallUrl,
+	data:$('#yourformid').serialize(),// 你的formid
+	async: false,
+    error: function(request) {
+	alert("Connection error");
+    },
+    success: function(data) {
+	    $("#commonLayout_appcreshi").parent().html(data);
+    }
+});
+-----------------------------------------------------------
+jQuery ajax - serialize() 方法
+定义和用法
+
+serialize() 方法通过序列化表单值，创建 URL 编码文本字符串。
+
+您可以选择一个或多个表单元素（比如 input 及/或 文本框），或者 form 元素本身。
+
+序列化的值可在生成 AJAX 请求时用于 URL 查询字符串中。
+<form>
+  <div><input type="text" name="a" value="1" id="a" /></div>
+  <div><input type="text" name="b" value="2" id="b" /></div>
+  <div><input type="hidden" name="c" value="3" id="c" /></div>
+  <div>
+    <textarea name="d" rows="8" cols="40">4</textarea>
+  </div>
+  <div><select name="e">
+    <option value="5" selected="selected">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select></div>
+  <div>
+    <input type="checkbox" name="f" value="8" id="f" />
+  </div>
+  <div>
+    <input type="submit" name="g" value="Submit" id="g" />
+  </div>
+</form>
+ 
+$('form').submit(function() {
+  alert($(this).serialize());
+  return false;
+});
+
+输出 a=1&b=2&c=3&d=4&e=5 后台request.getParameter("a")就能获取到value
+
+-----------------------------------------------------------------
+var options ={   
+    url:'xxxx.action',   
+    type:'post',                    
+    data:null,
+      success:function(data){
+	if(data.statusCode=="OK") {  
+
+	   
+    }else{
+
+    } 
+    }   
+ };
+var form =$("form[name=form1]");//form1:表单ID  在表单界面只用这一个表单ID
+   
+form.ajaxSubmit(options); 
+
+-----------------------------------------------------------------
+
+//调用
+$(document).ready(function(){
+    $('#Form1').bind('submit', function(){
+        ajaxSubmit(this, function(data){
+            alert(data);
+        });
+        return false;
+    });
+});
+//在ajaxSubmit方法调用前，可验证数据是否正确，在alert(data)处可加入自己调用返回后处理代码。
+//在调用ajaxSubmit方法后，必须添加return false;语句防止Form真实提交。
+
+//将form转为AJAX提交
+function ajaxSubmit(frm, fn) {
+    var dataPara = getFormJson(frm);
+    $.ajax({
+        url: frm.action,
+        type: frm.method,
+        data: dataPara,
+        success: fn
+    });
+}
+
+//将form中的值转换为键值对。
+function getFormJson(frm) {
+    var o = {};
+    var a = $(frm).serializeArray();
+    $.each(a, function () {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+
+    return o;
+}
+
+----------------------------------------------------------------------
+
+var url = '<c:url value="/saveBirthdayConfig.action?cmd=saveBirthdayConfig"/>';
+$("#configForm").attr('action',encodeURI(url));
+$("#configForm").submit();
+或
+ var  url = '<%=request.getContextPath()%>/immediateSplit.action';
+ pars = {mobile:mobile,context:context,group_ids:group_ids,groupName:groupName,preSendTime:preSendTime};
+ jQuery.post(url, pars, openDialog,'text/html');
+function openDialog(data){
+	 var arrayData=eval("("+data+")");
+	 var totalNum = arrayData.totalNum;
+	 var prohibiteCode = encodeURIComponent(arrayData.prohibiteCode);
+	 if(context!="" && context.length>150){
+		 context = context.substring(0, 100)+"......";
+	 }
+	 context = encodeURIComponent(context);		
+}
+----------------------------------------------------------------------
+

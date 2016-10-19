@@ -1,0 +1,12 @@
+oracle执行update时卡死问题解决
+ 
+今天进行项目开发时，为了测试项目中SQL执行效果，就用PLSQL Developer执行了一下，没有commit就继续敲代码了，之后重新使用PLSQL Developer时，可能是网络原因，PLSQL Developer断开了与数据库连接并且卡死，便强制结束了。代码敲完后进行测试，项目执行后没效果，并且无响应，debug后发现jdbc执行SQL时没反应了，问了一下谷老师才找到原因。由于在PLSQL Developer执行update时没有commit，oracle将该条记录锁住了。 
+  www.2cto.com  
+可以通过以下办法解决： 
+先查询锁定记录 
+Sql代码  
+SELECT s.sid, s.serial# FROM v$locked_object lo, dba_objects ao, v$session s WHERE ao.object_id = lo.object_id AND lo.session_id = s.sid;  
+ 
+然后删除锁定记录 
+Sql代码  
+ALTER system KILL session 'SID,serial#';   

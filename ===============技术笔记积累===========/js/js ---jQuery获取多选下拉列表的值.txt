@@ -1,0 +1,39 @@
+Jquery 获取多选下拉列表select multiple的文字和值 text val
+Jquery的强大是毋庸置疑的
+今天经过自己的摸索，得到获取多项下拉列表的文字和值的方法，实例如下：
+<select name="fruits" id="fruits" size="4" multiple="multiple">
+<option value="1">苹果</option>
+<option value="2" selected=“selected”>梨</option>
+<option value="3">桃子</option>
+<option value="4" selected=“selected”>香蕉</option>
+<option value="5">菠萝</option>
+<option value="6">桔子</option>
+</select>
+Jquery代码：
+jQuery(function($){
+$("#fruits").change(function(){
+         var fruitval0 = "";
+            $("#fruits option").each(function() {
+            fruitval0 += $(this).val()+',';
+        });
+        // 所有option选项的值
+        alert(fruitval0);
+  
+        var fruit1 = "";
+            $("#fruits option").each(function() {
+            fruit1 += $(this).text()+',';
+        });
+        // 所有option选项的文字
+        alert(fruit1);
+        
+        var fruit2 = "";
+            $("#fruits option:selected").each(function() {
+            fruit2 += $(this).text()+',';
+        });
+        // 所有option被选中项的文字
+        alert(fruit2);
+        
+        // 所有option被选中项的值
+        alert($("#fruits").val().join(","));
+});
+});

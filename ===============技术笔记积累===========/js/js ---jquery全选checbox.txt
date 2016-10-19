@@ -1,0 +1,73 @@
+jquery radio取值，checkbox取值，select取值，radio选中，checkbox选中，select选中
+选取属性时，jquery1.3.0以后的版本中是不能加@的(如'input[name="bobby"]')，jquery1.3.0以前的要加@的(如'input[@name="hobby"]')
+1：获取一组radio被选中项
+(0)$('input[@type=radio][@name="hobby"][@checked]') ;//这是最精确的写法，也是速度最快的
+(1)$('input:radio[@name="hobby"][@checked]')
+(2)$('[:radio[@name="hobby"][@checked]')
+(3)$('[@name="hobby"][@checked]')
+(4)$('input[@name="hobby"][@checked]'); 
+(5)$('input[@name="hobby"]:checked');
+(6)$('input:checked[@name="hobby"]');
+(7)$(':input:checkbox:checked[@name="hobby"]')
+2：获取一组radio未被选中 项
+(1)$('input[@name="hobby"]').not('[@checked]')
+3：获取一组checkbox被选中项
+$('input:checkbox[@name="hobby"][@checked]')
+
+4：获取select被选中项的文本
+html代码如下：
+Js代码
+<select id="hobby" name="hobby">   
+     <option value="1">001</option>   
+     <option value="2">002</option>   
+</select>  
+<select id="hobby" name="hobby"> <option value="1">001</option> <option value="2">002</option></select>
+(1)$('select[@name="hobby"] option[@selected]').attr('value');//或着$('xxx').text();
+如果不写value值， 这个测试在firefox3.5下可以得到值，但在ie6中得不到值
+(2)$('#hobby').val();//如果不写value值，通过ie6和firefox，其它未测试
+//如果有value值，则两个方法都可以取到value值
+所以，$('xx').val()只针对 带有value属性的html表单起会用，可以用$('xxx').val()取到值，也可以用$('xxx').attr('value')取到值
+
+5：select下拉框的第二个元素为当前选中值 
+$('#select_id')[0].selectedIndex = 1; 
+radio单选组的第二个元素为当前选中值 
+$('input[@name=items]').get(1).checked = true;
+或着：$('input[@name=items]').[1].checked = true; 
+
+6：获取值：
+
+文本框，文本区域：$("#txt").attr("value")； $("#textArea").val(); 
+多选框checkbox：$("#checkbox_id").attr("value")； 
+单选组radio：   $("input[@type=radio][@checked]").val(); 
+下拉框select： $('#sel').val(); 
+
+7：控制表单元素： 
+文本框，文本区域：
+$("#inputText").attr("value",'');//清空内容 
+$("#textArea").attr("value",'11');//填充内容
+$("#textArea").val('11');
+
+多选框checkbox：
+$("#chk1").attr("checked",'');//不打勾
+$("#chk2").attr("checked",true);//打勾 
+if($("#chk1").attr('checked')==undefined) //判断是否已经打勾 
+
+单选组radio：   
+1:$("input[@type=radio]").attr("checked",'2');//设置value=2的项目为当前选中项
+2:$('input:radio[name="hobby"][value="game"]').attr('checked','true');这样肯定行 
+下拉框select：  
+$("#sel").attr("value",'-sel3');//设置value=-sel3的项目为当前选中项
+//添加下拉框的option 
+$("<option value='1'>1111</option><option value='2'>2222</option>").appendTo("#sel") 
+$("#sel").empty()；//清空下拉框
+$("select option:selected").text()
+8：全选与反选事件
+<input type="checkbox" id="selectAllCheckBox"/>
+Js代码
+$('input:checkbox#selectAllCheckBox').click(function(e){   
+    if($(this).attr('checked') ){   
+         $('input:checkbox').attr('checked','true');   
+     }else{   
+         $('input:checkbox').attr('checked','');   
+     };   
+}); 

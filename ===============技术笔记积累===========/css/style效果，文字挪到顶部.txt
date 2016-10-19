@@ -1,0 +1,5 @@
+<div>
+    <span class="zi_000000" style="width:50;vertical-align:top;">°×Ãûµ¥£º</span>
+    <span class="zi_000000"><textarea name="whiteMobile" rows="5" cols="80" id="whiteMobile" value="${whiteMobile}">${whiteMobile}</textarea></span>
+	
+</div>

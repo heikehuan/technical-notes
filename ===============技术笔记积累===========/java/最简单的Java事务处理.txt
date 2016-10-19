@@ -1,0 +1,71 @@
+最简单的Java处理事务
+
+（作者：javadt.com）
+
+用一个简单的例子来说明Java处理事务:我们用银行转账的时候可以简单的看成是两步操作--将钱从A账户转出和将钱转到B账户。问题来了，如果我从A账户转出之后，突然无法连接数据库了，这样钱就不能转到B账户了，可是A的钱已经没了。所以我们应该把这两步看成是一个整体，要么同时成功，要么什么都不做。这就是事务了。
+
+Java中是如何处理事务的呢？
+我们从java.sql.Connection说起，Connection表示了一个和数据库的链接，可以通过Connection来对数据库操作。在通常情况是Connection的属性是自动提交的，也就是说每次的操作真的更新了数据库，真的无法回退了。针对上述的例子，一旦A账户的钱转出了，即对数据库进行了更新操作了，但是钱并没有转到B的账户，这笔钱就白白“不见”了。这并不是我们希望的。 
+    我们希望的是：看起来成功了，但是没有真的操作数据库，知道我想让他真的发生。可以通过Connection的setAutoCommit（false）让Connection不自动提交你的数据，除非你真的想提交。那么如何让操作真的发生呢？可以使用Connection的commit方法。如何让操作回退呢？使用rollback方法。
+例如： 
+　　try{ 
+　　Connection conn = getConnection（）; // 不管如何我们得到了链接 
+　　conn.setAutoCommit(false); 
+　　// A账户转出
+　　// B账户转入
+　　conn.commit(); // 成功的情况下，提交更新。 
+　　} catch(SQLException ex) { 
+　　conn.rollback(); // 失败的情况下，回滚所有的操作 
+　　} finally { 
+　　conn.close();
+　　} 
+    这里有一点非常重要，事务是基于数据库链接的。所以在但数据库的情况下，事务操作很简单。 
+　　那么如果表分布在两个不同的数据库中呢？ 
+　　例如订单表在订单库中，库存表在库存库中，那么我们如何处理这样的事务呢？ 
+　　需要注意，提交也可以遇到错误呀！ 
+　　try{ 
+　　Connection conn1 = getConnection1(); 
+　　Connection conn2 = getConnection2(); 
+　　// 基于conn1做更新操作 
+　　// 基于conn2做更新操作 
+　　try{ 
+　　conn1.commit（） 
+　　} catch(SQLExcetion ) { 
+　　conn1.rollback(); 
+　　} 
+　　try { 
+　　conn2.commit(); 
+　　} catch(SQLException ) { 
+　　conn2.rollbakc(); 
+　　// 保证务必将刚才的更新还原回来。 
+　　} 
+　　} catch(SQLException ex) { 
+　　// 如果更新失败，conn1.rollback 
+　　// 如果更新失败，conn1.rollback && conn2.rollback 
+　　} finally { 
+　　conn1.close(); 
+　　conn2.close(); 
+　　} 
+　　看看上述的代码就知道，其实操作非常的复杂，甚至：保证肯定还原刚才更新的账户根本无法保证。
+在上述情况下的事务可以称之为分布式事务，通过上述的代码中事务同时提交处理的部分我们可以得出，要想处理分布式事务，必须有独立于数据库的第三方的事务处理组件。 
+　　幸运的是通常情况下，JavaEE兼容的应用服务器，例如：Weblogic，Websphere，JBoss，Glassfish等都有这种分布式事务处理的组件。 
+
+如何使用应用服务器的分布式事务管理器处理分布式事务？ 
+　　以galssfish为例 
+　　1 建立对应两个数据库的XA（javax.sql.XADataSource）类型的数据源。 
+　　2 使用UserTransaction来保证分布式事务。 
+　　try{ 
+　　Connection conn1 = datasource1.getConnection(); 
+　　Connection conn2 = datasource2.getConnection(); 
+　　UserTransaction ut = getUserTransaction(); 
+　　ut.begin(); 
+　　// A账户转出
+　　// B账户转入
+　　ut.commit(); // 成功的情况下，提交更新。 
+　　} catch(SQLException ex) { 
+　　ut.rollback(); // 失败的情况下，回滚所有的操作 
+　　} finally { 
+　　conn.close(); 
+　　} 
+　　如何获取UserTransaction呢？可以使用如下方法 
+　　UserTransaction tx = (UserTransaction) ctx.lookup("jndi/UserTransaction"); 

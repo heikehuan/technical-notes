@@ -1,0 +1,30 @@
+
+----sql函数-----
+
+CREATE OR REPLACE FUNCTION F_GET_GLOBALID
+return varchar2
+/*
+功能描述：此函数是用来得到变更记录的ID号
+返回值：唯一的id号
+作者：吴晓鹏
+创建日期： 2007-11-17
+*/
+is
+
+
+  Result varchar2(20) ;
+begin
+
+    SELECT to_char(sysdate,'yyyymmdd')||to_char(seq_global_id.nextval,'FM00000000')
+    INTO RESULT
+    FROM DUAL 
+     
+     ;
+  
+  return(Result);
+end F_GET_GLOBALID; 
+
+
+
+-------查询sql----
+select f_get_globalid from dual 

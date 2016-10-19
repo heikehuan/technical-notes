@@ -1,0 +1,6 @@
+异常java.lang.IllegalArgumentException: No destination bean specified
+
+
+Set<CmsAdmin> set = null;
+BeanUtils.copyProperties(set, happyManeyChnl.getAdmins());
+示例代码如上，在复制对象过程中，如果有一方为null。则会抛出此异常！

@@ -1,0 +1,7 @@
+function checkNum(obj){
+   if(obj.match(/\d+/)!=obj){  
+	return   false;  
+   }else{
+	return true;
+   }
+}

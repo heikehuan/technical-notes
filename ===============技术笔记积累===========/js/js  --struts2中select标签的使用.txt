@@ -1,0 +1,25 @@
+JSP学习笔记(七十八)：struts2中s:select标签的使用
+
+1.第一个例子：
+
+<s:select list="{'aa','bb','cc'}" theme="simple" headerKey="00" headerValue="00"></s:select>
+ 
+
+2.第二个例子：
+
+<s:select list="#{1:'aa',2:'bb',3:'cc'}"  label="abc" listKey="key" listValue="value"  headerKey="0" headerValue="aabb">
+ 
+
+3.第三个例子：
+
+
+<%
+HashMap map = new LinkedHashMap();
+map.put(1,"aaa");
+map.put(2,"bbb");
+map.put(3,"ccc");
+request.setAttribute("map",map);
+request.setAttribute("aa","2");
+ %>
+<s:select list="#request.map"  label="abc" listKey="key" listValue="value" value="#request.aa"  headerKey="0" headerValue="aabb">
+</s:select>

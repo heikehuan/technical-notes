@@ -1,0 +1,28 @@
+javascript中对象的运用
+1.新建对象
+
+var myObj = new Object(); 
+myObj.name = "Fred"; 
+myObj.age = 42; 
+
+相当于： 
+
+var myObj = { 
+    name : "Fred", 
+    age : 42 }; 
+
+2.对象引用
+
+myObj.name
+
+ 
+
+3.迭代输出
+
+for(o in myObj)
+
+{
+
+      alert("key:" + o + "\n" + "value:" +myObj[o]);
+
+}

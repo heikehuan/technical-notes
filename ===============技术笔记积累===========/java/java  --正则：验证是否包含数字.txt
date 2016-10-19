@@ -1,0 +1,2 @@
+String test = "dgdd34232gdg";
+    System.out.println(test.matches(".+?\\d.+?"));

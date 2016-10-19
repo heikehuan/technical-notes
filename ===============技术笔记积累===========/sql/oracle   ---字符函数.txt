@@ -1,0 +1,50 @@
+三. 字符函数(可用于字面字符或数据库列)
+1，字符串截取
+select substr('abcdef',1,3) from dual
+2,查找子串位置
+select instr('abcfdgfdhd','fd') from dual
+3,字符串连接
+select 'HELLO'||'hello world' from dual;
+4, 1)去掉字符串中的空格
+select ltrim(' abc') s1,
+rtrim('zhang ') s2,
+trim(' zhang ') s3 from dual
+2)去掉前导和后缀
+select trim(leading 9 from 9998767999) s1,
+trim(trailing 9 from 9998767999) s2,
+trim(9 from 9998767999) s3 from dual;
+
+5,返回字符串首字母的Ascii值
+select ascii('a') from dual
+6,返回ascii值对应的字母
+select chr(97) from dual
+7,计算字符串长度 
+select length('abcdef') from dual
+8,initcap（首字母变大写） ,lower(变小写),upper(变大写)
+select lower('ABC') s1, 
+upper('def') s2, 
+initcap('efg') s3
+from dual;
+9,Replace
+select replace('abc','b','xy') from dual;
+10,translate
+select translate('abc','b','xx') from dual; -- x是1位
+11,lpad [左添充] rpad [右填充](用于控制输出格式)
+select lpad('func',15,'=') s1, rpad('func',15,'-') s2 from dual;
+select lpad(dname,14,'=') from dept;
+12, decode[实现if ..then 逻辑] 注:第一个是表达式,最后一个是不满足任何一个条件的值
+select deptno,decode(deptno,10,'1',20,'2',30,'3','其他') from dept;
+例:
+select seed,account_name,decode(seed,111,1000,200,2000,0) from t_userInfo//如果seed为111,则取1000;为200,取2000;其它取0
+select seed,account_name,decode(sign(seed-111),1,'big seed',-1,'little seed','equal seed') from t_userInfo//如果seed>111,则显示大;为200,则显示小;其它则显
+示相等
+13 case[实现switch ..case 逻辑]
+SELECT CASE X-FIELD 
+WHEN X-FIELD < 40 THEN 'X-FIELD 小于 40'
+WHEN X-FIELD < 50 THEN 'X-FIELD 小于 50'
+WHEN X-FIELD < 60 THEN 'X-FIELD 小于 60'
+ELSE 'UNBEKNOWN'
+END
+FROM DUAL 
+
+注:CASE语句在处理类似问题就显得非常灵活。当只是需要匹配少量数值时，用Decode更为简洁。
